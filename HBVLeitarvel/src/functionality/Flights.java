@@ -10,6 +10,12 @@ package functionality;
  * @author Notandi
  */
 public class Flights {
+    
+    private int departureTime;
+    private String departureDate;
+    private String arrivalDate;
+    private int arrivalTime;    
+    
     public void Flights(){
         
     }
