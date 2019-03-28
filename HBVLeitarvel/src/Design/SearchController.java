@@ -32,16 +32,14 @@ public class SearchController implements Initializable {
     private TextField priceTF;
     
     private HotelObj mock = new HotelObj();
-    private ArrayList<Hotel> hotels;
+    private ArrayList<Hotel> hotels = mock.getList();;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        hotels = mock.getList();
-        
+        // TODO        
     }    
 
     @FXML
@@ -50,7 +48,7 @@ public class SearchController implements Initializable {
     }
     
     public ArrayList search(String name, String location, int maxPrice){
-        ArrayList<Hotel> hotelResults = new ArrayList<Hotel>();
+        ArrayList<Hotel> hotelResults = new ArrayList<>();
         if(name.length() != 0)
         {
             hotelResults = filterName(name, hotels);
@@ -91,11 +89,15 @@ public class SearchController implements Initializable {
     }
     
     public ArrayList filterName(String name, ArrayList<Hotel> hotelsRes){
+        System.out.println(name);
         ArrayList<Hotel> nameFilter = new ArrayList<>();
+        hotelsRes.get(0).getName();
         if(hotelsRes == null) return null;
         for(int i = 0; i < hotelsRes.size(); i++){
-            if(hotelsRes.get(i).getName().equals(name)){
+            if(hotelsRes.get(i).getName() == name){
                 nameFilter.add(hotelsRes.get(i));
+                
+                System.out.println(hotelsRes.get(i));
             }
         }
         return nameFilter;
@@ -107,6 +109,8 @@ public class SearchController implements Initializable {
         for(int i = 0; i < hotelsRes.size(); i++){
             if(hotelsRes.get(i).getLocation().equals(loc)){
                 locFilter.add(hotelsRes.get(i));
+                
+                System.out.println(hotelsRes.get(i));
             }
         }
         return locFilter;
@@ -120,6 +124,7 @@ public class SearchController implements Initializable {
         for(int i = 0; i < hotelsRes.size(); i++){
             if(hotelsRes.get(i).getPrice() <= price ){
                 priceFilter.add(hotelsRes.get(i));
+                System.out.println(hotelsRes.get(i));
             }
         }
         return priceFilter;
@@ -142,6 +147,10 @@ public class SearchController implements Initializable {
             {
 
                 System.out.println(result2.get(i).getName());
+                System.out.println(result2.get(i).getLocation());
+
+                System.out.println(result2.get(i).getPrice());
+
                 System.out.println("fann hotel");
 
             }
