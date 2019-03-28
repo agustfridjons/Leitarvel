@@ -30,7 +30,7 @@ public class SearchController implements Initializable {
     @FXML
     private TextField priceTF;
     
-    private HotelObj hotels;
+    private HotelObj hotels = new HotelObj();
 
     /**
      * Initializes the controller class.
