@@ -5,6 +5,7 @@
  */
 package Design;
 
+import functionality.Hotel;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -30,7 +31,8 @@ public class SearchController implements Initializable {
     @FXML
     private TextField priceTF;
     
-    private HotelObj hotels = new HotelObj();
+    private HotelObj mock = new HotelObj();
+    private ArrayList<Hotel> hotels;
 
     /**
      * Initializes the controller class.
@@ -38,6 +40,7 @@ public class SearchController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        hotels = mock.getList();
     }    
 
     @FXML
@@ -45,8 +48,12 @@ public class SearchController implements Initializable {
         
     }
     
-    private void search(String name, String location, int price){
-        
+    private Hotel search(String name, String location, int maxPrice){
+        for(int i = 0; i < hotels.size(); i++){
+            if(hotels.get(i).getName() == name){
+                return hotels.get(i);
+            }
+        }
     }
     
     public ArrayList filter(String name, String location, int price){

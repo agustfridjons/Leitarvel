@@ -17,7 +17,7 @@ public class HotelObj {
     private ArrayList<Hotel> hotels = new ArrayList<Hotel>(); 
 
     
-    public HotelObj(){
+    public ArrayList HotelObj(){
         this.makeObj();
     }
     
@@ -41,8 +41,10 @@ public class HotelObj {
         hotels.add(hotelA);
         hotels.add(hotelB);
         hotels.add(hotelC);
-        
-        
-             
     }
+    
+    public ArrayList getList(){
+        return hotels;
+    }
+    
     }
