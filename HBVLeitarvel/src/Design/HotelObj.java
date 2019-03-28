@@ -18,10 +18,10 @@ public class HotelObj {
 
     
     public HotelObj(){
-        this.hotels = this.makeObj();
+        this.makeObj();
     }
     
-    private ArrayList makeObj(){
+    private void makeObj(){
         Hotel hotelA = new Hotel();
         Hotel hotelB = new Hotel();
         Hotel hotelC = new Hotel();
@@ -29,11 +29,20 @@ public class HotelObj {
         hotelA.setName("Hotel Hilton");
         hotelA.setPrice(10000);
         hotelA.setLocation("Reykjavík");
+        
+        hotelB.setName("Hotel Orkin");
+        hotelB.setPrice(12000);
+        hotelB.setLocation("Reykjavík");
+        
+        hotelC.setName("Hotel Kea");
+        hotelC.setPrice(15000);
+        hotelC.setLocation("Akureyri");
+        
+        hotels.add(hotelA);
+        hotels.add(hotelB);
+        hotels.add(hotelC);
+        
+        
+             
     }
-
-    
-    
-    
-    
-    
-}
+    }
