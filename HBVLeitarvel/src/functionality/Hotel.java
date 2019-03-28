@@ -18,7 +18,7 @@ public class Hotel {
     private int ratingStars;
     private String location;
     private int roomID;
-    private double price;
+    private int price;
     private boolean availability;
     
     public Hotel(){
@@ -57,11 +57,11 @@ public class Hotel {
         this.roomID = roomID;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
