@@ -41,6 +41,7 @@ public class SearchController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         hotels = mock.getList();
+        
     }    
 
     @FXML
@@ -48,26 +49,102 @@ public class SearchController implements Initializable {
         
     }
     
-    private Hotel search(String name, String location, int maxPrice){
-        for(int i = 0; i < hotels.size(); i++){
-            if(hotels.get(i).getName() == name){
-                return hotels.get(i);
+    public ArrayList search(String name, String location, int maxPrice){
+        ArrayList<Hotel> hotelResults = new ArrayList<Hotel>();
+        if(name.length() != 0)
+        {
+            hotelResults = filterName(name, hotels);
+            if(hotelResults == null) return null;
+            
+            hotelResults = filterLocation(location, hotelResults);
+            if(hotelResults.isEmpty()) return null;
+            
+            hotelResults = filterPrice(maxPrice, hotelResults);
+            
+            if(hotelResults.isEmpty()) return null;
+
+        }
+        
+        else if(location.length() != 0){
+            hotelResults = filterLocation(location, hotels);
+            
+            if(hotelResults.isEmpty()) return null;
+
+            hotelResults = filterPrice(maxPrice, hotelResults);
+            
+            if(hotelResults.isEmpty()) return null;
+
+        }
+        
+        else if (maxPrice <= 0)
+        {
+            
+            hotelResults = filterPrice(maxPrice, hotels);
+            if(hotelResults.isEmpty()) return null;
+
+        }
+        else return null;
+        
+        return hotelResults;
+        
+        
+    }
+    
+    public ArrayList filterName(String name, ArrayList<Hotel> hotelsRes){
+        ArrayList<Hotel> nameFilter = new ArrayList<>();
+        if(hotelsRes == null) return null;
+        for(int i = 0; i < hotelsRes.size(); i++){
+            if(hotelsRes.get(i).getName().equals(name)){
+                nameFilter.add(hotelsRes.get(i));
+            }
+        }
+        return nameFilter;
+    } 
+    
+    public ArrayList filterLocation(String loc, ArrayList<Hotel> hotelsRes){
+        ArrayList<Hotel> locFilter = new ArrayList<>();
+        
+        for(int i = 0; i < hotelsRes.size(); i++){
+            if(hotelsRes.get(i).getLocation().equals(loc)){
+                locFilter.add(hotelsRes.get(i));
+            }
+        }
+        return locFilter;
+    }
+    
+    public ArrayList filterPrice(int price, ArrayList<Hotel> hotelsRes){
+        ArrayList<Hotel> priceFilter = new ArrayList<>();
+        
+        if(hotelsRes == null) return null;
+        
+        for(int i = 0; i < hotelsRes.size(); i++){
+            if(hotelsRes.get(i).getPrice() <= price ){
+                priceFilter.add(hotelsRes.get(i));
+            }
+        }
+        return priceFilter;
+    }
+    
+
+    public static void main(String[] args) {
+        SearchController instance = new SearchController();
+
+        ArrayList<Hotel> result2 = instance.search("Hotel Hilton", "Reykjavík", 1000000);
+
+        if(result2 == null){
+            
+            System.out.println("tomur");
+            
+        }
+        else{
+            System.out.println(result2.get(0).getName());
+            for(int i = 0; i < result2.size(); i++)
+            {
+
+                System.out.println(result2.get(i).getName());
+                System.out.println("fann hotel");
+
             }
         }
     }
-    
-    public ArrayList filter(String name, String location, int price){
-        
-    } 
-    
-    public ArrayList filter(String name, String loc){
-        
-    }
-    
-    public ArrayList filter(String name){
-        
-    }
-    
-    
-    
 }
