@@ -66,12 +66,15 @@ public class SearchController implements Initializable {
                 }else{
                     return hotelResults;
                 }
-            } else 
+            } else if(maxPrice != 0) 
             {
                 //location isn't a parameters to search for
                 //so just check for prices
                  hotelResults = filterPrice(maxPrice, hotelResults);
                  if(hotelResults.isEmpty()) return null;
+            }else
+            {
+                //nothing?
             }
         // if name is null/empty string w/e
         //then check if location is null/empty etc
@@ -80,7 +83,13 @@ public class SearchController implements Initializable {
             hotelResults = filterLocation(location, hotels);
             
             if(hotelResults.isEmpty()) return null;
-
+            
+            if(maxPrice != 0)
+                {
+                    hotelResults = filterPrice(maxPrice, hotelResults);
+                }else{
+                    return hotelResults;
+                }   
             hotelResults = filterPrice(maxPrice, hotelResults);
             
             if(hotelResults.isEmpty()) return null;
@@ -101,15 +110,14 @@ public class SearchController implements Initializable {
     }
     
     public ArrayList filterName(String name, ArrayList<Hotel> hotelsRes){
-        System.out.println(name);
+        //System.out.println(name);
         ArrayList<Hotel> nameFilter = new ArrayList<>();
         hotelsRes.get(0).getName();
-        if(hotelsRes == null) return null;
         for(int i = 0; i < hotelsRes.size(); i++){
-            if(hotelsRes.get(i).getName() == name){
+            if(hotelsRes.get(i).getName().equals(name)){
                 nameFilter.add(hotelsRes.get(i));
                 
-                System.out.println(hotelsRes.get(i));
+                //System.out.println(hotelsRes.get(i));
             }
         }
         return nameFilter;
@@ -122,7 +130,7 @@ public class SearchController implements Initializable {
             if(hotelsRes.get(i).getLocation().equals(loc)){
                 locFilter.add(hotelsRes.get(i));
                 
-                System.out.println(hotelsRes.get(i));
+                //System.out.println(hotelsRes.get(i));
             }
         }
         return locFilter;
@@ -136,7 +144,7 @@ public class SearchController implements Initializable {
         for(int i = 0; i < hotelsRes.size(); i++){
             if(hotelsRes.get(i).getPrice() <= price ){
                 priceFilter.add(hotelsRes.get(i));
-                System.out.println(hotelsRes.get(i));
+                //System.out.println(hotelsRes.get(i));
             }
         }
         return priceFilter;
