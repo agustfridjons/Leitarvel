@@ -34,7 +34,8 @@ public class SearchControllerTest {
     
     @Test
     public void testSearch() {
-        System.out.println("search");
+        // generic test that should return a specific hotel in a specific location
+        System.out.println("search for a specific hotel with name and location within a price");
     
         SearchController instance = new SearchController();
         // TODO review the generated test code and remove the default call to fail.
@@ -44,12 +45,103 @@ public class SearchControllerTest {
             
             System.out.println("tomur");
         }
-        System.out.println(result2.get(0).getName());
+        //System.out.println(result2.get(0).getName());
         for(int i = 0; i < result2.size(); i++)
         {
                
             System.out.println(result2.get(i).getName());
-            System.out.println("fann hotel");
+            //System.out.println("fann hotel");
+
+        }
+    }
+    
+    
+    @Test
+    public void testSearchNoHotelName() {
+        System.out.println("Searching for hotels in location/price - No hotel name");
+    
+        SearchController instance = new SearchController();
+        // TODO review the generated test code and remove the default call to fail.
+        ArrayList<Hotel> result2 = instance.search("", "Reykjavík", 1000000);
+        
+        if(result2.isEmpty()){
+            
+            System.out.println("tomur");
+        }
+        //System.out.println(result2.get(0).getName());
+        for(int i = 0; i < result2.size(); i++)
+        {
+               
+            System.out.println(result2.get(i).getName());
+            //System.out.println("fann hotel");
+
+        }
+    }
+    
+    @Test
+    public void testSearchNoLocation() {
+        System.out.println("Searching for all Hotels with a certain name - No specific location");
+    
+        SearchController instance = new SearchController();
+        // TODO review the generated test code and remove the default call to fail.
+        ArrayList<Hotel> result2 = instance.search("Hotel Hilton", "", 1000000);
+        
+        if(result2.isEmpty()){
+            
+            System.out.println("tomur");
+        }
+        //System.out.println(result2.get(0).getName());
+        for(int i = 0; i < result2.size(); i++)
+        {
+               
+            System.out.println(result2.get(i).getName());
+            //System.out.println("fann hotel");
+
+        }
+    }
+    
+    @Test
+    public void testSearchNoPrice() {
+        System.out.println("Searching for all Hotels with a certain name and location - no spcific price");
+    
+        SearchController instance = new SearchController();
+        // TODO review the generated test code and remove the default call to fail.
+        //0 to replace "null"
+        ArrayList<Hotel> result2 = instance.search("Hotel Hilton", "Reykjavík", 0);
+        
+        if(result2.isEmpty()){
+            
+            System.out.println("tomur");
+        }
+        //System.out.println(result2.get(0).getName());
+        for(int i = 0; i < result2.size(); i++)
+        {
+               
+            System.out.println(result2.get(i).getName());
+            //System.out.println("fann hotel");
+
+        }
+    }
+    
+    @Test
+    public void testSearchNoParameters() {
+        System.out.println("Searching for all Hotels - no specific name, location or price");
+    
+        SearchController instance = new SearchController();
+        // TODO review the generated test code and remove the default call to fail.
+        //0 to replace "null"
+        ArrayList<Hotel> result2 = instance.search("", "", 0);
+        
+        if(result2.isEmpty()){
+            
+            System.out.println("tomur");
+        }
+        //System.out.println(result2.get(0).getName());
+        for(int i = 0; i < result2.size(); i++)
+        {
+               
+            System.out.println(result2.get(i).getName());
+            //System.out.println("fann hotel");
 
         }
     }
