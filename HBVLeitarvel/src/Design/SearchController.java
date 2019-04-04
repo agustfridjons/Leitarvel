@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 /**
@@ -23,17 +24,19 @@ import javafx.scene.control.TextField;
 public class SearchController implements Initializable {
 
     @FXML
-    private ListView<?> listV;
+    private ListView<Hotel> listV;
     @FXML
     private TextField hotelTF;
     @FXML
     private TextField locationTF;
     @FXML
     private TextField priceTF;
-    
-    private HotelObj mock = new HotelObj();
-    private ArrayList<Hotel> hotels = mock.getList();;
+    @FXML
+    private TextArea messageField;
 
+    private HotelObj mock = new HotelObj();
+    private ArrayList<Hotel> hotels = mock.getList();
+    
     /**
      * Initializes the controller class.
      */
@@ -44,7 +47,40 @@ public class SearchController implements Initializable {
 
     @FXML
     private void searchButtonHandler(ActionEvent event) {
+        messageField.setText("");
+        String h = hotelTF.getText();
+        String l = locationTF.getText();
+        int p;
+        if(!priceTF.getText().equals("")){
+            try{
+            p = Integer.parseInt(priceTF.getText());
+            }catch(NumberFormatException e){
+                messageField.setText("Price has to be a number.");
+                return;
+            }
+        }else{
+            p=0;
+        }
+        System.out.println(h +", " + l +", "+p);
+        ArrayList<Hotel> result = search(h,l,p);
         
+        while(!listV.getItems().isEmpty()){
+            listV.getItems().remove(0);
+        }
+        
+        if(!result.isEmpty()){
+            for(int i = 0;i < result.size(); i++){
+                listV.getItems().add(result.get(i));
+            }
+        }
+    }
+    
+    public static boolean isSubstring(String a, String b){
+        for(int i  = 0; i < a.length()-b.length(); i++)
+            if(a.substring(i, b.length()+i).equals(b)){
+                return true;
+        }
+        return false;
     }
     
     public ArrayList search(String name, String location, int maxPrice){
@@ -105,8 +141,6 @@ public class SearchController implements Initializable {
         }
         
         return hotelResults;
-        
-        
     }
     
     public ArrayList filterName(String name, ArrayList<Hotel> hotelsRes){
@@ -116,8 +150,6 @@ public class SearchController implements Initializable {
         for(int i = 0; i < hotelsRes.size(); i++){
             if(hotelsRes.get(i).getName().equals(name)){
                 nameFilter.add(hotelsRes.get(i));
-                
-                //System.out.println(hotelsRes.get(i));
             }
         }
         return nameFilter;
@@ -129,8 +161,6 @@ public class SearchController implements Initializable {
         for(int i = 0; i < hotelsRes.size(); i++){
             if(hotelsRes.get(i).getLocation().equals(loc)){
                 locFilter.add(hotelsRes.get(i));
-                
-                //System.out.println(hotelsRes.get(i));
             }
         }
         return locFilter;
@@ -144,18 +174,15 @@ public class SearchController implements Initializable {
         for(int i = 0; i < hotelsRes.size(); i++){
             if(hotelsRes.get(i).getPrice() <= price ){
                 priceFilter.add(hotelsRes.get(i));
-                //System.out.println(hotelsRes.get(i));
             }
         }
         return priceFilter;
     }
-    
-    
 
     public static void main(String[] args) {
         SearchController instance = new SearchController();
 
-        ArrayList<Hotel> result2 = instance.search("Hotel Hilton", "Reykjavík", 1000000);
+        ArrayList<Hotel> result2 = instance.search("", "", 10000);
 
         if(result2 == null){
             
@@ -166,15 +193,18 @@ public class SearchController implements Initializable {
             System.out.println(result2.get(0).getName());
             for(int i = 0; i < result2.size(); i++)
             {
-
-                System.out.println(result2.get(i).getName());
-                System.out.println(result2.get(i).getLocation());
-
-                System.out.println(result2.get(i).getPrice());
-
-                System.out.println("fann hotel");
-
+                try{
+                    System.out.println(result2.get(i).getName());
+                    System.out.println(result2.get(i).getLocation());
+                    System.out.println(result2.get(i).getPrice());
+                }catch(NullPointerException e){
+                    System.out.println("fann hotel");
+                }
             }
         }
+    }
+
+    @FXML
+    private void orderButtonHandler(ActionEvent event) {
     }
 }

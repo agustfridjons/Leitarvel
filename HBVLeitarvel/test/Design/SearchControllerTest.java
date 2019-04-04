@@ -63,7 +63,7 @@ public class SearchControllerTest {
         SearchController instance = new SearchController();
         // TODO review the generated test code and remove the default call to fail.
         ArrayList<Hotel> result2 = instance.search("", "Reykjavík", 1000000);
-        
+        //assertEquals("Hotel Hilton",result2.get(0).getName());
         if(result2.isEmpty()){
             
             System.out.println("tomur");
@@ -195,6 +195,28 @@ public class SearchControllerTest {
     @Test
     public void testSearchOnlyPrice() {
         System.out.println("Searching for hotels within a certain price");
+    
+        SearchController instance = new SearchController();
+        // TODO review the generated test code and remove the default call to fail.
+        //0 to replace "null"
+        ArrayList<Hotel> result2 = instance.search("", "", 13000);
+        
+        if(result2.isEmpty()){
+            
+            System.out.println("tomur");
+        }
+        //System.out.println(result2.get(0).getName());
+        for(int i = 0; i < result2.size(); i++)
+        {
+               
+            System.out.println(result2.get(i).getName());
+            //System.out.println("fann hotel");
+
+        }
+    }
+    @Test
+    public void testSearchHalfString() {
+        System.out.println("Searching for hotels a half string");
     
         SearchController instance = new SearchController();
         // TODO review the generated test code and remove the default call to fail.
