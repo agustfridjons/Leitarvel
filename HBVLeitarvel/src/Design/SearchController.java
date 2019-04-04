@@ -12,8 +12,8 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 /**
@@ -32,7 +32,7 @@ public class SearchController implements Initializable {
     @FXML
     private TextField priceTF;
     @FXML
-    private TextArea messageField;
+    private Label messageField;
 
     private HotelObj mock = new HotelObj();
     private ArrayList<Hotel> hotels = mock.getList();

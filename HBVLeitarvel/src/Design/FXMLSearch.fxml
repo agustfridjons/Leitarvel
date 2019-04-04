@@ -9,10 +9,10 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="525.0" prefWidth="600.0" style="-fx-background-color: #080E3B; -fx-border-width: 5; -fx-border-color: #8585B6;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Design.SearchController">
+<AnchorPane id="AnchorPane" prefHeight="573.0" prefWidth="600.0" style="-fx-background-color: #52529E; -fx-border-width: 5; -fx-border-color: #8585B6; -fx-background-radius: 10; -fx-border-radius: 10;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Design.SearchController">
    <children>
-      <ListView fx:id="listV" layoutX="35.0" layoutY="239.0" prefHeight="222.0" prefWidth="396.0" style="-fx-background-color: #CCCDDA;" />
-      <Button layoutX="286.0" layoutY="194.0" mnemonicParsing="false" onAction="#searchButtonHandler" style="-fx-background-color: #535A92;" text="Search" textFill="#eae1e1" />
+      <ListView fx:id="listV" layoutX="34.0" layoutY="274.0" prefHeight="273.0" prefWidth="416.0" style="-fx-background-color: #CCCDDA;" />
+      <Button layoutX="476.0" layoutY="200.0" mnemonicParsing="false" onAction="#searchButtonHandler" prefHeight="31.0" prefWidth="84.0" style="-fx-background-color: #7979BC;" text="Search" textFill="#eae1e1" />
       <TextField fx:id="hotelTF" layoutX="40.0" layoutY="53.0" prefHeight="31.0" prefWidth="139.0" style="-fx-background-color: #CCCDDA;" />
       <TextField fx:id="locationTF" layoutX="40.0" layoutY="123.0" prefHeight="31.0" prefWidth="139.0" style="-fx-background-color: #CCCDDA;" />
       <TextField fx:id="priceTF" layoutX="40.0" layoutY="194.0" prefHeight="31.0" prefWidth="84.0" style="-fx-background-color: #CCCDDA;" />
@@ -20,18 +20,22 @@
          <font>
             <Font name="System Bold" size="15.0" />
          </font></Label>
-      <Label layoutX="377.0" layoutY="32.0" prefHeight="21.0" prefWidth="99.0" text="Message log:" textFill="#eae1e1">
+      <Label layoutX="460.0" layoutY="323.0" prefHeight="21.0" prefWidth="105.0" text="Message log:" textFill="#eae1e1">
          <font>
             <Font name="System Bold" size="15.0" />
          </font></Label>
-      <TextArea fx:id="messageField" editable="false" layoutX="376.0" layoutY="58.0" prefHeight="56.0" prefWidth="200.0" style="-fx-background-color: #CCCDDA;" wrapText="true" />
-      <Button layoutX="368.0" layoutY="472.0" mnemonicParsing="false" onAction="#orderButtonHandler" style="-fx-background-color: #535A92;" text="Order" textFill="#eae1e1" />
+      <Button layoutX="476.0" layoutY="496.0" mnemonicParsing="false" onAction="#orderButtonHandler" prefHeight="31.0" prefWidth="84.0" style="-fx-background-color: #7979BC;" text="Order" textFill="#eae1e1" />
       <Label layoutX="40.0" layoutY="102.0" prefHeight="21.0" prefWidth="74.0" text="Location:" textFill="#eae1e1">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
       <Label layoutX="40.0" layoutY="173.0" prefHeight="21.0" prefWidth="74.0" text="Price:" textFill="#eae1e1">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="messageField" alignment="TOP_LEFT" ellipsisString=".." layoutX="460.0" layoutY="353.0" prefHeight="77.0" prefWidth="126.0" style="-fx-border-color: #CFCFEE; -fx-background-radius: 5; -fx-border-radius: 5; -fx-label-padding: 5; -fx-background-color: #7979BC;" textFill="#eae1e1" wrapText="true">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
