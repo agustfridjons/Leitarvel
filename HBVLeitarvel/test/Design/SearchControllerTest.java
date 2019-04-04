@@ -39,7 +39,7 @@ public class SearchControllerTest {
     
         SearchController instance = new SearchController();
         // TODO review the generated test code and remove the default call to fail.
-        ArrayList<Hotel> result2 = instance.search("Hotel Hilton", "Reykjavík", 1000000);
+        ArrayList<Hotel> result2 = instance.search("Hotel Hilton", "", 1000000);
         
         if(result2.isEmpty()){
             
@@ -85,6 +85,7 @@ public class SearchControllerTest {
         SearchController instance = new SearchController();
         // TODO review the generated test code and remove the default call to fail.
         ArrayList<Hotel> result2 = instance.search("Hotel Hilton", "", 1000000);
+        
         
         if(result2.isEmpty()){
             
@@ -200,6 +201,29 @@ public class SearchControllerTest {
         // TODO review the generated test code and remove the default call to fail.
         //0 to replace "null"
         ArrayList<Hotel> result2 = instance.search("", "", 13000);
+        assertEquals(result2.size(),4);
+        if(result2.isEmpty()){
+            
+            System.out.println("tomur");
+        }
+        //System.out.println(result2.get(0).getName());
+        for(int i = 0; i < result2.size(); i++)
+        {
+               
+            System.out.println(result2.get(i).getName());
+            //System.out.println("fann hotel");
+
+        }
+    }
+    
+    @Test
+    public void testSearchFracturedStringHotel() {
+        System.out.println("Searching for wrong strings - Hotel");
+    
+        SearchController instance = new SearchController();
+        // TODO review the generated test code and remove the default call to fail.
+        //0 to replace "null"
+        ArrayList<Hotel> result2 = instance.search("otel", "", 13000);
         
         if(result2.isEmpty()){
             
@@ -214,4 +238,52 @@ public class SearchControllerTest {
 
         }
     }
+    @Test
+    public void testSearchFracturedStringLocation() {
+        System.out.println("Searching for wrong strings - Location");
+    
+        SearchController instance = new SearchController();
+        // TODO review the generated test code and remove the default call to fail.
+        //0 to replace "null"
+        ArrayList<Hotel> result2 = instance.search("", "Reykjav", 13000);
+        
+        if(result2.isEmpty()){
+            
+            System.out.println("tomur");
+        }
+        //System.out.println(result2.get(0).getName());
+        for(int i = 0; i < result2.size(); i++)
+        {
+               
+            System.out.println(result2.get(i).getName());
+            //System.out.println("fann hotel");
+
+        }
+    }
+    
+    @Test
+    public void testSearchTooLowBudget() {
+        System.out.println("Searching for too low budge/price");
+    
+        SearchController instance = new SearchController();
+        // TODO review the generated test code and remove the default call to fail.
+        //0 to replace "null"
+        ArrayList<Hotel> result2 = instance.search("", "", 10);
+        assertTrue(result2.isEmpty());
+        if(result2.isEmpty()){
+            
+            System.out.println("tomur");
+        }
+        //System.out.println(result2.get(0).getName());
+        for(int i = 0; i < result2.size(); i++)
+        {
+               
+            System.out.println(result2.get(i).getName());
+            //System.out.println("fann hotel");
+
+        }
+    }
+    
+    
+    
 }
