@@ -55,7 +55,7 @@ public class SearchController implements Initializable {
             hotelResults = filterName(name, hotels);
             if(hotelResults == null) return null;
             
-            if(location.length() != 0) //or null w/e
+            if(location.length() != 0 && !hotelResults.isEmpty()) //or null w/e
             {
                 hotelResults = filterLocation(location, hotelResults);
                 if(hotelResults.isEmpty()) return null;
@@ -66,7 +66,8 @@ public class SearchController implements Initializable {
                 }else{
                     return hotelResults;
                 }
-            } else if(maxPrice != 0) 
+                return hotelResults;
+            } else if(maxPrice != 0 && !hotelResults.isEmpty()) 
             {
                 //location isn't a parameters to search for
                 //so just check for prices
@@ -78,27 +79,23 @@ public class SearchController implements Initializable {
             }
         // if name is null/empty string w/e
         //then check if location is null/empty etc
-        }else if(location.length() != 0)
+        }else if(location.length() != 0 && !hotels.isEmpty())
         {
             hotelResults = filterLocation(location, hotels);
+                        
+            if(maxPrice != 0 && !hotelResults.isEmpty())
+            {
+                hotelResults = filterPrice(maxPrice, hotelResults);
+            }else{
+                return hotelResults;
+            }   
             
-            if(hotelResults.isEmpty()) return null;
-            
-            if(maxPrice != 0)
-                {
-                    hotelResults = filterPrice(maxPrice, hotelResults);
-                }else{
-                    return hotelResults;
-                }   
-            hotelResults = filterPrice(maxPrice, hotelResults);
-            
-            if(hotelResults.isEmpty()) return null;
         //if no hotel name and no location
         //filter by price (if it isnt 0/null etc
-        }else if (maxPrice > 0)
+        }else if (maxPrice > 0 && !hotels.isEmpty())
         {
             hotelResults = filterPrice(maxPrice, hotels);
-            if(hotelResults.isEmpty()) return null;
+            return hotelResults;
         }else
         {
             return hotels;
@@ -120,12 +117,13 @@ public class SearchController implements Initializable {
                 //System.out.println(hotelsRes.get(i));
             }
         }
+        
         return nameFilter;
     } 
     
     public ArrayList filterLocation(String loc, ArrayList<Hotel> hotelsRes){
         ArrayList<Hotel> locFilter = new ArrayList<>();
-        
+
         for(int i = 0; i < hotelsRes.size(); i++){
             if(hotelsRes.get(i).getLocation().equals(loc)){
                 locFilter.add(hotelsRes.get(i));
