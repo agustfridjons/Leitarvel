@@ -107,7 +107,7 @@ public class MainSceneController implements Initializable {
         
         obj.put("Hotel", listHotel);
         
-        try(FileWriter file  = new FileWriter("user.dir")) {
+        try(FileWriter file  = new FileWriter("Bookings.json")) {
             
             file.write(obj.toJSONString());
             file.flush();
@@ -132,7 +132,7 @@ public class MainSceneController implements Initializable {
         //this should later be bookingID
         
         try {
-            Object obj = parser.parse(new FileReader("user.dir"));
+            Object obj = parser.parse(new FileReader("Bookings.json"));
             
             JSONObject jsonObject = (JSONObject) obj;
             System.out.println(jsonObject);
