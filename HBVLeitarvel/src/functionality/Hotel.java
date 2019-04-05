@@ -18,9 +18,7 @@ public class Hotel {
     private int ratingStars;
     private String location;
     private int roomID;
-    private double price;
-    private String checkIn;
-    private String checkOut;
+    private int price;
     private boolean availability;
     
     public Hotel(){
@@ -59,28 +57,12 @@ public class Hotel {
         this.roomID = roomID;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
-    }
-
-    public String getCheckIn() {
-        return checkIn;
-    }
-
-    public void setCheckIn(String checkIn) {
-        this.checkIn = checkIn;
-    }
-
-    public String getCheckOut() {
-        return checkOut;
-    }
-
-    public void setCheckOut(String checkOut) {
-        this.checkOut = checkOut;
     }
     
     public boolean isAvailability() {
@@ -91,6 +73,9 @@ public class Hotel {
         this.availability = availability;
     }
     
-    
+    public String toString(){
+        String s = this.name + ", " + this.location + ", Price per person: " + this.price;
+        return s;
+    }   
 
 }
