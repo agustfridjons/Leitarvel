@@ -145,7 +145,7 @@ public class SearchController implements Initializable {
         ArrayList<Hotel> nameFilter = new ArrayList<>();
         hotelsRes.get(0).getName();
         for(int i = 0; i < hotelsRes.size(); i++){
-            if(hotelsRes.get(i).getName().equals(name)){
+            if(isSubstring(hotelsRes.get(i).getName(),name)){
                 nameFilter.add(hotelsRes.get(i));
             }
         }
@@ -157,7 +157,7 @@ public class SearchController implements Initializable {
         ArrayList<Hotel> locFilter = new ArrayList<>();
 
         for(int i = 0; i < hotelsRes.size(); i++){
-            if(hotelsRes.get(i).getLocation().equals(loc)){
+            if(isSubstring(hotelsRes.get(i).getLocation(),loc)){
                 locFilter.add(hotelsRes.get(i));
             }
         }
