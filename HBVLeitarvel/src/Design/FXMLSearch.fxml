@@ -1,21 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="Design.SearchController">
+<AnchorPane id="AnchorPane" prefHeight="573.0" prefWidth="600.0" style="-fx-background-color: #52529E; -fx-border-width: 5; -fx-border-color: #8585B6; -fx-background-radius: 10; -fx-border-radius: 10;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Design.SearchController">
    <children>
-      <ListView fx:id="listV" layoutX="86.0" layoutY="116.0" prefHeight="254.0" prefWidth="201.0" />
-      <Button layoutX="477.0" layoutY="60.0" mnemonicParsing="false" onAction="#searchButtonHandler" text="Search" />
-      <TextField fx:id="hotelTF" layoutX="86.0" layoutY="60.0" prefHeight="31.0" prefWidth="139.0" />
-      <TextField fx:id="locationTF" layoutX="258.0" layoutY="60.0" prefHeight="31.0" prefWidth="84.0" />
-      <TextField fx:id="priceTF" layoutX="369.0" layoutY="60.0" prefHeight="31.0" prefWidth="84.0" />
-      <Label layoutX="86.0" layoutY="34.0" prefHeight="21.0" prefWidth="74.0" text="Hotel:" />
-      <Label layoutX="369.0" layoutY="34.0" prefHeight="21.0" prefWidth="65.0" text="Price:" />
-      <Label layoutX="258.0" layoutY="34.0" prefHeight="21.0" prefWidth="65.0" text="Location:" />
+      <ListView fx:id="listV" layoutX="34.0" layoutY="274.0" prefHeight="273.0" prefWidth="416.0" style="-fx-background-color: #CCCDDA;" />
+      <Button layoutX="476.0" layoutY="200.0" mnemonicParsing="false" onAction="#searchButtonHandler" prefHeight="31.0" prefWidth="84.0" style="-fx-background-color: #7979BC;" text="Search" textFill="#eae1e1" />
+      <TextField fx:id="hotelTF" layoutX="40.0" layoutY="53.0" prefHeight="31.0" prefWidth="139.0" style="-fx-background-color: #CCCDDA;" />
+      <TextField fx:id="locationTF" layoutX="40.0" layoutY="123.0" prefHeight="31.0" prefWidth="139.0" style="-fx-background-color: #CCCDDA;" />
+      <TextField fx:id="priceTF" layoutX="40.0" layoutY="194.0" prefHeight="31.0" prefWidth="84.0" style="-fx-background-color: #CCCDDA;" />
+      <Label layoutX="40.0" layoutY="32.0" prefHeight="21.0" prefWidth="74.0" text="Hotel:" textFill="#eae1e1">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+      <Label layoutX="460.0" layoutY="323.0" prefHeight="21.0" prefWidth="105.0" text="Message log:" textFill="#eae1e1">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+      <Button layoutX="476.0" layoutY="496.0" mnemonicParsing="false" onAction="#orderButtonHandler" prefHeight="31.0" prefWidth="84.0" style="-fx-background-color: #7979BC;" text="Order" textFill="#eae1e1" />
+      <Label layoutX="40.0" layoutY="102.0" prefHeight="21.0" prefWidth="74.0" text="Location:" textFill="#eae1e1">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="40.0" layoutY="173.0" prefHeight="21.0" prefWidth="74.0" text="Price:" textFill="#eae1e1">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="messageField" alignment="TOP_LEFT" ellipsisString=".." layoutX="460.0" layoutY="353.0" prefHeight="77.0" prefWidth="126.0" style="-fx-border-color: #CFCFEE; -fx-background-radius: 5; -fx-border-radius: 5; -fx-label-padding: 5; -fx-background-color: #7979BC;" textFill="#eae1e1" wrapText="true">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

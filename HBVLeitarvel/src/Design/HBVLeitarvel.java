@@ -22,7 +22,7 @@ public class HBVLeitarvel extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("FXMLSearch.fxml"));
         
         Scene scene = new Scene(root);
-        
+        stage.titleProperty().set("Package Booking");
         stage.setScene(scene);
         stage.show();
     }
