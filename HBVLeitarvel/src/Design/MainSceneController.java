@@ -5,6 +5,7 @@
  */
 package Design;
 
+import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -87,7 +88,7 @@ public class MainSceneController implements Initializable {
 );
     }
     
-    public static void bookJson(/*Package pck, */String name, String email, int adults, int children, int bookID) throws IOException{
+    public static void bookJson(/*Package pck, */String name, String email, int adults, int children, String bookID) throws IOException{
         
         String hotel = "hotel nafn";
         
@@ -107,10 +108,16 @@ public class MainSceneController implements Initializable {
         
         obj.put("Hotel", listHotel);
         
-        try(FileWriter file  = new FileWriter("Bookings.json")) {
+        try{
+            FileWriter file  = new FileWriter("Bookings.json",true);
+            BufferedWriter bw = new BufferedWriter(file);
+            bw.write(obj.toJSONString());
+            bw.newLine();
+            bw.close();
             
-            file.write(obj.toJSONString());
-            file.flush();
+            //file.write(obj.toJSONString());
+            //file.flush();
+            file.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -137,8 +144,8 @@ public class MainSceneController implements Initializable {
             JSONObject jsonObject = (JSONObject) obj;
             System.out.println(jsonObject);
             
-            //String bookID = (String) jsonObject.get("BookingID");
-            //System.out.println(bookID);
+            long bookID = (long) jsonObject.get("BookingID");
+            System.out.println(bookID);
             
             String name = (String) jsonObject.get("Name");
             System.out.println(name);
@@ -146,10 +153,10 @@ public class MainSceneController implements Initializable {
             String email = (String) jsonObject.get("Email");
             System.out.println(email);
             
-            String adults = (String) jsonObject.get("Adults");
+            int adults = (int) jsonObject.get("Adults");
             System.out.println(adults);
             
-            String children = (String) jsonObject.get("Children");
+            long children = (long) jsonObject.get("Children");
             System.out.println(children);
             
             JSONArray msg = (JSONArray) jsonObject.get("messages");
@@ -170,7 +177,7 @@ public class MainSceneController implements Initializable {
     public static void main(String[] args) {
 
         try {
-            bookJson("Agust", "Agust@agust.is", 1, 0, 110);
+            bookJson("Agust", "Agust@agust.is", 1, 0, "110");
         } catch (IOException ex) {
             Logger.getLogger(MainSceneController.class.getName()).log(Level.SEVERE, null, ex);
         }
