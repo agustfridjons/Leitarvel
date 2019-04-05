@@ -64,7 +64,7 @@ public class Hotel {
     public void setPrice(int price) {
         this.price = price;
     }
-
+    
     public boolean isAvailability() {
         return availability;
     }
@@ -73,6 +73,9 @@ public class Hotel {
         this.availability = availability;
     }
     
-    
+    public String toString(){
+        String s = this.name + ", " + this.location + ", Price per person: " + this.price;
+        return s;
+    }   
 
 }

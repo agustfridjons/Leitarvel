@@ -68,7 +68,7 @@ public class SearchControllerTest {
         SearchController instance = new SearchController();
         // TODO review the generated test code and remove the default call to fail.
         ArrayList<Hotel> result2 = instance.search("", "Reykjavík", 1000000);
-        
+        //assertEquals("Hotel Hilton",result2.get(0).getName());
         if(result2.isEmpty()){
             
             System.out.println("tomur");
@@ -265,7 +265,7 @@ public class SearchControllerTest {
 
         }
     }
-    
+  
     @Test
     public void testSearchTooLowBudget() throws IOException {
         System.out.println("Searching for too low budge/price");
@@ -307,7 +307,4 @@ public class SearchControllerTest {
         fr.close();
         
     }
-    
-    
-    
 }
