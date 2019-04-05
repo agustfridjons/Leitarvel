@@ -39,7 +39,7 @@ public class SearchControllerTest {
     
         SearchController instance = new SearchController();
         // TODO review the generated test code and remove the default call to fail.
-        ArrayList<Hotel> result2 = instance.search("Hotel Hilton", "", 1000000);
+        ArrayList<Hotel> result2 = instance.searchHotel("Hotel Hilton", "", 1000000);
         
         if(result2.isEmpty()){
             
@@ -62,7 +62,7 @@ public class SearchControllerTest {
     
         SearchController instance = new SearchController();
         // TODO review the generated test code and remove the default call to fail.
-        ArrayList<Hotel> result2 = instance.search("", "Reykjavík", 1000000);
+        ArrayList<Hotel> result2 = instance.searchHotel("", "Reykjavík", 1000000);
         //assertEquals("Hotel Hilton",result2.get(0).getName());
         if(result2.isEmpty()){
             
@@ -84,7 +84,7 @@ public class SearchControllerTest {
     
         SearchController instance = new SearchController();
         // TODO review the generated test code and remove the default call to fail.
-        ArrayList<Hotel> result2 = instance.search("Hotel Hilton", "", 1000000);
+        ArrayList<Hotel> result2 = instance.searchHotel("Hotel Hilton", "", 1000000);
         
         
         if(result2.isEmpty()){
@@ -108,7 +108,7 @@ public class SearchControllerTest {
         SearchController instance = new SearchController();
         // TODO review the generated test code and remove the default call to fail.
         //0 to replace "null"
-        ArrayList<Hotel> result2 = instance.search("Hotel Hilton", "Reykjavík", 0);
+        ArrayList<Hotel> result2 = instance.searchHotel("Hotel Hilton", "Reykjavík", 0);
         
         if(result2.isEmpty()){
             
@@ -131,7 +131,7 @@ public class SearchControllerTest {
         SearchController instance = new SearchController();
         // TODO review the generated test code and remove the default call to fail.
         //0 to replace "null"
-        ArrayList<Hotel> result2 = instance.search("", "", 0);
+        ArrayList<Hotel> result2 = instance.searchHotel("", "", 0);
         
         if(result2.isEmpty()){
             
@@ -154,7 +154,7 @@ public class SearchControllerTest {
         SearchController instance = new SearchController();
         // TODO review the generated test code and remove the default call to fail.
         //0 to replace "null"
-        ArrayList<Hotel> result2 = instance.search("Hotel Hilton", "", 0);
+        ArrayList<Hotel> result2 = instance.searchHotel("Hotel Hilton", "", 0);
         
         if(result2.isEmpty()){
             
@@ -177,7 +177,7 @@ public class SearchControllerTest {
         SearchController instance = new SearchController();
         // TODO review the generated test code and remove the default call to fail.
         //0 to replace "null"
-        ArrayList<Hotel> result2 = instance.search("", "Reykjavík", 0);
+        ArrayList<Hotel> result2 = instance.searchHotel("", "Reykjavík", 0);
         
         if(result2.isEmpty()){
             
@@ -200,7 +200,7 @@ public class SearchControllerTest {
         SearchController instance = new SearchController();
         // TODO review the generated test code and remove the default call to fail.
         //0 to replace "null"
-        ArrayList<Hotel> result2 = instance.search("", "", 13000);
+        ArrayList<Hotel> result2 = instance.searchHotel("", "", 13000);
         assertEquals(result2.size(),4);
         if(result2.isEmpty()){
             
@@ -223,7 +223,7 @@ public class SearchControllerTest {
         SearchController instance = new SearchController();
         // TODO review the generated test code and remove the default call to fail.
         //0 to replace "null"
-        ArrayList<Hotel> result2 = instance.search("otel", "", 13000);
+        ArrayList<Hotel> result2 = instance.searchHotel("otel", "", 13000);
         
         if(result2.isEmpty()){
             
@@ -245,7 +245,7 @@ public class SearchControllerTest {
         SearchController instance = new SearchController();
         // TODO review the generated test code and remove the default call to fail.
         //0 to replace "null"
-        ArrayList<Hotel> result2 = instance.search("", "Reykjav", 13000);
+        ArrayList<Hotel> result2 = instance.searchHotel("", "Reykjav", 13000);
         
         if(result2.isEmpty()){
             
@@ -268,7 +268,7 @@ public class SearchControllerTest {
         SearchController instance = new SearchController();
         // TODO review the generated test code and remove the default call to fail.
         //0 to replace "null"
-        ArrayList<Hotel> result2 = instance.search("", "", 10);
+        ArrayList<Hotel> result2 = instance.searchHotel("", "", 10);
         assertTrue(result2.isEmpty());
         if(result2.isEmpty()){
             
