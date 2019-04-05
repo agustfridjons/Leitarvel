@@ -5,12 +5,18 @@
  */
 package Design;
 
+import functionality.BookingInfo;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import java.lang.Object;
+import java.util.regex.*;
+import javafx.scene.control.Label;
+
 
 
 /**
@@ -30,7 +36,10 @@ public class MainSceneController implements Initializable {
     private ComboBox<String> box1;
     @FXML
     private ComboBox<String> box2;
-
+    private BookingInfo x;
+    @FXML
+    private Label messageField;
+    
     /**
      * Initializes the controller class.
      */
@@ -42,38 +51,41 @@ public class MainSceneController implements Initializable {
     }    
     
     public void initializeComboBox(){
-        box1.getItems().addAll(
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10"
-);
         
-    
-        box2.getItems().addAll(
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10"
-            
-            
-);
+        for(int i = 0; i < 11; i++){
+            box1.getItems().add(i, i + "");
+        }
+        
+        for(int i = 0; i < 11; i++){
+            box2.getItems().add(i, i + "");
+        }
     }
-    
-            
-    
-}
+
+    @FXML
+    private void nextButtonHandler(ActionEvent event) {
+        
+        if(!validEmail(email.getText())){
+            messageField.setText("Email address is not valid");
+        }
+        x = new BookingInfo(
+                name.getText(), 
+                email.getText(),
+                box1.getSelectionModel().getSelectedItem(), 
+                box2.getSelectionModel().getSelectedItem()
+        );
+        System.out.println("Name: " + x.getName());
+        System.out.println("Email: " + x.getEmail());
+        System.out.println("Adults: " + x.getAdults());
+        System.out.println("Kids: " + x.getKids());
+        System.out.println("Booking number: " + x.getBookingNumber());
+    }
+
+    private boolean validEmail(String email){
+        if(email.matches("^[a-zA-Z0-9]+@[a-zA-Z0-9]+.[a-zA-Z0-9]+")){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+    }
