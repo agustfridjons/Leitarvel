@@ -19,6 +19,8 @@ public class Hotel {
     private String location;
     private int roomID;
     private double price;
+    private String checkIn;
+    private String checkOut;
     private boolean availability;
     
     public Hotel(){
@@ -65,6 +67,22 @@ public class Hotel {
         this.price = price;
     }
 
+    public String getCheckIn() {
+        return checkIn;
+    }
+
+    public void setCheckIn(String checkIn) {
+        this.checkIn = checkIn;
+    }
+
+    public String getCheckOut() {
+        return checkOut;
+    }
+
+    public void setCheckOut(String checkOut) {
+        this.checkOut = checkOut;
+    }
+    
     public boolean isAvailability() {
         return availability;
     }
