@@ -6,6 +6,11 @@
 package Design;
 
 import functionality.Hotel;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -262,7 +267,7 @@ public class SearchControllerTest {
     }
     
     @Test
-    public void testSearchTooLowBudget() {
+    public void testSearchTooLowBudget() throws IOException {
         System.out.println("Searching for too low budge/price");
     
         SearchController instance = new SearchController();
@@ -270,18 +275,37 @@ public class SearchControllerTest {
         //0 to replace "null"
         ArrayList<Hotel> result2 = instance.search("", "", 10);
         assertTrue(result2.isEmpty());
+        
+        File file = new File("booking.txt");
+        FileWriter fr = new FileWriter(file, true);
+        //PrintWriter pr = new PrintWriter(fr);
+        BufferedWriter br = new BufferedWriter(fr);
+        
+        //pr.println("Searching for too low budge/price");
+        br.write("Searching for too low budge/price");
+        br.newLine();
+
         if(result2.isEmpty()){
             
             System.out.println("tomur");
+            //pr.println("Engar niðurstöður");
+            br.write("No results");
+            br.newLine();
+
         }
         //System.out.println(result2.get(0).getName());
         for(int i = 0; i < result2.size(); i++)
         {
-               
             System.out.println(result2.get(i).getName());
             //System.out.println("fann hotel");
-
+            //pr.println(result2.get(i).getName() + " . ");
+            br.write(result2.get(i).getName());
+            br.newLine();
         }
+        
+        br.close();
+        fr.close();
+        
     }
     
     
