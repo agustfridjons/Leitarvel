@@ -12,11 +12,11 @@
 <AnchorPane id="AnchorPane" prefHeight="573.0" prefWidth="600.0" style="-fx-background-color: #52529E; -fx-border-width: 5; -fx-border-color: #8585B6; -fx-background-radius: 10; -fx-border-radius: 10;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Design.SearchController">
    <children>
       <ListView fx:id="listV" layoutX="34.0" layoutY="274.0" prefHeight="273.0" prefWidth="416.0" style="-fx-background-color: #CCCDDA;" />
-      <Button layoutX="476.0" layoutY="200.0" mnemonicParsing="false" onAction="#searchButtonHandler" prefHeight="31.0" prefWidth="84.0" style="-fx-background-color: #7979BC;" text="Search" textFill="#eae1e1" />
-      <TextField fx:id="hotelTF" layoutX="40.0" layoutY="53.0" prefHeight="31.0" prefWidth="139.0" style="-fx-background-color: #CCCDDA;" />
-      <TextField fx:id="locationTF" layoutX="40.0" layoutY="123.0" prefHeight="31.0" prefWidth="139.0" style="-fx-background-color: #CCCDDA;" />
-      <TextField fx:id="priceTF" layoutX="40.0" layoutY="194.0" prefHeight="31.0" prefWidth="84.0" style="-fx-background-color: #CCCDDA;" />
-      <Label layoutX="40.0" layoutY="32.0" prefHeight="21.0" prefWidth="74.0" text="Hotel:" textFill="#eae1e1">
+      <Button layoutX="489.0" layoutY="201.0" mnemonicParsing="false" onAction="#searchButtonHandler" prefHeight="31.0" prefWidth="84.0" style="-fx-background-color: #7979BC;" text="Search" textFill="#eae1e1" />
+      <TextField fx:id="TF1" layoutX="40.0" layoutY="53.0" prefHeight="31.0" prefWidth="162.0" style="-fx-background-color: #CCCDDA;" />
+      <TextField fx:id="TF2" layoutX="40.0" layoutY="123.0" prefHeight="31.0" prefWidth="162.0" style="-fx-background-color: #CCCDDA;" />
+      <TextField fx:id="intTF" layoutX="40.0" layoutY="194.0" prefHeight="31.0" prefWidth="139.0" style="-fx-background-color: #CCCDDA;" />
+      <Label fx:id="label1" layoutX="40.0" layoutY="32.0" prefHeight="21.0" prefWidth="177.0" text="Hotel:" textFill="#eae1e1">
          <font>
             <Font name="System Bold" size="15.0" />
          </font></Label>
@@ -24,18 +24,37 @@
          <font>
             <Font name="System Bold" size="15.0" />
          </font></Label>
-      <Button layoutX="476.0" layoutY="496.0" mnemonicParsing="false" onAction="#orderButtonHandler" prefHeight="31.0" prefWidth="84.0" style="-fx-background-color: #7979BC;" text="Order" textFill="#eae1e1" />
-      <Label layoutX="40.0" layoutY="102.0" prefHeight="21.0" prefWidth="74.0" text="Location:" textFill="#eae1e1">
+      <Button layoutX="489.0" layoutY="497.0" mnemonicParsing="false" onAction="#orderButtonHandler" prefHeight="31.0" prefWidth="84.0" style="-fx-background-color: #7979BC;" text="Book" textFill="#eae1e1" />
+      <Label fx:id="label2" layoutX="40.0" layoutY="102.0" prefHeight="21.0" prefWidth="177.0" text="Location:" textFill="#eae1e1">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="40.0" layoutY="173.0" prefHeight="21.0" prefWidth="74.0" text="Price:" textFill="#eae1e1">
+      <Label fx:id="intLabel" layoutX="40.0" layoutY="173.0" prefHeight="21.0" prefWidth="139.0" text="Price:" textFill="#eae1e1">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
       <Label fx:id="messageField" alignment="TOP_LEFT" ellipsisString=".." layoutX="460.0" layoutY="353.0" prefHeight="77.0" prefWidth="126.0" style="-fx-border-color: #CFCFEE; -fx-background-radius: 5; -fx-border-radius: 5; -fx-label-padding: 5; -fx-background-color: #7979BC;" textFill="#eae1e1" wrapText="true">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <DatePicker fx:id="fromDp" layoutX="248.0" layoutY="53.0" prefHeight="31.0" prefWidth="177.0" style="-fx-background-color: #CCCDDA;" />
+      <DatePicker fx:id="toDp" layoutX="248.0" layoutY="123.0" prefHeight="31.0" prefWidth="177.0" />
+      <RadioButton id="0" fx:id="radioHotel" layoutX="468.0" layoutY="58.0" mnemonicParsing="false" onAction="#switchSearchHandler" prefHeight="21.0" prefWidth="126.0" selected="true" style="-fx-background-color: #7979BC; -fx-background-radius: 10;" text="Search Hotels" textFill="#e8e1e1" />
+      <RadioButton id="1" fx:id="radioFlight" layoutX="468.0" layoutY="123.0" mnemonicParsing="false" onAction="#switchSearchHandler" prefHeight="21.0" prefWidth="126.0" style="-fx-background-color: #7979BC; -fx-background-radius: 10;" text="Search Flights" textFill="#eae1e1" />
+      <Label layoutX="40.0" layoutY="238.0" prefHeight="31.0" prefWidth="139.0" text="Results" textFill="#eae1e1">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="label3" layoutX="248.0" layoutY="32.0" prefHeight="21.0" prefWidth="139.0" text="Check in date:" textFill="#eae1e1">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="label4" layoutX="248.0" layoutY="102.0" prefHeight="21.0" prefWidth="139.0" text="Check out date:" textFill="#eae1e1">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
