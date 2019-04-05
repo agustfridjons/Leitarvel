@@ -61,7 +61,6 @@ public class SearchController implements Initializable {
         }else{
             p=0;
         }
-        System.out.println(h +", " + l +", "+p);
         ArrayList<Hotel> result = search(h,l,p);
         
         while(!listV.getItems().isEmpty()){
