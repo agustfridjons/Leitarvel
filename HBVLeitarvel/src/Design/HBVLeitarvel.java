@@ -19,7 +19,7 @@ public class HBVLeitarvel extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLSearch.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLMainScene.fxml"));
         
         Scene scene = new Scene(root);
         stage.titleProperty().set("Package Booking");

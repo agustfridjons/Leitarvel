@@ -1,12 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #52529E;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="Design.MainSceneController">
-    
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #52529E; -fx-border-width: 5; -fx-border-color: #8585B6; -fx-background-radius: 10; -fx-border-radius: 10;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Design.MainSceneController">
+   <children>
+      <TextField fx:id="email" layoutX="20.0" layoutY="153.0" style="-fx-background-color: CCCDDA;" />
+      <TextField fx:id="name" layoutX="20.0" layoutY="93.0" style="-fx-background-color: CCCDDA;" />
+      <TextField fx:id="number" layoutX="20.0" layoutY="210.0" style="-fx-background-color: CCCDDA;" />
+      <Label layoutX="15.0" layoutY="74.0" text="Name:" textFill="#eae1e1">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="17.0" layoutY="134.0" text="Email:" textFill="#eae1e1">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="20.0" layoutY="191.0" text="Booking number:" textFill="#eae1e1">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="21.0" layoutY="246.0" text="Adulds:" textFill="#eae1e1">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="20.0" layoutY="300.0" text="Kids:" textFill="#eae1e1">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="21.0" layoutY="27.0" prefHeight="17.0" prefWidth="167.0" text="Booking" textFill="#eae1e1">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="box1" layoutX="21.0" layoutY="265.0" prefHeight="27.0" prefWidth="167.0" style="-fx-background-color: CCCDDA;" />
+      <ComboBox fx:id="box2" layoutX="21.0" layoutY="319.0" prefHeight="27.0" prefWidth="167.0" style="-fx-background-color: CCCDDA;" />
+   </children>
 </AnchorPane>
