@@ -58,8 +58,12 @@ public class SearchController implements Initializable {
     private RadioButton radioHotel;
     @FXML
     private RadioButton radioFlight;
-    
-    private Object bookedObj;
+    @FXML
+    private RadioButton radioTour;
+    @FXML
+    private ListView listSelected;
+    @FXML
+    private Label searchLabel;
     
     //Flight Obj
     private DatabaseController fDB;
@@ -86,16 +90,23 @@ public class SearchController implements Initializable {
         LocalDate d1;
         LocalDate d2;
         
-        if(searchOp == 1){
+        if(searchOp == 0){
             try{
                 d1 = fromDp.getValue();
                 d2 = toDp.getValue();
+                if(d1 == null){
+                    messageField.setText("Select a date.");
+                    return;
+                }else if(TF1.getText().equals("") || TF2.getText().equals("")){
+                    messageField.setText("Fill in both, departure and destination fields");
+                    return;
+                }
                 ArrayList<Flight> result = searchFlights(h,l,d1);
                 showListF(result);
             }catch(Exception e){
                 messageField.setText("Set");
             }
-        }else if(searchOp == 0){
+        }else if(searchOp == 1){
             int p;
             if(!intTF.getText().equals("")){
                 try{
@@ -257,13 +268,18 @@ public class SearchController implements Initializable {
 
     @FXML
     private void orderButtonHandler(ActionEvent event) {
+        Object selectedObj;
         if(listV.getSelectionModel().getSelectedItem() != null){
-            bookedObj = listV.getSelectionModel().getSelectedItem();
-            System.out.println(bookedObj);
+            selectedObj = listV.getSelectionModel().getSelectedItem();
+            listSelected.getItems().add(selectedObj);
         }
     }
     
     public void resetDisplay(){
+        toDp.setVisible(true);
+        label4.setVisible(true);
+        intLabel.setVisible(true);
+        intTF.setVisible(true);
         fromDp.setValue(null);
         toDp.setValue(null);
         label1.setText("");
@@ -278,26 +294,58 @@ public class SearchController implements Initializable {
     private void switchSearchHandler(ActionEvent event) {
         RadioButton buttonPress = (RadioButton)event.getSource();
         int buttonId = Integer.parseInt(buttonPress.getId());    
-        if(buttonId == 0){
-            radioHotel.setSelected(true);
-            radioFlight.setSelected(false);
-            searchOp = 0;
-            label1.setText("Hotel:");
-            label2.setText("Location:");
-            label3.setText("Check in date:");
-            label4.setText("Check out date:");
-            intLabel.setText("Max price:");
-            resetDisplay();
-        }else if(buttonId == 1){
-            radioHotel.setSelected(false);
-            radioFlight.setSelected(true);
-            searchOp = 1;
-            label1.setText("Departure location:");
-            label2.setText("Destination location:");
-            label3.setText("Departure date:");
-            label4.setText("Return date:");
-            intLabel.setText("Max price:");
-            resetDisplay();
+        switch (buttonId) {
+            case 1:
+                resetDisplay();
+                radioHotel.setSelected(true);
+                radioFlight.setSelected(false);
+                radioTour.setSelected(false);
+                searchOp = 0;
+                searchLabel.setText(searchLabel.getText().substring(0, 13)+ "Hotels");
+                label1.setText("Hotel:");
+                label2.setText("Location:");
+                label3.setText("Check in date:");
+                label4.setText("Check out date:");
+                intLabel.setText("Max price:");
+                break;
+            case 0:
+                resetDisplay();
+                radioHotel.setSelected(false);
+                radioFlight.setSelected(true);
+                radioTour.setSelected(false);
+                searchOp = 1;
+                searchLabel.setText(searchLabel.getText().substring(0, 13)+ "Flights");
+                label1.setText("Departure location:");
+                label2.setText("Destination location:");
+                label3.setText("Departure date:");
+                label4.setText("Return date:");
+                intLabel.setText("Max price:");
+                break;
+            case 2:
+                resetDisplay();
+                radioHotel.setSelected(false);
+                radioFlight.setSelected(false);
+                radioTour.setSelected(true);
+                searchOp = 1;
+                searchLabel.setText(searchLabel.getText().substring(0, 13)+ "Tours");
+                label1.setText("Activity name:");
+                label2.setText("Activity location:");
+                label3.setText("Activity date:");
+                label4.setVisible(false);
+                toDp.setVisible(false);
+                intLabel.setText("Max price:");
+                break;
+            default:
+                break;
         }
+    }
+
+    @FXML
+    private void makePackageHandler(ActionEvent event) {
+        
+    }
+
+    @FXML
+    private void cancelSelectionHandler(ActionEvent event) {
     }
 }
