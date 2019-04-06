@@ -342,7 +342,10 @@ public class SearchController implements Initializable {
 
     @FXML
     private void makePackageHandler(ActionEvent event) {
-        
+        if(listSelected.getItems().isEmpty()){
+            messageField.setText("Nothing selected");
+            return;
+        }
     }
 
     @FXML
