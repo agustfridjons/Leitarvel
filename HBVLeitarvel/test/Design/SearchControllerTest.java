@@ -6,6 +6,11 @@
 package Design;
 
 import functionality.Hotel;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -39,7 +44,7 @@ public class SearchControllerTest {
     
         SearchController instance = new SearchController();
         // TODO review the generated test code and remove the default call to fail.
-        ArrayList<Hotel> result2 = instance.search("Hotel Hilton", "", 1000000);
+        ArrayList<Hotel> result2 = instance.searchHotel("Hotel Hilton", "", 1000000);
         
         if(result2.isEmpty()){
             
@@ -62,7 +67,7 @@ public class SearchControllerTest {
     
         SearchController instance = new SearchController();
         // TODO review the generated test code and remove the default call to fail.
-        ArrayList<Hotel> result2 = instance.search("", "Reykjavík", 1000000);
+        ArrayList<Hotel> result2 = instance.searchHotel("", "Reykjavík", 1000000);
         //assertEquals("Hotel Hilton",result2.get(0).getName());
         if(result2.isEmpty()){
             
@@ -84,7 +89,7 @@ public class SearchControllerTest {
     
         SearchController instance = new SearchController();
         // TODO review the generated test code and remove the default call to fail.
-        ArrayList<Hotel> result2 = instance.search("Hotel Hilton", "", 1000000);
+        ArrayList<Hotel> result2 = instance.searchHotel("Hotel Hilton", "", 1000000);
         
         
         if(result2.isEmpty()){
@@ -108,7 +113,7 @@ public class SearchControllerTest {
         SearchController instance = new SearchController();
         // TODO review the generated test code and remove the default call to fail.
         //0 to replace "null"
-        ArrayList<Hotel> result2 = instance.search("Hotel Hilton", "Reykjavík", 0);
+        ArrayList<Hotel> result2 = instance.searchHotel("Hotel Hilton", "Reykjavík", 0);
         
         if(result2.isEmpty()){
             
@@ -131,7 +136,7 @@ public class SearchControllerTest {
         SearchController instance = new SearchController();
         // TODO review the generated test code and remove the default call to fail.
         //0 to replace "null"
-        ArrayList<Hotel> result2 = instance.search("", "", 0);
+        ArrayList<Hotel> result2 = instance.searchHotel("", "", 0);
         
         if(result2.isEmpty()){
             
@@ -154,7 +159,7 @@ public class SearchControllerTest {
         SearchController instance = new SearchController();
         // TODO review the generated test code and remove the default call to fail.
         //0 to replace "null"
-        ArrayList<Hotel> result2 = instance.search("Hotel Hilton", "", 0);
+        ArrayList<Hotel> result2 = instance.searchHotel("Hotel Hilton", "", 0);
         
         if(result2.isEmpty()){
             
@@ -177,7 +182,7 @@ public class SearchControllerTest {
         SearchController instance = new SearchController();
         // TODO review the generated test code and remove the default call to fail.
         //0 to replace "null"
-        ArrayList<Hotel> result2 = instance.search("", "Reykjavík", 0);
+        ArrayList<Hotel> result2 = instance.searchHotel("", "Reykjavík", 0);
         
         if(result2.isEmpty()){
             
@@ -200,7 +205,7 @@ public class SearchControllerTest {
         SearchController instance = new SearchController();
         // TODO review the generated test code and remove the default call to fail.
         //0 to replace "null"
-        ArrayList<Hotel> result2 = instance.search("", "", 13000);
+        ArrayList<Hotel> result2 = instance.searchHotel("", "", 13000);
         assertEquals(result2.size(),4);
         if(result2.isEmpty()){
             
@@ -223,7 +228,7 @@ public class SearchControllerTest {
         SearchController instance = new SearchController();
         // TODO review the generated test code and remove the default call to fail.
         //0 to replace "null"
-        ArrayList<Hotel> result2 = instance.search("otel", "", 13000);
+        ArrayList<Hotel> result2 = instance.searchHotel("otel", "", 13000);
         
         if(result2.isEmpty()){
             
@@ -245,7 +250,7 @@ public class SearchControllerTest {
         SearchController instance = new SearchController();
         // TODO review the generated test code and remove the default call to fail.
         //0 to replace "null"
-        ArrayList<Hotel> result2 = instance.search("", "Reykjav", 13000);
+        ArrayList<Hotel> result2 = instance.searchHotel("", "Reykjav", 13000);
         
         if(result2.isEmpty()){
             
@@ -262,25 +267,44 @@ public class SearchControllerTest {
     }
   
     @Test
-    public void testSearchTooLowBudget() {
+    public void testSearchTooLowBudget() throws IOException {
         System.out.println("Searching for too low budge/price");
     
         SearchController instance = new SearchController();
         // TODO review the generated test code and remove the default call to fail.
         //0 to replace "null"
-        ArrayList<Hotel> result2 = instance.search("", "", 10);
+        ArrayList<Hotel> result2 = instance.searchHotel("", "", 10);
         assertTrue(result2.isEmpty());
+        
+        File file = new File("booking.txt");
+        FileWriter fr = new FileWriter(file, true);
+        //PrintWriter pr = new PrintWriter(fr);
+        BufferedWriter br = new BufferedWriter(fr);
+        
+        //pr.println("Searching for too low budge/price");
+        br.write("Searching for too low budge/price");
+        br.newLine();
+
         if(result2.isEmpty()){
             
             System.out.println("tomur");
+            //pr.println("Engar niðurstöður");
+            br.write("No results");
+            br.newLine();
+
         }
         //System.out.println(result2.get(0).getName());
         for(int i = 0; i < result2.size(); i++)
         {
-               
             System.out.println(result2.get(i).getName());
             //System.out.println("fann hotel");
-
+            //pr.println(result2.get(i).getName() + " . ");
+            br.write(result2.get(i).getName());
+            br.newLine();
         }
+        
+        br.close();
+        fr.close();
+        
     }
 }
