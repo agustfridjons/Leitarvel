@@ -279,6 +279,7 @@ public class SearchController implements Initializable {
         RadioButton buttonPress = (RadioButton)event.getSource();
         int buttonId = Integer.parseInt(buttonPress.getId());    
         if(buttonId == 0){
+            resetDisplay();
             radioHotel.setSelected(true);
             radioFlight.setSelected(false);
             searchOp = 0;
@@ -287,8 +288,8 @@ public class SearchController implements Initializable {
             label3.setText("Check in date:");
             label4.setText("Check out date:");
             intLabel.setText("Max price:");
-            resetDisplay();
         }else if(buttonId == 1){
+            resetDisplay();
             radioHotel.setSelected(false);
             radioFlight.setSelected(true);
             searchOp = 1;
@@ -297,7 +298,6 @@ public class SearchController implements Initializable {
             label3.setText("Departure date:");
             label4.setText("Return date:");
             intLabel.setText("Max price:");
-            resetDisplay();
         }
     }
 }
