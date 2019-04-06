@@ -9,3 +9,6 @@ HBVLeitarvel/nbproject/build-impl.xml
 HBVLeitarvel/nbproject/genfiles.properties
 HBVLeitarvel/nbproject/project.properties
 HBVLeitarvel/nbproject/project.xml
+/HBVLeitarvel/src/Tours/dtsApp/build/
+/HBVLeitarvel/src/Tours/dtsApp/dist/
+/HBVLeitarvel/src/Tours/dtsApp/nbproject/private/
