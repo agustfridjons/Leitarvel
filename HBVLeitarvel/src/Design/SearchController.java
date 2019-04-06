@@ -58,6 +58,12 @@ public class SearchController implements Initializable {
     private RadioButton radioHotel;
     @FXML
     private RadioButton radioFlight;
+    @FXML
+    private RadioButton radioTour;
+    @FXML
+    private ListView<?> listSelected;
+    @FXML
+    private Label searchLabel;
     
     private Object bookedObj;
     
@@ -86,7 +92,7 @@ public class SearchController implements Initializable {
         LocalDate d1;
         LocalDate d2;
         
-        if(searchOp == 1){
+        if(searchOp == 0){
             try{
                 d1 = fromDp.getValue();
                 d2 = toDp.getValue();
@@ -95,7 +101,7 @@ public class SearchController implements Initializable {
             }catch(Exception e){
                 messageField.setText("Set");
             }
-        }else if(searchOp == 0){
+        }else if(searchOp == 1){
             int p;
             if(!intTF.getText().equals("")){
                 try{
@@ -278,7 +284,7 @@ public class SearchController implements Initializable {
     private void switchSearchHandler(ActionEvent event) {
         RadioButton buttonPress = (RadioButton)event.getSource();
         int buttonId = Integer.parseInt(buttonPress.getId());    
-        if(buttonId == 0){
+        if(buttonId == 1){
             resetDisplay();
             radioHotel.setSelected(true);
             radioFlight.setSelected(false);
@@ -288,7 +294,17 @@ public class SearchController implements Initializable {
             label3.setText("Check in date:");
             label4.setText("Check out date:");
             intLabel.setText("Max price:");
-        }else if(buttonId == 1){
+        }else if(buttonId == 0){
+            resetDisplay();
+            radioHotel.setSelected(false);
+            radioFlight.setSelected(true);
+            searchOp = 1;
+            label1.setText("Departure location:");
+            label2.setText("Destination location:");
+            label3.setText("Departure date:");
+            label4.setText("Return date:");
+            intLabel.setText("Max price:");
+        }else if(buttonId == 2){
             resetDisplay();
             radioHotel.setSelected(false);
             radioFlight.setSelected(true);
@@ -299,5 +315,13 @@ public class SearchController implements Initializable {
             label4.setText("Return date:");
             intLabel.setText("Max price:");
         }
+    }
+
+    @FXML
+    private void makePackageHandler(ActionEvent event) {
+    }
+
+    @FXML
+    private void cancelSelectionHandler(ActionEvent event) {
     }
 }
