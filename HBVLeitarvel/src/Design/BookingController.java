@@ -36,7 +36,7 @@ import org.json.simple.parser.JSONParser;
  *
  * @author Notandi
  */
-public class MainSceneController implements Initializable {
+public class BookingController implements Initializable {
 
     @FXML
     private TextField email;
@@ -96,12 +96,7 @@ public class MainSceneController implements Initializable {
     // Athugar hvort netfang sé gilt 
     // Skilyrðin eru að það verður að vera '@' og '.' á milli strengja
     private boolean validEmail(String email){
-        if(email.matches("^[a-zA-Z0-9]+@[a-zA-Z0-9]+.[a-zA-Z0-9]+")){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return email.matches("^[a-zA-Z0-9]+@[a-zA-Z0-9]+.[a-zA-Z0-9]+");
     }
     
 
@@ -196,12 +191,12 @@ public class MainSceneController implements Initializable {
         try {
             bookJson("Agust", "Agust@agust.is", 1, 0, "110");
         } catch (IOException ex) {
-            Logger.getLogger(MainSceneController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(BookingController.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
             getBooking(100);
         } catch (IOException ex) {
-            Logger.getLogger(MainSceneController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(BookingController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
