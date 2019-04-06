@@ -22,6 +22,7 @@ public class BookingInfo {
     private String kids;
     private String bookingNumber;
     
+    // Tekur inn bókunar upplýsingarnar og útbýr 6 stafa bókunar númer
     public BookingInfo(String n, String e, String a, String k){
         name = n;
         email = e;
@@ -30,6 +31,7 @@ public class BookingInfo {
         bookingNumber = getRandomNumber();
     }
 
+    // Býr til 6 random tölur í streng
     public static String getRandomNumber() {
         Random rnd = new Random();
         int number = rnd.nextInt(999999);
