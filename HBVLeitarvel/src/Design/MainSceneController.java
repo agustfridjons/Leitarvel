@@ -104,48 +104,105 @@ public class MainSceneController implements Initializable {
         }
     }
     
-
-    public static void bookJson(/*Package pck, */String name, String email, int adults, int children, String bookID) throws IOException{
+    public static boolean checkUniqueID(int id) {
         
-        String hotel = "hotel nafn";
-        
-        
-        JSONObject obj = new JSONObject();
-        
-        obj.put("BookingID", bookID);
-        obj.put("Name", name);
-        obj.put("Email", email);
-        obj.put("Adults", adults);
-        obj.put("Children", children);
-        
-        JSONArray listHotel = new JSONArray();
-        listHotel.add("Hotel: " + hotel);
-        listHotel.add("Location: " + hotel);
-        listHotel.add("Price: " + hotel);
-        
-        obj.put("Hotel", listHotel);
-        
-        try{
-            FileWriter file  = new FileWriter("Bookings.json",true);
-            BufferedWriter bw = new BufferedWriter(file);
-            bw.write(obj.toJSONString());
-            bw.newLine();
-            bw.close();
+        JSONParser parser = new JSONParser();
             
-            //file.write(obj.toJSONString());
-            //file.flush();
-            file.close();
-        } catch (IOException e) {
+        try {
+            Object obj = parser.parse("Bookings.json");
+            
+            JSONObject jsonObject = (JSONObject)obj;
+            //JSONArray arr = jsonObject.getJSONArray("bookings");
+            
+            System.out.println("ChecUniqueID -> jsonObject");
+            System.out.println(jsonObject);
+            
+            int bookID = (int) jsonObject.get("bookid");
+            System.out.println(bookID);
+            
+            }catch(ParseException e){
+                e.printStackTrace();
+            }
+        return false;
+    }
+    
+    
+    public static void bookJson(/*Package pck, */String name, String email, int adults, int children, int bookID) throws IOException, ParseException{
+        
+        //get the json object before adding to it
+        
+        
+        //checkUniqueID(bookID);
+        
+        //checkUniqueID(bookID);
+        
+        JSONObject bookingDetail = new JSONObject();
+        JSONObject userDetail = new JSONObject();
+        JSONObject hotelDetail = new JSONObject();
+        JSONObject flightDetail = new JSONObject();
+        JSONObject tourDetail = new JSONObject();
+        JSONObject bookDetail = new JSONObject();
+        //user booking details
+        userDetail.put("bookingID", bookID);
+        userDetail.put("name", name);
+        userDetail.put("email", email);
+        userDetail.put("children", children);
+        userDetail.put("adults", adults);
+        //hotel details
+        hotelDetail.put("name",name);
+        hotelDetail.put("location",name);
+        hotelDetail.put("pricePerNight",name);
+        hotelDetail.put("dateStart",name);
+        hotelDetail.put("dateEnd",name);
+        //user flight details
+        flightDetail.put("from", name);
+        flightDetail.put("to", name);
+        flightDetail.put("price", name);
+        flightDetail.put("dateStart", name);
+        flightDetail.put("dateEnd", name);
+        //user tour details
+        tourDetail.put("activityName",name);
+        tourDetail.put("activityLocation",name);
+        tourDetail.put("activityPrice",name);
+        //put the hotel/flight/tour into a booking object
+        
+        bookDetail.put("user",userDetail);
+        bookDetail.put("hotel",hotelDetail);
+        bookDetail.put("flight",flightDetail);
+        bookDetail.put("tour", tourDetail);
+        
+        bookingDetail.put("booking",bookDetail);
+        //add booking to a list
+        //bookingDetail.add(bookDetail);
+        JSONParser parser = new JSONParser();
+        
+        try(FileReader reader = new FileReader("Bookings.json")) {
+            Object obj = parser.parse(reader);
+            
+            JSONArray bookList = (JSONArray) obj;
+            System.out.println(bookList);
+            
+            //add the new booking details to the booking.json 
+            bookList.add(bookingDetail);
+            
+            try(FileWriter file = new FileWriter("Bookings.json",false)){
+            
+            file.write(bookList.toJSONString());
+            //BufferedWriter br = new BufferedWriter(file);
+            //br.newLine();
+            
+            file.flush();
+            //br.close();
+            }catch(IOException e) {
+                e.printStackTrace();
+            }
+
+        }catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }catch (IOException e) {
             e.printStackTrace();
         }
-        
-        System.out.print(obj);
-        
-        StringWriter out = new StringWriter();
-        obj.writeJSONString(out);
-      
-        String jsonText = out.toString();
-        System.out.print(jsonText);
+        //write JSON file
         
     }
     
@@ -153,57 +210,48 @@ public class MainSceneController implements Initializable {
         //Package pck = new Package();
         
         JSONParser parser = new JSONParser();
-        //this should later be bookingID
         
-        try {
-            Object obj = parser.parse(new FileReader("Bookings.json"));
+        try(FileReader reader = new FileReader("Bookings.json") ){
+            Object obj = parser.parse(reader);
             
-            JSONObject jsonObject = (JSONObject) obj;
-            System.out.println(jsonObject);
+            JSONArray bookingList = (JSONArray) obj;
+            System.out.println(bookingList);
             
-            long bookID = (long) jsonObject.get("BookingID");
-            System.out.println(bookID);
+            bookingList.forEach( book -> parseBookingObject( (JSONObject) book) );
             
-            String name = (String) jsonObject.get("Name");
-            System.out.println(name);
             
-            String email = (String) jsonObject.get("Email");
-            System.out.println(email);
-            
-            int adults = (int) jsonObject.get("Adults");
-            System.out.println(adults);
-            
-            long children = (long) jsonObject.get("Children");
-            System.out.println(children);
-            
-            JSONArray msg = (JSONArray) jsonObject.get("messages");
-            Iterator<String> iterator = msg.iterator();
-            while(iterator.hasNext()) {
-                System.out.println(iterator.next());
-            }
-        }catch(FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }catch(IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
-        }catch(ParseException e){
+        } catch (ParseException e) {
             e.printStackTrace();
         }
         
     }
     
-    public static void main(String[] args) {
+    private static void parseBookingObject(JSONObject book) {
+        
+        JSONObject bookObject = (JSONObject) book.get("booking");
+        JSONObject userObject = (JSONObject) bookObject.get("user");
+        
+        String name = (String) userObject.get("name");
+        System.out.println(name);
+    }
+    
+    public static void main(String[] args) throws ParseException {
 
         try {
-            bookJson("Agust", "Agust@agust.is", 1, 0, "110");
+            bookJson("new", "jonsson@hbv.is", 10, 2, 888);
         } catch (IOException ex) {
             Logger.getLogger(MainSceneController.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            getBooking(100);
+            getBooking(1000);
         } catch (IOException ex) {
             Logger.getLogger(MainSceneController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
-            
+                
 }
