@@ -9,7 +9,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane id="AnchorPane" prefHeight="721.0" prefWidth="755.0" style="-fx-background-color: #52529E; -fx-border-width: 5; -fx-border-color: #8585B6; -fx-background-radius: 10; -fx-border-radius: 10;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Design.SearchController">
    <children>
       <ListView fx:id="listV" layoutX="37.0" layoutY="454.0" prefHeight="212.0" prefWidth="416.0" style="-fx-background-color: #CCCDDA;" />
@@ -39,6 +38,7 @@
          </font>
       </Label>
       <Label fx:id="messageField" alignment="TOP_LEFT" ellipsisString=".." layoutX="541.0" layoutY="287.0" prefHeight="111.0" prefWidth="139.0" style="-fx-border-color: #CFCFEE; -fx-background-radius: 5; -fx-border-radius: 5; -fx-label-padding: 5; -fx-background-color: #7979BC;" textFill="#eae1e1" wrapText="true">
+
          <font>
             <Font name="System Bold" size="15.0" />
          </font>

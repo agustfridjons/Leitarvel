@@ -79,6 +79,7 @@ public class MainSceneController implements Initializable {
         if(!validEmail(email.getText())){
             messageField.setText("Email address is not valid");
         }
+        // Sendir bókunar upplýsingarnar í BookingInfo klasann
         x = new BookingInfo(
                 name.getText(), 
                 email.getText(),
@@ -92,6 +93,8 @@ public class MainSceneController implements Initializable {
         System.out.println("Booking number: " + x.getBookingNumber());
     }
 
+    // Athugar hvort netfang sé gilt 
+    // Skilyrðin eru að það verður að vera '@' og '.' á milli strengja
     private boolean validEmail(String email){
         if(email.matches("^[a-zA-Z0-9]+@[a-zA-Z0-9]+.[a-zA-Z0-9]+")){
             return true;
