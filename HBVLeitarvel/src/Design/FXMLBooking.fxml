@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="445.0" prefWidth="645.0" style="-fx-background-color: #52529E; -fx-border-width: 5; -fx-border-color: #8585B6; -fx-background-radius: 10; -fx-border-radius: 10;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Design.MainSceneController">
+<AnchorPane id="AnchorPane" prefHeight="445.0" prefWidth="645.0" style="-fx-background-color: #52529E; -fx-border-width: 5; -fx-border-color: #8585B6; -fx-background-radius: 10; -fx-border-radius: 10;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Design.BookingController">
    <children>
       <TextField fx:id="email" layoutX="40.0" layoutY="185.0" style="-fx-background-color: CCCDDA;" />
       <TextField fx:id="name" layoutX="40.0" layoutY="105.0" style="-fx-background-color: CCCDDA;" />
