@@ -23,6 +23,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import java.lang.Object;
+import java.util.ArrayList;
 import java.util.regex.*;
 import javafx.scene.control.Label;
 import org.json.simple.JSONObject;
@@ -98,7 +99,10 @@ public class BookingController implements Initializable {
         return email.matches("^[a-zA-Z0-9]+@[a-zA-Z0-9]+.[a-zA-Z0-9]+");
     }
     
-    public static void bookJson(/*Package pck, */String name, String email, int adults, int children, int bookID) throws IOException, ParseException{
+    public static void bookJson(/*String flightFrom, String flightTo*/String name, String email, int adults, int children, int bookID) throws IOException, ParseException{
+        
+        //get json file
+        JSONArray bookList = jsonRead();
         
         JSONObject bookingDetail = new JSONObject();
         JSONObject userDetail = new JSONObject();
@@ -136,8 +140,7 @@ public class BookingController implements Initializable {
         //finally put the object into the container holdin all containers that contain booking information
         bookingDetail.put("booking",bookDetail);
         
-        //get json file
-        JSONArray bookList = jsonRead();
+        bookList.add(bookingDetail);
         //write into json file
         writeJson(bookList);
 
@@ -155,13 +158,13 @@ public class BookingController implements Initializable {
         JSONArray bookingList = jsonRead();
             
         for(int i = 0; i < bookingList.size(); i++){
-
             //get the booking object -> go into booking -> into user
             JSONObject json = (JSONObject) bookingList.get(i);
             JSONObject book = (JSONObject) json.get("booking");
             JSONObject bookUser = (JSONObject) book.get("user");
             long id = (long) bookUser.get("bookingID");
-
+            //check if the bookingID matches
+            //if it does match we update with new information
             if(id == bookingID) {
                 bookUser.put("name", name); 
                 bookUser.put("email", email);
@@ -173,6 +176,63 @@ public class BookingController implements Initializable {
         }
     }
     
+    public static ArrayList returnBooking (long bookingID) {
+        
+        ArrayList<String> arr = new ArrayList();
+        JSONArray bookingList = null;
+        try {
+            bookingList = jsonRead();
+        } catch (IOException ex) {
+            Logger.getLogger(BookingController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(BookingController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if(bookingList != null) {
+            for(int i = 0; i < bookingList.size(); i++){
+                //get the booking object -> go into booking -> into user
+                JSONObject json = (JSONObject) bookingList.get(i);
+                JSONObject book = (JSONObject) json.get("booking");
+                JSONObject bookUser = (JSONObject) book.get("user");
+                long id = (long) bookUser.get("bookingID");
+                //check if the bookingID matches
+                //if it does match we update with new information
+                if(id == bookingID) {
+                    String name = (String)bookUser.get("name");
+                    String email = (String)bookUser.get("email");
+                    long chil = (long)bookUser.get("children");
+                    long adul = (long)bookUser.get("adults");
+                    long bID = (long)bookUser.get("bookingID");
+
+                    arr.add(name);
+                    arr.add(""+bID);
+                    arr.add(""+chil);
+                    arr.add(""+adul);
+                    arr.add(email);
+                }
+            }
+        }
+        return arr;
+    }
+    public static long getLastBook() throws IOException {
+        JSONArray bookingList = null;
+        try {
+            bookingList = jsonRead();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(BookingController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(BookingController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        long id = 0;
+        if(bookingList != null) {
+            JSONObject json = (JSONObject) bookingList.get(bookingList.size()-1);
+            JSONObject book = (JSONObject) json.get("booking");
+            JSONObject bookUser = (JSONObject) book.get("user");
+            id = (long) bookUser.get("bookingID");
+        }
+        return id;
+    }
     private static void writeJson(JSONArray arr) throws IOException {
         //false flag so it doesn't overwrite
         FileWriter file = new FileWriter("Bookings.json",false);
@@ -196,23 +256,30 @@ public class BookingController implements Initializable {
         System.out.println(name);
     }
     
+    
     public static void main(String[] args) throws ParseException, IOException {
         
         try {
-            bookJson("nyjasta", "nyjasta@hbv.is", 10, 2, 999);
+            bookJson("nyjasta", "nyjasta@hbv.is", 10, 2, 1111);
         } catch (IOException ex) {
             Logger.getLogger(BookingController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        updateBooking(888,"nyttnafn3","nyttemail@email.is",9,1);
-        
+        //updateBooking(888,"nyttnafn4","nyttemail@email.is",9,1);
+        /*
         try {
             getBooking(2202);
         } catch (IOException ex) {
             Logger.getLogger(BookingController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+        */
+        ArrayList<String> bList = new ArrayList();
+        bList = returnBooking(getLastBook());
+        for(int i = 0; i < bList.size()-1; i++) {
+            System.out.println(bList.get(i));
+        }
+      
     }
-                
+    
+              
 }
