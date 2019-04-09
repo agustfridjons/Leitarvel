@@ -9,17 +9,15 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <ScrollPane prefHeight="726.0" prefWidth="759.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Design.SearchController">
    <content>
       <AnchorPane id="AnchorPane" prefHeight="721.0" prefWidth="755.0" style="-fx-background-color: #52529E; -fx-border-width: 5; -fx-border-color: #8585B6; -fx-background-radius: 10; -fx-border-radius: 10;">
          <children>
-            <ListView fx:id="listV" layoutX="37.0" layoutY="454.0" prefHeight="212.0" prefWidth="416.0" style="-fx-background-color: #CCCDDA;" />
+            <ListView fx:id="listV" layoutX="37.0" layoutY="454.0" onMouseClicked="#checkHotelHandler" prefHeight="212.0" prefWidth="416.0" style="-fx-background-color: #CCCDDA;" />
             <Button layoutX="346.0" layoutY="358.0" mnemonicParsing="false" onAction="#searchButtonHandler" prefHeight="31.0" prefWidth="84.0" style="-fx-background-color: #7979BC;" text="Search" textFill="#eae1e1" />
-            <TextField fx:id="TF1" layoutX="32.0" layoutY="157.0" prefHeight="31.0" prefWidth="162.0" style="-fx-background-color: #CCCDDA;" />
-            <TextField fx:id="TF2" layoutX="32.0" layoutY="227.0" prefHeight="31.0" prefWidth="162.0" style="-fx-background-color: #CCCDDA;" />
-            <TextField fx:id="intTF" layoutX="32.0" layoutY="298.0" prefHeight="31.0" prefWidth="139.0" style="-fx-background-color: #CCCDDA;" />
-            <Label fx:id="label1" layoutX="32.0" layoutY="136.0" prefHeight="21.0" prefWidth="177.0" text="Departure Location:" textFill="#eae1e1">
+            <TextField fx:id="TF1" layoutX="31.0" layoutY="154.0" prefHeight="31.0" prefWidth="162.0" style="-fx-background-color: #CCCDDA;" />
+            <TextField fx:id="TF2" layoutX="31.0" layoutY="224.0" prefHeight="31.0" prefWidth="162.0" style="-fx-background-color: #CCCDDA;" />
+            <Label fx:id="label1" layoutX="31.0" layoutY="133.0" prefHeight="21.0" prefWidth="177.0" text="Departure Location:" textFill="#eae1e1">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -30,12 +28,7 @@
                </font>
             </Label>
             <Button layoutX="48.0" layoutY="674.0" mnemonicParsing="false" onAction="#orderButtonHandler" prefHeight="31.0" prefWidth="84.0" style="-fx-background-color: #7979BC;" text="Select" textFill="#eae1e1" />
-            <Label fx:id="label2" layoutX="32.0" layoutY="206.0" prefHeight="21.0" prefWidth="177.0" text="Destination Location:" textFill="#eae1e1">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-            </Label>
-            <Label fx:id="intLabel" layoutX="32.0" layoutY="277.0" prefHeight="21.0" prefWidth="139.0" text="Price:" textFill="#eae1e1">
+            <Label fx:id="label2" layoutX="31.0" layoutY="203.0" prefHeight="21.0" prefWidth="177.0" text="Destination Location:" textFill="#eae1e1">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -55,12 +48,12 @@
                   <Font name="System Bold" size="25.0" />
                </font>
             </Label>
-            <Label fx:id="label3" layoutX="246.0" layoutY="136.0" prefHeight="21.0" prefWidth="177.0" text="Departure date:" textFill="#eae1e1">
+            <Label fx:id="label3" layoutX="246.0" layoutY="136.0" prefHeight="21.0" prefWidth="247.0" text="Departure date:" textFill="#eae1e1">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label fx:id="label4" layoutX="246.0" layoutY="206.0" prefHeight="21.0" prefWidth="177.0" text="Arrival date:" textFill="#eae1e1">
+            <Label fx:id="label4" layoutX="246.0" layoutY="206.0" prefHeight="21.0" prefWidth="177.0" text="Return date:" textFill="#eae1e1">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -89,12 +82,23 @@
                </font>
             </Label>
             <Button layoutX="495.0" layoutY="674.0" mnemonicParsing="false" onAction="#cancelSelectionHandler" prefHeight="31.0" prefWidth="84.0" style="-fx-background-color: #7979BC;" text="Cancel" textFill="#eae1e1" />
-            <RadioButton id="0" fx:id="reyk" layoutX="37.0" layoutY="136.0" mnemonicParsing="false" onAction="#setHotelLocation" prefHeight="21.0" prefWidth="126.0" selected="true" style="-fx-background-color: #7979BC; -fx-background-radius: 10;" text="Reykjavík" textFill="#eae1e1" visible="false" />
-            <RadioButton id="1" fx:id="egill" layoutX="37.0" layoutY="178.0" mnemonicParsing="false" onAction="#setHotelLocation" prefHeight="21.0" prefWidth="126.0" selected="true" style="-fx-background-color: #7979BC; -fx-background-radius: 10;" text="Egilsstaðir" textFill="#eae1e1" visible="false" />
-            <RadioButton id="2" fx:id="Kef" layoutX="37.0" layoutY="261.0" mnemonicParsing="false" onAction="#setHotelLocation" prefHeight="21.0" prefWidth="126.0" selected="true" style="-fx-background-color: #7979BC; -fx-background-radius: 10;" text="Keflavík" textFill="#eae1e1" visible="false" />
-            <RadioButton id="3" fx:id="isa" layoutX="37.0" layoutY="217.0" mnemonicParsing="false" onAction="#setHotelLocation" prefHeight="21.0" prefWidth="126.0" selected="true" style="-fx-background-color: #7979BC; -fx-background-radius: 10;" text="Ísafjörður" textFill="#eae1e1" visible="false" />
-            <ComboBox fx:id="ratingBox" layoutX="32.0" layoutY="319.0" prefHeight="27.0" prefWidth="59.0" visible="false" />
-            <Label fx:id="label41" layoutX="32.0" layoutY="299.0" prefHeight="21.0" prefWidth="162.0" text="Rating:" textFill="#eae1e1" visible="false">
+            <RadioButton id="0" fx:id="reyk" layoutX="31.0" layoutY="165.0" mnemonicParsing="false" onAction="#setHotelLocation" prefHeight="21.0" prefWidth="126.0" selected="true" style="-fx-background-color: #7979BC; -fx-background-radius: 10;" text="Reykjavík" textFill="#eae1e1" visible="false" />
+            <RadioButton id="1" fx:id="egill" layoutX="31.0" layoutY="207.0" mnemonicParsing="false" onAction="#setHotelLocation" prefHeight="21.0" prefWidth="126.0" selected="true" style="-fx-background-color: #7979BC; -fx-background-radius: 10;" text="Egilsstaðir" textFill="#eae1e1" visible="false" />
+            <RadioButton id="2" fx:id="Kef" layoutX="31.0" layoutY="290.0" mnemonicParsing="false" onAction="#setHotelLocation" prefHeight="21.0" prefWidth="126.0" selected="true" style="-fx-background-color: #7979BC; -fx-background-radius: 10;" text="Keflavík" textFill="#eae1e1" visible="false" />
+            <RadioButton id="3" fx:id="isa" layoutX="31.0" layoutY="246.0" mnemonicParsing="false" onAction="#setHotelLocation" prefHeight="21.0" prefWidth="126.0" selected="true" style="-fx-background-color: #7979BC; -fx-background-radius: 10;" text="Ísafjörður" textFill="#eae1e1" visible="false" />
+            <ComboBox fx:id="ratingBox" layoutX="38.0" layoutY="349.0" prefHeight="31.0" prefWidth="75.0" visible="false" />
+            <Label fx:id="label8" layoutX="38.0" layoutY="329.0" prefHeight="21.0" prefWidth="162.0" text="Rating:" textFill="#eae1e1" visible="false">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="label7" layoutX="32.0" layoutY="136.0" prefHeight="21.0" prefWidth="162.0" text="Pick Hotel Location:" textFill="#eae1e1" visible="false">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="roomBox" layoutX="245.0" layoutY="296.0" prefHeight="31.0" prefWidth="180.0" visible="false" />
+            <Label fx:id="label6" layoutX="247.0" layoutY="277.0" prefHeight="21.0" prefWidth="177.0" text="Hotel Rooms:" textFill="#eae1e1" visible="false">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
