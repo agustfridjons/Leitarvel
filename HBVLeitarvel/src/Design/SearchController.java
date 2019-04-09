@@ -16,12 +16,16 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -89,7 +93,7 @@ public class SearchController implements Initializable {
         String l = TF2.getText();
         LocalDate d1;
         LocalDate d2;
-        
+       
         if(searchOp == 0){
             try{
                 d1 = fromDp.getValue();
@@ -345,6 +349,17 @@ public class SearchController implements Initializable {
         if(listSelected.getItems().isEmpty()){
             messageField.setText("Nothing selected");
             return;
+        }
+        else{
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLBookingComplete.fxml"));
+                Parent root1 = (Parent) fxmlLoader.load();
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root1));
+                stage.show();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

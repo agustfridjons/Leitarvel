@@ -7,6 +7,10 @@
 package functionality;
 
 import java.util.Random;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 /**
  *
@@ -29,6 +33,8 @@ public class BookingInfo {
         adults = a;
         kids = k;
         bookingNumber = getRandomNumber();
+        
+        //openBookingComplete();
     }
 
     // Býr til 6 random tölur í streng
@@ -58,5 +64,18 @@ public class BookingInfo {
     public String getBookingNumber() {
         return bookingNumber;
     }
+
+    /*private void openBookingComplete() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLBookingComplete.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root1));
+            stage.show();
+        } catch(Exception q) {
+            q.printStackTrace();
+        }
+    }
+    */
 
 }

@@ -24,7 +24,11 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import java.lang.Object;
 import java.util.regex.*;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.ParseException;
@@ -78,7 +82,19 @@ public class BookingController implements Initializable {
         
         if(!validEmail(email.getText())){
             messageField.setText("Email address is not valid");
+        } else{
+            // Opnar BookingComplete
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLSearchAndBook.fxml"));
+                Parent root1 = (Parent) fxmlLoader.load();
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root1));
+                stage.show();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
         }
+   
         // Sendir bókunar upplýsingarnar í BookingInfo klasann
         x = new BookingInfo(
                 name.getText(), 
@@ -91,6 +107,8 @@ public class BookingController implements Initializable {
         System.out.println("Adults: " + x.getAdults());
         System.out.println("Kids: " + x.getKids());
         System.out.println("Booking number: " + x.getBookingNumber());
+        
+
     }
 
     // Athugar hvort netfang sé gilt 
