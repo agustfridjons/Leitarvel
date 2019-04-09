@@ -109,6 +109,10 @@ public class SearchController implements Initializable {
     private FlightController flightController;
 
     //Hotel mock
+    private String hotelLocation;
+    
+    
+    
     private HotelObj mock = new HotelObj();
     private ArrayList<Hotel> hotels = mock.getList();
     
@@ -333,6 +337,14 @@ public class SearchController implements Initializable {
         intTF.setVisible(true);
         label2.setVisible(true);
         TF2.setVisible(true);
+        label1.setVisible(true);
+        TF1.setVisible(true);
+        reyk.setVisible(false);
+        egill.setVisible(false);
+        Kef.setVisible(false);
+        isa.setVisible(false);
+        ratingBox.setVisible(false);
+        label41.setVisible(false);
         fromDp.setValue(null);
         toDp.setValue(null);
         TF1.setText("");
@@ -357,6 +369,22 @@ public class SearchController implements Initializable {
                 radioFlight.setSelected(false);
                 radioTour.setSelected(false);
                 searchOp = 1;
+                reyk.setVisible(true);
+                egill.setVisible(true);
+                Kef.setVisible(true);
+                isa.setVisible(true);
+                reyk.setSelected(false);
+                egill.setSelected(false);
+                Kef.setSelected(false);
+                isa.setSelected(false);
+                ratingBox.setVisible(true);
+                label41.setVisible(true);
+                label2.setVisible(false);
+                TF2.setVisible(false);
+                TF1.setVisible(false);
+                label1.setVisible(false);
+                intTF.setVisible(false);
+                intLabel.setVisible(false);
                 searchLabel.setText(searchLabel.getText().substring(0, 13)+ "Hotels");
                 label1.setText("Hotel:");
                 label2.setText("Location:");
@@ -531,5 +559,40 @@ public class SearchController implements Initializable {
         }else{
             listSelected.getItems().remove(listSelected.getSelectionModel().getSelectedIndex());
         }
+    }
+
+    @FXML
+    private void setHotelLocation(ActionEvent event) {
+        RadioButton buttonPress = (RadioButton)event.getSource();
+        int buttonId = Integer.parseInt(buttonPress.getId());
+        if(buttonId == 0){
+            hotelLocation = "Reykjavik";
+            reyk.setSelected(true);
+            egill.setSelected(false);
+            Kef.setSelected(false);
+            isa.setSelected(false);                    
+        } 
+        else if(buttonId == 1){
+            hotelLocation = "Egilsstaðir";
+            reyk.setSelected(false);
+            egill.setSelected(true);
+            Kef.setSelected(false);
+            isa.setSelected(false);        
+        }
+        else if(buttonId == 2){
+            hotelLocation = "Keflavík";
+            reyk.setSelected(false);
+            egill.setSelected(false);
+            Kef.setSelected(true);
+            isa.setSelected(false);        
+        }
+        else if(buttonId == 3){
+            hotelLocation = "Ísafjörður";
+            reyk.setSelected(false);
+            egill.setSelected(false);
+            Kef.setSelected(false);
+            isa.setSelected(true);        
+        }
+        
     }
 }

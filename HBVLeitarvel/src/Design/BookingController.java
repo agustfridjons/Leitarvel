@@ -102,7 +102,6 @@ public class BookingController implements Initializable {
             } catch (ParseException ex) {
                 Logger.getLogger(BookingController.class.getName()).log(Level.SEVERE, null, ex);
             }
-        
             try {
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLSearch.fxml"));
                     Parent root1 = (Parent) fxmlLoader.load(); 
