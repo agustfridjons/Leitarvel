@@ -9,15 +9,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <ScrollPane prefHeight="726.0" prefWidth="759.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Design.SearchController">
    <content>
       <AnchorPane id="AnchorPane" prefHeight="721.0" prefWidth="755.0" style="-fx-background-color: #52529E; -fx-border-width: 5; -fx-border-color: #8585B6; -fx-background-radius: 10; -fx-border-radius: 10;">
          <children>
             <ListView fx:id="listV" layoutX="37.0" layoutY="454.0" prefHeight="212.0" prefWidth="416.0" style="-fx-background-color: #CCCDDA;" />
             <Button layoutX="346.0" layoutY="358.0" mnemonicParsing="false" onAction="#searchButtonHandler" prefHeight="31.0" prefWidth="84.0" style="-fx-background-color: #7979BC;" text="Search" textFill="#eae1e1" />
-            <TextField fx:id="TF1" layoutX="32.0" layoutY="157.0" prefHeight="31.0" prefWidth="162.0" style="-fx-background-color: #CCCDDA;" />
-            <TextField fx:id="TF2" layoutX="32.0" layoutY="227.0" prefHeight="31.0" prefWidth="162.0" style="-fx-background-color: #CCCDDA;" />
+            <TextField fx:id="TF1" layoutX="32.0" layoutY="157.0" prefHeight="31.0" prefWidth="162.0" promptText="Reykjavík" style="-fx-background-color: #CCCDDA;" text="Reykjavík" />
+            <TextField fx:id="TF2" layoutX="32.0" layoutY="227.0" prefHeight="31.0" prefWidth="162.0" promptText="Akureyri" style="-fx-background-color: #CCCDDA;" text="Akureyri" />
             <TextField fx:id="intTF" layoutX="32.0" layoutY="298.0" prefHeight="31.0" prefWidth="139.0" style="-fx-background-color: #CCCDDA;" />
             <Label fx:id="label1" layoutX="32.0" layoutY="136.0" prefHeight="21.0" prefWidth="177.0" text="Departure Location:" textFill="#eae1e1">
                <font>

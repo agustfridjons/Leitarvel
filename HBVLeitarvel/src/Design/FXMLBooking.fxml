@@ -10,8 +10,8 @@
 
 <AnchorPane id="AnchorPane" prefHeight="445.0" prefWidth="645.0" style="-fx-background-color: #52529E; -fx-border-width: 5; -fx-border-color: #8585B6; -fx-background-radius: 10; -fx-border-radius: 10;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Design.BookingController">
    <children>
-      <TextField fx:id="email" layoutX="40.0" layoutY="185.0" style="-fx-background-color: CCCDDA;" />
-      <TextField fx:id="name" layoutX="40.0" layoutY="105.0" style="-fx-background-color: CCCDDA;" />
+      <TextField fx:id="email" layoutX="40.0" layoutY="185.0" promptText="your@email.com" style="-fx-background-color: CCCDDA;" text="your@email.com" />
+      <TextField fx:id="name" layoutX="40.0" layoutY="105.0" promptText="YourName" style="-fx-background-color: CCCDDA;" text="YourName" />
       <Label layoutX="40.0" layoutY="85.0" text="Name:" textFill="#eae1e1">
          <font>
             <Font name="System Bold" size="15.0" />
@@ -22,7 +22,7 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <ComboBox fx:id="box1" layoutX="40.0" layoutY="265.0" prefHeight="39.0" prefWidth="167.0" promptText="0" style="-fx-background-color: CCCDDA;" />
+      <ComboBox fx:id="box1" layoutX="40.0" layoutY="265.0" prefHeight="39.0" prefWidth="167.0" promptText="1" style="-fx-background-color: CCCDDA;" />
       <ComboBox fx:id="box2" layoutX="40.0" layoutY="335.0" prefHeight="39.0" prefWidth="167.0" promptText="0" style="-fx-background-color: CCCDDA;" />
       <Button layoutX="442.0" layoutY="335.0" mnemonicParsing="false" onAction="#nextButtonHandler" prefHeight="40.0" prefWidth="160.0" style="-fx-background-color: #7979BC;" text="Next" textFill="#eae1e1" />
       <Label fx:id="messageField" alignment="TOP_LEFT" ellipsisString=".." layoutX="442.0" layoutY="246.0" prefHeight="80.0" prefWidth="160.0" style="-fx-border-color: #CFCFEE; -fx-background-radius: 5; -fx-border-radius: 5; -fx-label-padding: 5; -fx-background-color: #7979BC;" textFill="#eae1e1" wrapText="true">
