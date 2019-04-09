@@ -83,7 +83,7 @@ public class BookingController implements Initializable {
         } else{
             // Opnar BookingComplete
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLSearchAndBook.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLSearch.fxml"));
                 Parent root1 = (Parent) fxmlLoader.load();
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root1));
