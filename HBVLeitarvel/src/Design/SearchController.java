@@ -21,6 +21,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -84,14 +85,35 @@ public class SearchController implements Initializable {
     private ArrayList<Hotel> hotels = mock.getList();
     
     private int searchOp = 0; 
+    @FXML
+    private RadioButton reyk;
+    @FXML
+    private RadioButton egill;
+    @FXML
+    private RadioButton Kef;
+    @FXML
+    private RadioButton isa;
+    @FXML
+    private ComboBox<String> ratingBox;
+    @FXML
+    private Label label41;
     
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO        
+        // TODO       
+        initializeComboBox();
     }    
+    
+    public void initializeComboBox(){
+        
+        for(int i = 1; i < 6; i++){
+            ratingBox.getItems().add(i + "");
+        }
+    }
+ 
 
     @FXML
     private void searchButtonHandler(ActionEvent event) {

@@ -44,8 +44,6 @@ public class BookingController implements Initializable {
     @FXML
     private TextField name;
     @FXML
-    private TextField number;
-    @FXML
     private ComboBox<String> box1;
     @FXML
     private ComboBox<String> box2;
