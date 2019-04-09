@@ -5,7 +5,10 @@
  */
 package Design;
 
+import en.hi.dtsapp.controller.TourCatalog;
+import en.hi.dtsapp.model.Tour;
 import functionality.Hotel;
+import functionality.Package;
 import is.hi.Core.DatabaseController;
 import is.hi.Core.Flight;
 import is.hi.Core.FlightController;
@@ -14,12 +17,14 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -69,35 +74,60 @@ public class SearchController implements Initializable {
     @FXML
     private Label searchLabel;
     
+    private Package pack = new Package();
+    private int flightCount = 0;
+    
+    //Tour Obj
+    private TourCatalog tc;
+    
     //Flight Obj
     private DatabaseController fDB;
     private FlightController flightController;
 
+    //Hotel mock
     private HotelObj mock = new HotelObj();
     private ArrayList<Hotel> hotels = mock.getList();
     
     private int searchOp = 0; 
+    @FXML
+    private RadioButton reyk;
+    @FXML
+    private RadioButton egill;
+    @FXML
+    private RadioButton Kef;
+    @FXML
+    private RadioButton isa;
+    @FXML
+    private ComboBox<String> ratingBox;
+    @FXML
+    private Label label41;
     
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO        
+        // TODO       
+        initializeComboBox();
     }    
+    
+    public void initializeComboBox(){
+        
+        for(int i = 1; i < 6; i++){
+            ratingBox.getItems().add(i + "");
+        }
+    }
+ 
 
     @FXML
     private void searchButtonHandler(ActionEvent event) {
         messageField.setText("");
-        String h = TF1.getText();
-        String l = TF2.getText();
-        LocalDate d1;
-        LocalDate d2;
-       
+        String tf1 = TF1.getText();
+        String tf2 = TF2.getText();
+        LocalDate d1 = fromDp.getValue();
+        LocalDate d2 = toDp.getValue();
         if(searchOp == 0){
             try{
-                d1 = fromDp.getValue();
-                d2 = toDp.getValue();
                 if(d1 == null){
                     messageField.setText("Select a date.");
                     return;
@@ -105,8 +135,12 @@ public class SearchController implements Initializable {
                     messageField.setText("Fill in both, departure and destination fields");
                     return;
                 }
-                ArrayList<Flight> result = searchFlights(h,l,d1);
-                showListF(result);
+                ArrayList<Flight> resultFrom = searchFlights(tf1,tf2,d1);
+                ArrayList<Flight> resultTo = searchFlights(tf2,tf1,d2);
+                for(int i = 0; i < resultTo.size(); i++){
+                    resultFrom.add(resultTo.get(i));
+                }
+                showList(resultFrom);
             }catch(Exception e){
                 messageField.setText("Set");
             }
@@ -123,25 +157,18 @@ public class SearchController implements Initializable {
                 p = 0;
             }
 
-            ArrayList<Hotel> result = searchHotel(h,l,p);
-            showListH(result);
-        }
-    }
-    
-    public void showListF(ArrayList<Flight> result){
-        listV.getItems().clear();
-        if(!result.isEmpty()){
-            for(int i = 0;i < result.size(); i++){
-                try{
-                    listV.getItems().add(result.get(i));
-                }catch(Exception e){
-                    messageField.setText("Error in search.");
-                }
+            ArrayList<Hotel> result = searchHotel(tf1,tf2,p);
+            showList(result);
+        }else{
+            if(d1 == null){
+                    messageField.setText("Select a date.");
+                    return;
             }
+            listV.setItems(searchTours(tf1,d1,d2));
         }
     }
     
-    public void showListH(ArrayList<Hotel> result){
+    public void showList(ArrayList result){
         listV.getItems().clear();
         if(!result.isEmpty()){
             for(int i = 0;i < result.size(); i++){
@@ -174,6 +201,13 @@ public class SearchController implements Initializable {
 	}
         // TODO Auto-generated catch block
         return flights;
+    }
+    
+    public ObservableList searchTours(String kw, LocalDate d1, LocalDate d2){
+        ObservableList tours;
+        ArrayList<String> exceptions = new ArrayList();
+        tours = tc.getToursBySearchParameters(kw,d1,d2,exceptions);
+        return tours;
     }
     
     public ArrayList searchHotel(String name, String location, int maxPrice){
@@ -269,23 +303,19 @@ public class SearchController implements Initializable {
         }
         return priceFilter;
     }
-
-    @FXML
-    private void orderButtonHandler(ActionEvent event) {
-        Object selectedObj;
-        if(listV.getSelectionModel().getSelectedItem() != null){
-            selectedObj = listV.getSelectionModel().getSelectedItem();
-            listSelected.getItems().add(selectedObj);
-        }
-    }
     
     public void resetDisplay(){
         toDp.setVisible(true);
         label4.setVisible(true);
         intLabel.setVisible(true);
         intTF.setVisible(true);
+        label2.setVisible(true);
+        TF2.setVisible(true);
         fromDp.setValue(null);
         toDp.setValue(null);
+        TF1.setText("");
+        TF2.setText("");
+        intTF.setText("");
         label1.setText("");
         label2.setText("");
         label3.setText("");
@@ -304,7 +334,7 @@ public class SearchController implements Initializable {
                 radioHotel.setSelected(true);
                 radioFlight.setSelected(false);
                 radioTour.setSelected(false);
-                searchOp = 0;
+                searchOp = 1;
                 searchLabel.setText(searchLabel.getText().substring(0, 13)+ "Hotels");
                 label1.setText("Hotel:");
                 label2.setText("Location:");
@@ -317,7 +347,7 @@ public class SearchController implements Initializable {
                 radioHotel.setSelected(false);
                 radioFlight.setSelected(true);
                 radioTour.setSelected(false);
-                searchOp = 1;
+                searchOp = 0;
                 searchLabel.setText(searchLabel.getText().substring(0, 13)+ "Flights");
                 label1.setText("Departure location:");
                 label2.setText("Destination location:");
@@ -330,28 +360,99 @@ public class SearchController implements Initializable {
                 radioHotel.setSelected(false);
                 radioFlight.setSelected(false);
                 radioTour.setSelected(true);
-                searchOp = 1;
+                searchOp = 2;
                 searchLabel.setText(searchLabel.getText().substring(0, 13)+ "Tours");
                 label1.setText("Activity name:");
-                label2.setText("Activity location:");
-                label3.setText("Activity date:");
-                label4.setVisible(false);
-                toDp.setVisible(false);
+                label3.setText("Activity date range, Date from:");
+                label4.setText("Date to:");
+                label2.setVisible(false);
+                TF2.setVisible(false);
                 intLabel.setText("Max price:");
+                try{
+                    tc = new TourCatalog();
+                }catch(Exception e){
+                    System.out.println("villa tours");
+                }
+                listV.setItems(tc.getDistinctNameTourList());
                 break;
             default:
                 break;
         }
     }
-
+    
     @FXML
-    private void makePackageHandler(ActionEvent event) {
-        if(listSelected.getItems().isEmpty()){
+    private void orderButtonHandler(ActionEvent event) {
+        Object selectedObj = listV.getSelectionModel().getSelectedItem();
+        ObservableList list = listSelected.getItems();
+        
+        if(selectedObj == null){
             messageField.setText("Nothing selected");
             return;
         }
-        else{
-            try {
+        
+        if(selectedObj.getClass() == Flight.class)
+                flightCount++;
+        
+        for(int i = 0; i < list.size(); i++){
+            if(list.get(i).getClass() == Flight.class){
+                System.out.println(flightCount);
+                if(flightCount > 2){
+                   list.remove(i);
+                   flightCount--;
+                }
+            }else if(selectedObj.getClass() == list.get(i).getClass()){
+                list.remove(i);
+            }
+        }
+        list.add(selectedObj);
+    }
+
+    @FXML
+    private void makePackageHandler(ActionEvent event) {
+        ObservableList list = listSelected.getItems();
+        if(list.isEmpty()){
+            messageField.setText("Nothing to book");
+            return;
+        }
+        Flight f = null;
+        Flight rf = null;
+        for(int i = 0; i < list.size(); i++){
+            if(list.get(i).getClass() == Hotel.class){
+                pack.setHotel((Hotel) list.get(i));
+            }else if(list.get(i).getClass() == Flight.class){
+                f = (Flight)list.get(i);
+                for(int j = i+1; j < list.size(); j++){
+                    if(list.get(j).getClass() == Flight.class){
+                        rf = (Flight) list.get(j);
+                        System.out.println(f);
+                        System.out.println(rf);                        
+                        if(f.getDate().compareTo(rf.getDate()) > 0){
+                            System.out.println("switch fligths");
+                            Flight temp = f;
+                            f = rf;
+                            rf = temp;
+                        }
+                        break;
+                    }
+                }
+                if(f == null || rf == null){
+                    messageField.setText("No return flight ordered");
+                }
+                pack.setFlight(f);
+                pack.setReturnFlight(rf);
+                flightCount = 0;
+            }else if(list.get(i).getClass() == Tour.class){
+                pack.setTour((Tour) list.get(i));
+            }
+        }
+        
+        if(checkForNull()){
+            //warning dialog
+        }
+        
+        
+        System.out.println(pack); 
+        try {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLBookingComplete.fxml"));
                 Parent root1 = (Parent) fxmlLoader.load();
                 Stage stage = new Stage();
@@ -360,10 +461,34 @@ public class SearchController implements Initializable {
             } catch(Exception e) {
                 e.printStackTrace();
             }
-        }
+        
+
+    }
+    
+    //returns true if there is null in package
+    public boolean checkForNull(){
+        if(pack.getFlight()==null || 
+                pack.getReturnFlight()==null || 
+                pack.getTour()==null || 
+                pack.getHotel()==null)
+            return true;
+        return false;
     }
 
     @FXML
     private void cancelSelectionHandler(ActionEvent event) {
+        Object selectedOb = listSelected.getSelectionModel().getSelectedItem();
+        
+        if(selectedOb == null){
+            messageField.setText("Highlight the object you whant to delete");
+            return;
+        }
+        
+        if(selectedOb.getClass() == Flight.class){
+            listSelected.getItems().remove(listSelected.getSelectionModel().getSelectedIndex());
+            flightCount--;
+        }else{
+            listSelected.getItems().remove(listSelected.getSelectionModel().getSelectedIndex());
+        }
     }
 }

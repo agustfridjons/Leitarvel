@@ -5,17 +5,28 @@
  */
 package functionality;
 
+import is.hi.Core.Flight;
+import en.hi.dtsapp.model.Tour;
+
 /**
  *
  * @author Notandi
  */
 public class Package {
     private Hotel hotel;
-    private Flights flights;
+    private Flight flight;
+    private Flight returnFlight;
     private Tour tour;
     
     public Package(){
-        
+    }
+
+    public Flight getReturnFlight() {
+        return returnFlight;
+    }
+
+    public void setReturnFlight(Flight returnflight) {
+        this.returnFlight = returnflight;
     }
 
     public Hotel getHotel() {
@@ -26,12 +37,12 @@ public class Package {
         this.hotel = hotel;
     }
 
-    public Flights getFlights() {
-        return flights;
+    public Flight getFlight() {
+        return flight;
     }
 
-    public void setFlights(Flights flights) {
-        this.flights = flights;
+    public void setFlight(Flight flight) {
+        this.flight = flight;
     }
 
     public Tour getTour() {
@@ -42,8 +53,12 @@ public class Package {
         this.tour = tour;
     }
     
-    
-    
-    
-    
+    public String toString(){
+        String s = this.flight + ", " 
+                + this.returnFlight + ", " 
+                + this.hotel + ", " 
+                + this.tour;
+        return s;
+    }
+   
 }
