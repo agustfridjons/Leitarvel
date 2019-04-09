@@ -27,13 +27,16 @@ public class BookingInfo {
     private String bookingNumber;
     
     // Tekur inn bókunar upplýsingarnar og útbýr 6 stafa bókunar númer
-    public BookingInfo(String n, String e, String a, String k){
+    public BookingInfo(String n, String e, String a, String k, String b){
         name = n;
         email = e;
         adults = a;
         kids = k;
-        bookingNumber = getRandomNumber();
-        
+        if(b == null){
+            bookingNumber = getRandomNumber();
+        }else{
+            bookingNumber = b;
+        }
         //openBookingComplete();
     }
 
@@ -64,6 +67,7 @@ public class BookingInfo {
     public String getBookingNumber() {
         return bookingNumber;
     }
+    
 
     /*private void openBookingComplete() {
         try {
@@ -77,5 +81,25 @@ public class BookingInfo {
         }
     }
     */
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setAdults(String adults) {
+        this.adults = adults;
+    }
+
+    public void setKids(String kids) {
+        this.kids = kids;
+    }
+
+    public void setBookingNumber(String bookingNumber) {
+        this.bookingNumber = bookingNumber;
+    }
 
 }
