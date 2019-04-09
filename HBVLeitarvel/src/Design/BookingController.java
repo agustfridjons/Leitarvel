@@ -65,12 +65,12 @@ public class BookingController implements Initializable {
     
     public void initializeComboBox(){
         
-        for(int i = 0; i < 11; i++){
-            box1.getItems().add(i, i + "");
+        for(int i = 1; i < 11; i++){
+            box1.getItems().add(i + "");
         }
         
         for(int i = 0; i < 11; i++){
-            box2.getItems().add(i, i + "");
+            box2.getItems().add(i + "");
         }
     }
 
@@ -102,7 +102,6 @@ public class BookingController implements Initializable {
             } catch (ParseException ex) {
                 Logger.getLogger(BookingController.class.getName()).log(Level.SEVERE, null, ex);
             }
-        
             try {
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLSearch.fxml"));
                     Parent root1 = (Parent) fxmlLoader.load(); 
@@ -203,7 +202,7 @@ public class BookingController implements Initializable {
                 //hotel details
                 if(p.getHotel() != null) { 
                     bookHotel.put("name",p.getHotel().getName());
-                    bookHotel.put("roomID",p.getHotel().getRoomID());
+                    bookHotel.put("roomID",p.getHotel().getSelectedRoom());
                 }
                 //user flight details
                 if(p.getFlight() != null) { 
