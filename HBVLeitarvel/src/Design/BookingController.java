@@ -130,6 +130,8 @@ public class BookingController implements Initializable {
         JSONObject userDetail = new JSONObject();
         JSONObject hotelDetail = new JSONObject();
         JSONObject flightDetail = new JSONObject();
+        JSONObject flightFrom = new JSONObject();
+        JSONObject flightTo = new JSONObject();
         JSONObject tourDetail = new JSONObject();
         JSONObject bookDetail = new JSONObject();
         //user booking details
@@ -148,10 +150,18 @@ public class BookingController implements Initializable {
         hotelDetail.put("name","");
         hotelDetail.put("roomID","");
         //user flight details
-        flightDetail.put("name", "");
-        flightDetail.put("flightID", "");
-        flightDetail.put("date", "");
-        flightDetail.put("time", "");
+        flightFrom.put("name", "");
+        flightFrom.put("flightID", "");
+        flightFrom.put("date", "");
+        flightFrom.put("time", "");
+        
+        flightTo.put("name", "");
+        flightTo.put("flightID", "");
+        flightTo.put("date", "");
+        flightTo.put("time", "");
+        
+        flightDetail.put("flightFrom",flightFrom);
+        flightDetail.put("flightTo",flightTo);
         //user tour details
         tourDetail.put("name","");
         tourDetail.put("startTime","");
@@ -191,6 +201,8 @@ public class BookingController implements Initializable {
             System.out.println("bookUser.get... -> " + bID);
             if(id.equals(bID)){
                 JSONObject bookFlight = (JSONObject) book.get("flight");
+                JSONObject flightTo = (JSONObject) bookFlight.get("flightTo");
+                JSONObject flightFrom = (JSONObject) bookFlight.get("flightFrom");
                 JSONObject bookHotel = (JSONObject) book.get("hotel");
                 JSONObject bookTour = (JSONObject) book.get("tour");
 
@@ -205,12 +217,18 @@ public class BookingController implements Initializable {
                     bookHotel.put("roomID",p.getHotel().getSelectedRoom());
                 }
                 //user flight details
-                if(p.getFlight() != null) { 
-                    bookFlight.put("name", p.getFlight().getAirline());
-                    bookFlight.put("flightID", p.getFlight().getfNumber());
-                    bookFlight.put("date", ("" + p.getFlight().getDate()));
-                    bookFlight.put("time", ("" + p.getFlight().getTime()));
+                if(p.getFlight() != null || p.getReturnFlight() != null) { 
+                    flightTo.put("name", p.getFlight().getAirline());
+                    flightTo.put("flightID", p.getFlight().getfNumber());
+                    flightTo.put("date", ("" + p.getFlight().getDate()));
+                    flightTo.put("time", ("" + p.getFlight().getTime()));
+                    
+                    flightFrom.put("name", p.getFlight().getAirline());
+                    flightFrom.put("flightID", p.getFlight().getfNumber());
+                    flightFrom.put("date", ("" + p.getFlight().getDate()));
+                    flightFrom.put("time", ("" + p.getFlight().getTime()));
                 }
+                
                 //user tour details
                 if(p.getTour() != null) {
                     bookTour.put("name",p.getTour().getName());
