@@ -27,13 +27,16 @@ public class BookingInfo {
     private String bookingNumber;
     
     // Tekur inn bókunar upplýsingarnar og útbýr 6 stafa bókunar númer
-    public BookingInfo(String n, String e, String a, String k){
+    public BookingInfo(String n, String e, String a, String k, String b){
         name = n;
         email = e;
         adults = a;
         kids = k;
-        bookingNumber = getRandomNumber();
-        
+        if(b == null){
+            bookingNumber = getRandomNumber();
+        }else{
+            bookingNumber = b;
+        }
         //openBookingComplete();
     }
 

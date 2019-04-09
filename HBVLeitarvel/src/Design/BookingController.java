@@ -80,37 +80,38 @@ public class BookingController implements Initializable {
         if(!validEmail(email.getText())){
             messageField.setText("Email address is not valid");
         } else{
-            // Opnar BookingComplete
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLSearch.fxml"));
-                Parent root1 = (Parent) fxmlLoader.load();
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root1));
-                stage.show();
-            } catch(Exception e) {
-                e.printStackTrace();
-            }
-        }
    
-        // Sendir bókunar upplýsingarnar í BookingInfo klasann
-        x = new BookingInfo(
-                name.getText(), 
-                email.getText(),
-                box1.getSelectionModel().getSelectedItem(), 
-                box2.getSelectionModel().getSelectedItem()
-        );
-        System.out.println("Name: " + x.getName());
-        System.out.println("Email: " + x.getEmail());
-        System.out.println("Adults: " + x.getAdults());
-        System.out.println("Kids: " + x.getKids());
-        System.out.println("Booking number: " + x.getBookingNumber());
+            // Sendir bókunar upplýsingarnar í BookingInfo klasann
+            x = new BookingInfo(
+                    name.getText(), 
+                    email.getText(),
+                    box1.getSelectionModel().getSelectedItem(), 
+                    box2.getSelectionModel().getSelectedItem(),
+                    null
+            );
+            System.out.println("Name: " + x.getName());
+            System.out.println("Email: " + x.getEmail());
+            System.out.println("Adults: " + x.getAdults());
+            System.out.println("Kids: " + x.getKids());
+            System.out.println("Booking number: " + x.getBookingNumber());
         
-        try {
-            bookJson(x);
-        } catch (IOException ex) {
-            Logger.getLogger(BookingController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
-            Logger.getLogger(BookingController.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                bookJson(x);
+            } catch (IOException ex) {
+                Logger.getLogger(BookingController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParseException ex) {
+                Logger.getLogger(BookingController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
+            try {
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLSearch.fxml"));
+                    Parent root1 = (Parent) fxmlLoader.load(); 
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(root1));
+                    stage.show();
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
         }
     }
 
@@ -245,21 +246,22 @@ public class BookingController implements Initializable {
                 JSONObject json = (JSONObject) bookingList.get(i);
                 JSONObject book = (JSONObject) json.get("booking");
                 JSONObject bookUser = (JSONObject) book.get("user");
-                long id = (long) bookUser.get("bookingID");
+                String s = (String) bookUser.get("bookingID");
+                long id = Long.valueOf(s);
                 //check if the bookingID matches
                 //if it does match we update with new information
                 if(id == bookingID) {
                     String name = (String)bookUser.get("name");
                     String email = (String)bookUser.get("email");
-                    long chil = (long)bookUser.get("children");
-                    long adul = (long)bookUser.get("adults");
-                    long bID = (long)bookUser.get("bookingID");
+                    String chil = (String)bookUser.get("children");
+                    String adul = (String)bookUser.get("adults");
+                    String bID = (String)bookUser.get("bookingID");
                     
-                    arr.add(""+bID);
+                    arr.add(bID);
                     arr.add(name);
                     arr.add(email);
-                    arr.add(""+chil);
-                    arr.add(""+adul);
+                    arr.add(chil);
+                    arr.add(adul);
                 }
             }
         }
@@ -280,7 +282,8 @@ public class BookingController implements Initializable {
             JSONObject json = (JSONObject) bookingList.get(bookingList.size()-1);
             JSONObject book = (JSONObject) json.get("booking");
             JSONObject bookUser = (JSONObject) book.get("user");
-            id = (long) bookUser.get("bookingID");
+            String s = (String) bookUser.get("bookingID");
+            id = Long.valueOf(s);
         }
         return id;
     }

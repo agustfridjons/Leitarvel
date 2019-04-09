@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  *
  * @author Notandi
  */
-public class Package {
+public final class Package {
     private Hotel hotel;
     private Flight flight;
     private Flight returnFlight;
@@ -26,27 +26,31 @@ public class Package {
     private BookingInfo bookingInfo;
     
     public Package(){
+        System.out.println("Made package");
         BookingController b = new BookingController();
         
         try {
             long i = b.getLastBook();
             
             ArrayList l = b.returnBooking(i);
-            
+            makeBookingInfo(l);
             
         } catch (IOException ex) {
             Logger.getLogger(Package.class.getName()).log(Level.SEVERE, null, ex);
         }
-        ;
+        
     }
     
     public void makeBookingInfo(ArrayList<String> l) {
-        
-        bookingInfo.setBookingNumber(l.get(0));
-        bookingInfo.setName(l.get(1));
-        bookingInfo.setEmail(l.get(2));
-        bookingInfo.setKids(l.get(3));
-        bookingInfo.setAdults(l.get(4));
+        bookingInfo = new BookingInfo(l.get(1),l.get(2),l.get(3),l.get(4),l.get(0));
+        for(int i = 0; i < l.size(); i++) {
+            System.out.println(l.get(i));
+        }
+        bookingInfo.setBookingNumber("bid" + l.get(0));
+        bookingInfo.setName("name: " +l.get(1));
+        bookingInfo.setEmail("mail " +l.get(2));
+        bookingInfo.setKids("kids " +l.get(3));
+        bookingInfo.setAdults("adults " +l.get(4));
         
     }
     

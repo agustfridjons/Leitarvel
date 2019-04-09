@@ -79,7 +79,8 @@ public class SearchController implements Initializable {
     @FXML
     private Label searchLabel;
     
-    private Package pack = new Package();
+    private Package pack;
+
     private int flightCount = 0;
     
     //Tour Obj
@@ -498,6 +499,7 @@ public class SearchController implements Initializable {
 
     @FXML
     private void cancelSelectionHandler(ActionEvent event) {
+        pack = new Package();
         Object selectedOb = listSelected.getSelectionModel().getSelectedItem();
         TF1.setText(pack.getBookingInfo().getName());
         if(selectedOb == null){
