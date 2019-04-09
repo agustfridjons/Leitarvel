@@ -513,7 +513,7 @@ public class SearchController implements Initializable {
         }
         
         
-        /*
+        
         System.out.println(pack); 
         try {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLBookingComplete.fxml"));
@@ -524,7 +524,7 @@ public class SearchController implements Initializable {
             } catch(Exception e) {
                 e.printStackTrace();
             }
-        */
+        
 
     }
     
