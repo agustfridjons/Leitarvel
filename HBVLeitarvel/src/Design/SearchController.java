@@ -5,7 +5,6 @@
  */
 package Design;
 
-import functionality.BookingInfo;
 import en.hi.dtsapp.controller.TourCatalog;
 import en.hi.dtsapp.model.Tour;
 import vinnsla.Hotel;
@@ -17,7 +16,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -35,8 +33,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.json.simple.parser.ParseException;
+import vinnsla.Hotelroom;
 import vinnsla.SearchQuery;
 import vinnsla.SearchHotel;
 
@@ -54,8 +54,6 @@ public class SearchController implements Initializable {
     @FXML
     private TextField TF2;
     @FXML
-    private TextField intTF;
-    @FXML
     private Label messageField;
     @FXML
     private DatePicker fromDp;
@@ -69,8 +67,6 @@ public class SearchController implements Initializable {
     private Label label3;
     @FXML
     private Label label4;
-    @FXML
-    private Label intLabel;
     @FXML
     private RadioButton radioHotel;
     @FXML
@@ -90,12 +86,20 @@ public class SearchController implements Initializable {
     @FXML
     private RadioButton isa;
     @FXML
-    private ComboBox<String> ratingBox;
+    private ComboBox<Integer> ratingBox;
     @FXML
-    private Label label41;
+    private Label label8;
+    @FXML
+    private Label label7;
+    @FXML
+    private ComboBox<Hotelroom> roomBox;
+    @FXML
+    private Label label6;
+    
     
     private Package pack = new Package();
 
+    private int searchOp = 0; 
 
     private int flightCount = 0;
     
@@ -111,13 +115,6 @@ public class SearchController implements Initializable {
     //Hotel mock
     private String hotelLocation;
     
-    
-    
-    private HotelObj mock = new HotelObj();
-    private ArrayList<Hotel> hotels = mock.getList();
-    
-    private int searchOp = 0; 
-    
     /**
      * Initializes the controller class.
      */
@@ -131,7 +128,7 @@ public class SearchController implements Initializable {
     public void initializeComboBox(){
         
         for(int i = 1; i < 6; i++){
-            ratingBox.getItems().add(i + "");
+            ratingBox.getItems().add(i);
         }
     }
  
@@ -145,10 +142,17 @@ public class SearchController implements Initializable {
         LocalDate d2 = toDp.getValue();
         
         if(searchOp == 1){
-            SearchQuery searchQuery = new SearchQuery(LocalDate.of(2019,Month.APRIL,10),LocalDate.of(2019,Month.APRIL,25), "Reykjavík",2,true,3);
+            int numPers = Integer.parseInt(pack.getBookingInfo().getAdults()) + Integer.parseInt(pack.getBookingInfo().getKids());
+            int rating = ratingBox.getSelectionModel().getSelectedItem();
+            SearchQuery searchQuery = new SearchQuery(d1,d2, hotelLocation, numPers, false, rating);
             SearchHotel sh = new SearchHotel();
             ArrayList<Hotel> hotelsFound = sh.search(searchQuery);
-            System.out.println(hotelsFound.get(0));
+            try{
+                if(null == hotelsFound.get(0))
+                    messageField.setText("No hotel found.");
+            }catch(IndexOutOfBoundsException e){
+                messageField.setText("No hotel found.");
+            }
             showList(hotelsFound);
         }else if(searchOp == 0){
             try{
@@ -172,7 +176,7 @@ public class SearchController implements Initializable {
             }
         }else if(searchOp == 4){
             int p;
-            if(!intTF.getText().equals("")){
+            /*if(!intTF.getText().equals("")){
                 try{
                 p = Integer.parseInt(intTF.getText());
                 }catch(NumberFormatException e){
@@ -181,7 +185,7 @@ public class SearchController implements Initializable {
                 }
             }else{
                 p = 0;
-            }
+            }*/
 
             //ArrayList<Hotel> result = searchHotel(tf1,tf2,p);
             //showList(result);
@@ -333,8 +337,6 @@ public class SearchController implements Initializable {
     public void resetDisplay(){
         toDp.setVisible(true);
         label4.setVisible(true);
-        intLabel.setVisible(true);
-        intTF.setVisible(true);
         label2.setVisible(true);
         TF2.setVisible(true);
         label1.setVisible(true);
@@ -344,17 +346,18 @@ public class SearchController implements Initializable {
         Kef.setVisible(false);
         isa.setVisible(false);
         ratingBox.setVisible(false);
-        label41.setVisible(false);
+        roomBox.setVisible(false);
+        label8.setVisible(false);
+        label6.setVisible(false);
+        label7.setVisible(false);
         fromDp.setValue(null);
         toDp.setValue(null);
         TF1.setText("");
         TF2.setText("");
-        intTF.setText("");
         label1.setText("");
         label2.setText("");
         label3.setText("");
         label4.setText("");
-        intLabel.setText("");
         listV.getItems().clear();
     }
 
@@ -378,19 +381,19 @@ public class SearchController implements Initializable {
                 Kef.setSelected(false);
                 isa.setSelected(false);
                 ratingBox.setVisible(true);
-                label41.setVisible(true);
+                label8.setVisible(true);
+                label7.setVisible(true);
+                label6.setVisible(true);
+                roomBox.setVisible(true);
                 label2.setVisible(false);
                 TF2.setVisible(false);
                 TF1.setVisible(false);
                 label1.setVisible(false);
-                intTF.setVisible(false);
-                intLabel.setVisible(false);
                 searchLabel.setText(searchLabel.getText().substring(0, 13)+ "Hotels");
                 label1.setText("Hotel:");
                 label2.setText("Location:");
                 label3.setText("Check in date:");
                 label4.setText("Check out date:");
-                intLabel.setText("Max price:");
                 break;
             case 0:
                 resetDisplay();
@@ -403,7 +406,6 @@ public class SearchController implements Initializable {
                 label2.setText("Destination location:");
                 label3.setText("Departure date:");
                 label4.setText("Return date:");
-                intLabel.setText("Max price:");
                 break;
             case 2:
                 resetDisplay();
@@ -417,7 +419,6 @@ public class SearchController implements Initializable {
                 label4.setText("Date to:");
                 label2.setVisible(false);
                 TF2.setVisible(false);
-                intLabel.setText("Max price:");
                 try{
                     tc = new TourCatalog();
                 }catch(Exception e){
@@ -440,8 +441,13 @@ public class SearchController implements Initializable {
             return;
         }
         
-        if(selectedObj.getClass() == Flight.class)
-                flightCount++;
+        if(selectedObj.getClass() == Flight.class){
+            flightCount++;
+        }else if(selectedObj.getClass() == Hotel.class){
+            Hotelroom hr = roomBox.getSelectionModel().getSelectedItem();
+            Hotel h = (Hotel) selectedObj;
+            h.setSelectedRoom(""+hr.getHotelroomNumber());
+        }
         
         for(int i = 0; i < list.size(); i++){
             if(list.get(i).getClass() == Flight.class){
@@ -473,11 +479,8 @@ public class SearchController implements Initializable {
                 f = (Flight)list.get(i);
                 for(int j = i+1; j < list.size(); j++){
                     if(list.get(j).getClass() == Flight.class){
-                        rf = (Flight) list.get(j);
-                        System.out.println(f);
-                        System.out.println(rf);                        
+                        rf = (Flight) list.get(j);               
                         if(f.getDate().compareTo(rf.getDate()) > 0){
-                            System.out.println("switch fligths");
                             Flight temp = f;
                             f = rf;
                             rf = temp;
@@ -565,34 +568,50 @@ public class SearchController implements Initializable {
     private void setHotelLocation(ActionEvent event) {
         RadioButton buttonPress = (RadioButton)event.getSource();
         int buttonId = Integer.parseInt(buttonPress.getId());
-        if(buttonId == 0){
-            hotelLocation = "Reykjavik";
-            reyk.setSelected(true);
-            egill.setSelected(false);
-            Kef.setSelected(false);
-            isa.setSelected(false);                    
-        } 
-        else if(buttonId == 1){
-            hotelLocation = "Egilsstaðir";
-            reyk.setSelected(false);
-            egill.setSelected(true);
-            Kef.setSelected(false);
-            isa.setSelected(false);        
-        }
-        else if(buttonId == 2){
-            hotelLocation = "Keflavík";
-            reyk.setSelected(false);
-            egill.setSelected(false);
-            Kef.setSelected(true);
-            isa.setSelected(false);        
-        }
-        else if(buttonId == 3){
-            hotelLocation = "Ísafjörður";
-            reyk.setSelected(false);
-            egill.setSelected(false);
-            Kef.setSelected(false);
-            isa.setSelected(true);        
+        switch (buttonId) {
+            case 0:
+                hotelLocation = "Reykjavik";
+                reyk.setSelected(true);
+                egill.setSelected(false);
+                Kef.setSelected(false);
+                isa.setSelected(false);
+                break;
+            case 1:
+                hotelLocation = "Egilsstaðir";
+                reyk.setSelected(false);
+                egill.setSelected(true);
+                Kef.setSelected(false);
+                isa.setSelected(false);
+                break;
+            case 2:
+                hotelLocation = "Keflavik";
+                reyk.setSelected(false);
+                egill.setSelected(false);
+                Kef.setSelected(true);
+                isa.setSelected(false);
+                break;
+            case 3:
+                hotelLocation = "Isafjörður";
+                reyk.setSelected(false);
+                egill.setSelected(false);
+                Kef.setSelected(false);        
+                isa.setSelected(true);
+                break;
+            default:
+                break;
         }
         
+    }
+
+    @FXML
+    private void checkHotelHandler(MouseEvent event) {
+        if(listV.getSelectionModel().getSelectedItem().getClass() == Hotel.class){
+            Hotel h = (Hotel)listV.getSelectionModel().getSelectedItem();
+            ArrayList<Hotelroom> roomList = h.getHotelrooms();
+            for(int i = 0; i < roomList.size(); i++){
+                roomBox.getItems().add(roomList.get(i));
+            }
+            messageField.setText("Pick a room.");
+        }
     }
 }

@@ -9,7 +9,7 @@ package vinnsla;
  *
  * @author Bjartur
  */
-class Hotelroom {
+public class Hotelroom {
     private String hotel;
     private int hotelroomId;
     private int oneNightPrice;
@@ -47,5 +47,9 @@ class Hotelroom {
     public void setAvailable(boolean available) {
         this.available = available;
     }
+    
+    public String toString(){
+        return this.hotelroomId + ", Price: " + this.oneNightPrice; 
+    } 
     
 }
