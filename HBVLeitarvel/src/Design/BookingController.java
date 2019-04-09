@@ -137,7 +137,12 @@ public class BookingController implements Initializable {
         userDetail.put("bookingID", b.getBookingNumber());
         userDetail.put("name", b.getName());
         userDetail.put("email", b.getEmail());
-        userDetail.put("children", b.getKids());
+        if(b.getKids() != null) {
+            userDetail.put("children", b.getKids());
+        } else
+        {
+            userDetail.put("children", "0");
+        }
         userDetail.put("adults", b.getAdults());
         //hotel stuff
         hotelDetail.put("name","");
@@ -203,8 +208,8 @@ public class BookingController implements Initializable {
                 if(p.getFlight() != null) { 
                     bookFlight.put("name", p.getFlight().getAirline());
                     bookFlight.put("flightID", p.getFlight().getfNumber());
-                    bookFlight.put("date", p.getFlight().getDate());
-                    bookFlight.put("time", p.getFlight().getTime());
+                    bookFlight.put("date", ("" + p.getFlight().getDate()));
+                    bookFlight.put("time", ("" + p.getFlight().getTime()));
                 }
                 //user tour details
                 if(p.getTour() != null) {
