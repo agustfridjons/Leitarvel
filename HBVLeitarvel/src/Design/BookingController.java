@@ -134,26 +134,7 @@ public class BookingController implements Initializable {
         JSONObject tourDetail = new JSONObject();
         JSONObject bookDetail = new JSONObject();
         //user booking details
-        /*
-        userDetail.put("bookingID", x.getBookingNumber());
-        userDetail.put("name", x.getName());
-        userDetail.put("email", x.getEmail());
-        userDetail.put("children", x.getKids());
-        userDetail.put("adults", x.getAdults());
-        //hotel details
-        hotelDetail.put("name",p.getHotel().getName());
-        hotelDetail.put("roomID",p.getHotel().getRoomID());
-        //user flight details
-        flightDetail.put("name", p.getFlight().getAirline());
-        flightDetail.put("flightID", p.getFlight().getfNumber());
-        flightDetail.put("date", p.getFlight().getDate());
-        flightDetail.put("time", p.getFlight().getTime());
-        //user tour details
-        tourDetail.put("name",p.getTour().getName());
-        tourDetail.put("startTime",p.getTour().getStartTime());
-        //put the hotel/flight/tour into a booking object
         
-        */
         userDetail.put("bookingID", b.getBookingNumber());
         userDetail.put("name", b.getName());
         userDetail.put("email", b.getEmail());
@@ -199,29 +180,38 @@ public class BookingController implements Initializable {
             JSONObject json = (JSONObject) bookingList.get(i);
             JSONObject book = (JSONObject) json.get("booking");
             JSONObject bookUser = (JSONObject) book.get("user");
-            String id = "" + x.getBookingNumber();
+            String id = "" + p.getBookingInfo().getBookingNumber();
+            System.out.println(i);
             String bID = (String) bookUser.get("bookingID");
+            System.out.println("p.getBookingInfo().getBookingNumber() -> " + id);
+            System.out.println("bookUser.get... -> " + bID);
             if(id.equals(bID)){
                 JSONObject bookFlight = (JSONObject) book.get("flight");
                 JSONObject bookHotel = (JSONObject) book.get("hotel");
                 JSONObject bookTour = (JSONObject) book.get("tour");
 
-                bookUser.put("bookingID", x.getBookingNumber());
-                bookUser.put("name", x.getName());
-                bookUser.put("email", x.getEmail());
-                bookUser.put("children", x.getKids());
-                bookUser.put("adults", x.getAdults());
+                bookUser.put("bookingID", p.getBookingInfo().getBookingNumber());
+                bookUser.put("name", p.getBookingInfo().getName());
+                bookUser.put("email", p.getBookingInfo().getEmail());
+                bookUser.put("children", p.getBookingInfo().getKids());
+                bookUser.put("adults", p.getBookingInfo().getAdults());
                 //hotel details
-                bookHotel.put("name",p.getHotel().getName());
-                bookHotel.put("roomID",p.getHotel().getRoomID());
+                if(p.getHotel() != null) { 
+                    bookHotel.put("name",p.getHotel().getName());
+                    bookHotel.put("roomID",p.getHotel().getRoomID());
+                }
                 //user flight details
-                bookFlight.put("name", p.getFlight().getAirline());
-                bookFlight.put("flightID", p.getFlight().getfNumber());
-                bookFlight.put("date", p.getFlight().getDate());
-                bookFlight.put("time", p.getFlight().getTime());
+                if(p.getFlight() != null) { 
+                    bookFlight.put("name", p.getFlight().getAirline());
+                    bookFlight.put("flightID", p.getFlight().getfNumber());
+                    bookFlight.put("date", p.getFlight().getDate());
+                    bookFlight.put("time", p.getFlight().getTime());
+                }
                 //user tour details
-                bookTour.put("name",p.getTour().getName());
-                bookTour.put("startTime",p.getTour().getStartTime());
+                if(p.getTour() != null) {
+                    bookTour.put("name",p.getTour().getName());
+                    bookTour.put("startTime",p.getTour().getStartTime());
+                }
                 
                 writeJson(bookingList);
             }

@@ -46,11 +46,11 @@ public final class Package {
         for(int i = 0; i < l.size(); i++) {
             System.out.println(l.get(i));
         }
-        bookingInfo.setBookingNumber("bid" + l.get(0));
-        bookingInfo.setName("name: " +l.get(1));
-        bookingInfo.setEmail("mail " +l.get(2));
-        bookingInfo.setKids("kids " +l.get(3));
-        bookingInfo.setAdults("adults " +l.get(4));
+        bookingInfo.setBookingNumber(l.get(0));
+        bookingInfo.setName(l.get(1));
+        bookingInfo.setEmail(l.get(2));
+        bookingInfo.setKids(l.get(3));
+        bookingInfo.setAdults(l.get(4));
         
     }
     

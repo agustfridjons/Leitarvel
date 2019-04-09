@@ -79,7 +79,8 @@ public class SearchController implements Initializable {
     @FXML
     private Label searchLabel;
     
-    private Package pack;
+    private Package pack = new Package();
+
 
     private int flightCount = 0;
     
@@ -460,6 +461,7 @@ public class SearchController implements Initializable {
         
         
         try {
+            System.out.println("updating");
             book(pack);
         } catch (IOException ex) {
             Logger.getLogger(SearchController.class.getName()).log(Level.SEVERE, null, ex);
@@ -467,6 +469,8 @@ public class SearchController implements Initializable {
             Logger.getLogger(SearchController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        
+        /*
         System.out.println(pack); 
         try {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLBookingComplete.fxml"));
@@ -477,7 +481,7 @@ public class SearchController implements Initializable {
             } catch(Exception e) {
                 e.printStackTrace();
             }
-        
+        */
 
     }
     
@@ -499,7 +503,6 @@ public class SearchController implements Initializable {
 
     @FXML
     private void cancelSelectionHandler(ActionEvent event) {
-        pack = new Package();
         Object selectedOb = listSelected.getSelectionModel().getSelectedItem();
         TF1.setText(pack.getBookingInfo().getName());
         if(selectedOb == null){
