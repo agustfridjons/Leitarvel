@@ -7,6 +7,7 @@ package functionality;
 
 import is.hi.Core.Flight;
 import en.hi.dtsapp.model.Tour;
+import vinnsla.Hotel;
 
 /**
  *

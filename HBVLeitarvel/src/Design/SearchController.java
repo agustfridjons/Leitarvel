@@ -7,7 +7,7 @@ package Design;
 
 import en.hi.dtsapp.controller.TourCatalog;
 import en.hi.dtsapp.model.Tour;
-import functionality.Hotel;
+import vinnsla.Hotel;
 import functionality.Package;
 import is.hi.Core.DatabaseController;
 import is.hi.Core.Flight;
@@ -15,6 +15,7 @@ import is.hi.Core.FlightController;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
@@ -26,6 +27,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import vinnsla.SearchQuery;
+import vinnsla.SearchHotel;
+
 
 /**
  * FXML Controller class
@@ -72,6 +76,8 @@ public class SearchController implements Initializable {
     private Package pack = new Package();
     private int flightCount = 0;
     
+    //Booking
+    
     //Tour Obj
     private TourCatalog tc;
     
@@ -90,18 +96,25 @@ public class SearchController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO        
+        // TODO
+        
     }    
 
     @FXML
-    private void searchButtonHandler(ActionEvent event) {
+    private void searchButtonHandler(ActionEvent event) throws SQLException {
         messageField.setText("");
         String tf1 = TF1.getText();
         String tf2 = TF2.getText();
         LocalDate d1 = fromDp.getValue();
         LocalDate d2 = toDp.getValue();
         
-        if(searchOp == 0){
+        if(searchOp == 1){
+            SearchQuery searchQuery = new SearchQuery(LocalDate.of(2019,Month.APRIL,10),LocalDate.of(2019,Month.APRIL,25), "Reykjavík",2,true,3);
+            SearchHotel sh = new SearchHotel();
+            ArrayList<Hotel> hotelsFound = sh.search(searchQuery);
+            System.out.println(hotelsFound.get(0));
+            showList(hotelsFound);
+        }else if(searchOp == 0){
             try{
                 if(d1 == null){
                     messageField.setText("Select a date.");
@@ -111,15 +124,17 @@ public class SearchController implements Initializable {
                     return;
                 }
                 ArrayList<Flight> resultFrom = searchFlights(tf1,tf2,d1);
-                ArrayList<Flight> resultTo = searchFlights(tf2,tf1,d2);
-                for(int i = 0; i < resultTo.size(); i++){
-                    resultFrom.add(resultTo.get(i));
+                if(d2 != null){
+                    ArrayList<Flight> resultTo = searchFlights(tf2,tf1,d2);
+                    for(int i = 0; i < resultTo.size(); i++){
+                        resultFrom.add(resultTo.get(i));
+                    }
                 }
                 showList(resultFrom);
             }catch(Exception e){
                 messageField.setText("Set");
             }
-        }else if(searchOp == 1){
+        }else if(searchOp == 4){
             int p;
             if(!intTF.getText().equals("")){
                 try{
@@ -132,8 +147,8 @@ public class SearchController implements Initializable {
                 p = 0;
             }
 
-            ArrayList<Hotel> result = searchHotel(tf1,tf2,p);
-            showList(result);
+            //ArrayList<Hotel> result = searchHotel(tf1,tf2,p);
+            //showList(result);
         }else{
             if(d1 == null){
                     messageField.setText("Select a date.");
@@ -156,14 +171,6 @@ public class SearchController implements Initializable {
         }
     }
     
-    public static boolean isSubstring(String a, String b){
-        for(int i  = 0; i < a.length()-b.length(); i++)
-            if(a.substring(i, b.length()+i).equalsIgnoreCase(b)){
-                return true;
-        }
-        return false;
-    }
-    
     public ArrayList searchFlights(String from, String to, LocalDate d1){
         ArrayList<Flight> flights = new ArrayList();
         try{
@@ -183,6 +190,14 @@ public class SearchController implements Initializable {
         ArrayList<String> exceptions = new ArrayList();
         tours = tc.getToursBySearchParameters(kw,d1,d2,exceptions);
         return tours;
+    }
+    /*
+    public static boolean isSubstring(String a, String b){
+        for(int i  = 0; i < a.length()-b.length(); i++)
+            if(a.substring(i, b.length()+i).equalsIgnoreCase(b)){
+                return true;
+        }
+        return false;
     }
     
     public ArrayList searchHotel(String name, String location, int maxPrice){
@@ -278,7 +293,7 @@ public class SearchController implements Initializable {
         }
         return priceFilter;
     }
-    
+    */
     public void resetDisplay(){
         toDp.setVisible(true);
         label4.setVisible(true);
