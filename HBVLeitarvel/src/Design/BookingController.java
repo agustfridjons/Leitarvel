@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package Design;
-
+import functionality.Package;
 import functionality.BookingInfo;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -34,7 +34,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.ParseException;
 import org.json.simple.parser.JSONParser;
-
 
 /**
  * FXML Controller class
@@ -83,7 +82,7 @@ public class BookingController implements Initializable {
         } else{
             // Opnar BookingComplete
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLSearchAndBook.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLSearch.fxml"));
                 Parent root1 = (Parent) fxmlLoader.load();
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root1));
@@ -106,7 +105,13 @@ public class BookingController implements Initializable {
         System.out.println("Kids: " + x.getKids());
         System.out.println("Booking number: " + x.getBookingNumber());
         
-
+        try {
+            bookJson(x);
+        } catch (IOException ex) {
+            Logger.getLogger(BookingController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(BookingController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     // Athugar hvort netfang sé gilt 
@@ -115,7 +120,8 @@ public class BookingController implements Initializable {
         return email.matches("^[a-zA-Z0-9]+@[a-zA-Z0-9]+.[a-zA-Z0-9]+");
     }
     
-    public static void bookJson(/*String flightFrom, String flightTo*/String name, String email, int adults, int children, int bookID) throws IOException, ParseException{
+    public void bookJson(BookingInfo b) throws IOException, ParseException{
+        
         
         //get json file
         JSONArray bookList = jsonRead();
@@ -127,27 +133,42 @@ public class BookingController implements Initializable {
         JSONObject tourDetail = new JSONObject();
         JSONObject bookDetail = new JSONObject();
         //user booking details
-        userDetail.put("bookingID", bookID);
-        userDetail.put("name", name);
-        userDetail.put("email", email);
-        userDetail.put("children", children);
-        userDetail.put("adults", adults);
+        /*
+        userDetail.put("bookingID", x.getBookingNumber());
+        userDetail.put("name", x.getName());
+        userDetail.put("email", x.getEmail());
+        userDetail.put("children", x.getKids());
+        userDetail.put("adults", x.getAdults());
         //hotel details
-        hotelDetail.put("name",name);
-        hotelDetail.put("location",name);
-        hotelDetail.put("pricePerNight",name);
-        hotelDetail.put("dateStart",name);
-        hotelDetail.put("dateEnd",name);
+        hotelDetail.put("name",p.getHotel().getName());
+        hotelDetail.put("roomID",p.getHotel().getRoomID());
         //user flight details
-        flightDetail.put("from", name);
-        flightDetail.put("to", name);
-        flightDetail.put("price", name);
-        flightDetail.put("dateStart", name);
-        flightDetail.put("dateEnd", name);
+        flightDetail.put("name", p.getFlight().getAirline());
+        flightDetail.put("flightID", p.getFlight().getfNumber());
+        flightDetail.put("date", p.getFlight().getDate());
+        flightDetail.put("time", p.getFlight().getTime());
         //user tour details
-        tourDetail.put("activityName",name);
-        tourDetail.put("activityLocation",name);
-        tourDetail.put("activityPrice",name);
+        tourDetail.put("name",p.getTour().getName());
+        tourDetail.put("startTime",p.getTour().getStartTime());
+        //put the hotel/flight/tour into a booking object
+        
+        */
+        userDetail.put("bookingID", b.getBookingNumber());
+        userDetail.put("name", b.getName());
+        userDetail.put("email", b.getEmail());
+        userDetail.put("children", b.getKids());
+        userDetail.put("adults", b.getAdults());
+        //hotel stuff
+        hotelDetail.put("name","");
+        hotelDetail.put("roomID","");
+        //user flight details
+        flightDetail.put("name", "");
+        flightDetail.put("flightID", "");
+        flightDetail.put("date", "");
+        flightDetail.put("time", "");
+        //user tour details
+        tourDetail.put("name","");
+        tourDetail.put("startTime","");
         //put the hotel/flight/tour into a booking object
         bookDetail.put("user",userDetail);
         bookDetail.put("hotel",hotelDetail);
@@ -159,17 +180,16 @@ public class BookingController implements Initializable {
         bookList.add(bookingDetail);
         //write into json file
         writeJson(bookList);
-
     }
     
-    public static void getBooking(int BookingID) throws FileNotFoundException, IOException, ParseException {
+    public void getBooking(int BookingID) throws FileNotFoundException, IOException, ParseException {
         
         JSONArray bookingList = jsonRead();
 
         bookingList.forEach( book -> parseBookingObject( (JSONObject) book) );
     }
     
-    public static void updateBooking(long bookingID, String name, String email, int children, int adults) throws IOException, FileNotFoundException, ParseException {
+    public void updateBooking(Package p) throws IOException, FileNotFoundException, ParseException {
         
         JSONArray bookingList = jsonRead();
             
@@ -178,21 +198,36 @@ public class BookingController implements Initializable {
             JSONObject json = (JSONObject) bookingList.get(i);
             JSONObject book = (JSONObject) json.get("booking");
             JSONObject bookUser = (JSONObject) book.get("user");
-            long id = (long) bookUser.get("bookingID");
-            //check if the bookingID matches
-            //if it does match we update with new information
-            if(id == bookingID) {
-                bookUser.put("name", name); 
-                bookUser.put("email", email);
-                bookUser.put("children", children);
-                bookUser.put("adults", adults);
+            String id = "" + x.getBookingNumber();
+            String bID = (String) bookUser.get("bookingID");
+            if(id.equals(bID)){
+                JSONObject bookFlight = (JSONObject) book.get("flight");
+                JSONObject bookHotel = (JSONObject) book.get("hotel");
+                JSONObject bookTour = (JSONObject) book.get("tour");
 
+                bookUser.put("bookingID", x.getBookingNumber());
+                bookUser.put("name", x.getName());
+                bookUser.put("email", x.getEmail());
+                bookUser.put("children", x.getKids());
+                bookUser.put("adults", x.getAdults());
+                //hotel details
+                bookHotel.put("name",p.getHotel().getName());
+                bookHotel.put("roomID",p.getHotel().getRoomID());
+                //user flight details
+                bookFlight.put("name", p.getFlight().getAirline());
+                bookFlight.put("flightID", p.getFlight().getfNumber());
+                bookFlight.put("date", p.getFlight().getDate());
+                bookFlight.put("time", p.getFlight().getTime());
+                //user tour details
+                bookTour.put("name",p.getTour().getName());
+                bookTour.put("startTime",p.getTour().getStartTime());
+                
                 writeJson(bookingList);
             }
         }
     }
     
-    public static ArrayList returnBooking (long bookingID) {
+    public ArrayList returnBooking (long bookingID) {
         
         ArrayList<String> arr = new ArrayList();
         JSONArray bookingList = null;
@@ -219,18 +254,18 @@ public class BookingController implements Initializable {
                     long chil = (long)bookUser.get("children");
                     long adul = (long)bookUser.get("adults");
                     long bID = (long)bookUser.get("bookingID");
-
-                    arr.add(name);
+                    
                     arr.add(""+bID);
+                    arr.add(name);
+                    arr.add(email);
                     arr.add(""+chil);
                     arr.add(""+adul);
-                    arr.add(email);
                 }
             }
         }
         return arr;
     }
-    public static long getLastBook() throws IOException {
+    public long getLastBook() throws IOException {
         JSONArray bookingList = null;
         try {
             bookingList = jsonRead();
@@ -256,7 +291,7 @@ public class BookingController implements Initializable {
         file.flush();
     }
     
-    public static JSONArray jsonRead() throws FileNotFoundException, IOException, ParseException {
+    private static JSONArray jsonRead() throws FileNotFoundException, IOException, ParseException {
         JSONParser parser = new JSONParser();
         FileReader reader = new FileReader("Bookings.json");
         Object obj = parser.parse(reader);
@@ -264,7 +299,7 @@ public class BookingController implements Initializable {
         return bookList;
     }
     
-    private static void parseBookingObject(JSONObject book) {
+    private void parseBookingObject(JSONObject book) {
         // send to package-ing to package to display on UI
         JSONObject bookObject = (JSONObject) book.get("booking");
         JSONObject userObject = (JSONObject) bookObject.get("user");
@@ -274,7 +309,7 @@ public class BookingController implements Initializable {
     
     
     public static void main(String[] args) throws ParseException, IOException {
-        
+        /*
         try {
             bookJson("nyjasta", "nyjasta@hbv.is", 10, 2, 1111);
         } catch (IOException ex) {
@@ -282,15 +317,16 @@ public class BookingController implements Initializable {
         }
         
         //updateBooking(888,"nyttnafn4","nyttemail@email.is",9,1);
-        /*
+        
         try {
             getBooking(2202);
         } catch (IOException ex) {
             Logger.getLogger(BookingController.class.getName()).log(Level.SEVERE, null, ex);
         }
         */
+        BookingController b = new BookingController();
         ArrayList<String> bList = new ArrayList();
-        bList = returnBooking(getLastBook());
+        bList = b.returnBooking(b.getLastBook());
         for(int i = 0; i < bList.size()-1; i++) {
             System.out.println(bList.get(i));
         }

@@ -5,8 +5,14 @@
  */
 package functionality;
 
+import functionality.BookingInfo;
+import Design.BookingController;
 import is.hi.Core.Flight;
 import en.hi.dtsapp.model.Tour;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -17,8 +23,35 @@ public class Package {
     private Flight flight;
     private Flight returnFlight;
     private Tour tour;
+    private BookingInfo bookingInfo;
     
     public Package(){
+        BookingController b = new BookingController();
+        
+        try {
+            long i = b.getLastBook();
+            
+            ArrayList l = b.returnBooking(i);
+            
+            
+        } catch (IOException ex) {
+            Logger.getLogger(Package.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ;
+    }
+    
+    public void makeBookingInfo(ArrayList<String> l) {
+        
+        bookingInfo.setBookingNumber(l.get(0));
+        bookingInfo.setName(l.get(1));
+        bookingInfo.setEmail(l.get(2));
+        bookingInfo.setKids(l.get(3));
+        bookingInfo.setAdults(l.get(4));
+        
+    }
+    
+    public BookingInfo getBookingInfo() {
+        return bookingInfo;
     }
 
     public Flight getReturnFlight() {

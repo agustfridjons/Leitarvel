@@ -5,6 +5,7 @@
  */
 package Design;
 
+import functionality.BookingInfo;
 import en.hi.dtsapp.controller.TourCatalog;
 import en.hi.dtsapp.model.Tour;
 import functionality.Hotel;
@@ -12,11 +13,14 @@ import functionality.Package;
 import is.hi.Core.DatabaseController;
 import is.hi.Core.Flight;
 import is.hi.Core.FlightController;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,6 +35,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.json.simple.parser.ParseException;
 
 /**
  * FXML Controller class
@@ -446,10 +451,20 @@ public class SearchController implements Initializable {
             }
         }
         
+        
         if(checkForNull()){
             //warning dialog
         }
         
+        
+        
+        try {
+            book(pack);
+        } catch (IOException ex) {
+            Logger.getLogger(SearchController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(SearchController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         System.out.println(pack); 
         try {
@@ -465,6 +480,12 @@ public class SearchController implements Initializable {
 
     }
     
+    public static void book (Package pck) throws IOException, ParseException {
+        BookingController b = new BookingController();
+        
+        b.updateBooking(pck);
+    }
+    
     //returns true if there is null in package
     public boolean checkForNull(){
         if(pack.getFlight()==null || 
@@ -478,7 +499,7 @@ public class SearchController implements Initializable {
     @FXML
     private void cancelSelectionHandler(ActionEvent event) {
         Object selectedOb = listSelected.getSelectionModel().getSelectedItem();
-        
+        TF1.setText(pack.getBookingInfo().getName());
         if(selectedOb == null){
             messageField.setText("Highlight the object you whant to delete");
             return;
