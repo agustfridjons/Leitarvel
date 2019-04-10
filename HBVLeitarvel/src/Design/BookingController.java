@@ -233,7 +233,7 @@ public class BookingController implements Initializable {
                 //user tour details
                 if(p.getTour() != null) {
                     bookTour.put("name",p.getTour().getName());
-                    bookTour.put("startTime",p.getTour().getStartTime());
+                    bookTour.put("startTime",""+p.getTour().getStartTime());
                 }
                 
                 writeJson(bookingList);

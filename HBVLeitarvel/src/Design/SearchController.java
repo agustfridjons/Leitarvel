@@ -86,7 +86,7 @@ public class SearchController implements Initializable {
     @FXML
     private RadioButton isa;
     @FXML
-    private ComboBox<Integer> ratingBox;
+    private ComboBox<String> ratingBox;
     @FXML
     private Label label8;
     @FXML
@@ -122,13 +122,12 @@ public class SearchController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO       
         initializeComboBox();
-
     }    
     
     public void initializeComboBox(){
-        
-        for(int i = 1; i < 6; i++){
-            ratingBox.getItems().add(i);
+        ratingBox.getItems().clear();
+        for(int i = 1; i <= 5; i++){
+            ratingBox.getItems().add(""+i);
         }
     }
  
@@ -140,10 +139,18 @@ public class SearchController implements Initializable {
         String tf2 = TF2.getText();
         LocalDate d1 = fromDp.getValue();
         LocalDate d2 = toDp.getValue();
+        if(d1 == null){
+                    messageField.setText("Select a date.");
+                    return;
+            }
         
         if(searchOp == 1){
-            int numPers = Integer.parseInt(pack.getBookingInfo().getAdults()) + Integer.parseInt(pack.getBookingInfo().getKids());
-            int rating = ratingBox.getSelectionModel().getSelectedItem();
+            System.out.println(Integer.parseInt(pack.getBookingInfo().getAdults()));
+            int numPers = Integer.parseInt(pack.getBookingInfo().getAdults());
+            if (pack.getBookingInfo().getKids() != null)
+                numPers = Integer.parseInt(pack.getBookingInfo().getAdults()) + Integer.parseInt(pack.getBookingInfo().getKids());
+            int rating = Integer.parseInt(ratingBox.getSelectionModel().getSelectedItem());
+            System.out.println(rating);
             SearchQuery searchQuery = new SearchQuery(d1,d2, hotelLocation, numPers, false, rating);
             SearchHotel sh = new SearchHotel();
             ArrayList<Hotel> hotelsFound = sh.search(searchQuery);
@@ -156,10 +163,7 @@ public class SearchController implements Initializable {
             showList(hotelsFound);
         }else if(searchOp == 0){
             try{
-                if(d1 == null){
-                    messageField.setText("Select a date.");
-                    return;
-                }else if(TF1.getText().equals("") || TF2.getText().equals("")){
+                if(TF1.getText().equals("") || TF2.getText().equals("")){
                     messageField.setText("Fill in both, departure and destination fields");
                     return;
                 }
@@ -172,29 +176,14 @@ public class SearchController implements Initializable {
                 }
                 showList(resultFrom);
             }catch(Exception e){
-                messageField.setText("Set");
             }
-        }else if(searchOp == 4){
-            int p;
-            /*if(!intTF.getText().equals("")){
-                try{
-                p = Integer.parseInt(intTF.getText());
-                }catch(NumberFormatException e){
-                    messageField.setText("Price has to be a number.");
-                    return;
-                }
-            }else{
-                p = 0;
-            }*/
-
-            //ArrayList<Hotel> result = searchHotel(tf1,tf2,p);
-            //showList(result);
         }else{
-            if(d1 == null){
-                    messageField.setText("Select a date.");
-                    return;
+            ObservableList tourL = searchTours(tf1,d1,d2);
+            if(tourL.isEmpty()){
+                messageField.setText("No toures found.");
+            }else{
+                listV.setItems(tourL);
             }
-            listV.setItems(searchTours(tf1,d1,d2));
         }
     }
     
@@ -219,6 +208,7 @@ public class SearchController implements Initializable {
             flights = flightController.searchForFlight(from,to,d1);
         } catch (ClassNotFoundException | SQLException e) {
             // TODO Auto-generated catch block
+            messageField.setText("No flights found.");
             e.printStackTrace();
 	}
         // TODO Auto-generated catch block

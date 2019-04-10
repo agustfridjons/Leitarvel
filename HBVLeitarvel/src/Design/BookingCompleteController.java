@@ -5,15 +5,13 @@
  */
 package Design;
 
-import functionality.BookingInfo;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import functionality.Package;
+import java.util.ArrayList;
 
 /**
  * FXML Controller class
@@ -54,16 +52,39 @@ public class BookingCompleteController implements Initializable {
     private TextField bookingNumber;
     @FXML
     private TextField price;
-    private BookingInfo x;
-
+    @FXML
+    private TextField hotelName;
+    @FXML
+    private TextField hotelLocation;
+    @FXML
+    private TextField roomNumber1;
+    @FXML
+    private TextField roomNumber11;
+    @FXML
+    private TextField hotelName1;
+    @FXML
+    private TextField hotelName11;
+    @FXML
+    private TextField hotelName12;
+    @FXML
+    private TextField hotelName121;
+    
+    private BookingController bc = new BookingController(); 
+    private Package pack = new Package();
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    //name.setText(x.getName());
+        fillInFields();
     }    
 
-    
+    public void fillInFields(){
+        ArrayList l = bc.returnBooking(Long.parseLong(pack.getBookingInfo().getBookingNumber()));
+        for(int i = 0; i<l.size(); i++){
+            System.out.println(l.get(i)+"");
+        }
+    }
 }
