@@ -127,7 +127,7 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER_RIGHT" layoutX="360.0" layoutY="260.0" prefHeight="25.0" prefWidth="140.0" text="Name" textFill="#eae1e1">
+      <Label alignment="CENTER_RIGHT" layoutX="360.0" layoutY="260.0" prefHeight="25.0" prefWidth="140.0" text="Name / Room" textFill="#eae1e1">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
@@ -138,13 +138,13 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="roomNumber1" editable="false" layoutX="510.0" layoutY="320.0" minHeight="25.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: CCCDDA;" />
+      <TextField fx:id="checkIn" editable="false" layoutX="510.0" layoutY="320.0" minHeight="25.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: CCCDDA;" />
       <Label alignment="CENTER_RIGHT" layoutX="360.0" layoutY="320.0" prefHeight="25.0" prefWidth="140.0" text="Check in" textFill="#eae1e1">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="roomNumber11" editable="false" layoutX="510.0" layoutY="350.0" minHeight="25.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: CCCDDA;" />
+      <TextField fx:id="checkOut" editable="false" layoutX="510.0" layoutY="350.0" minHeight="25.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: CCCDDA;" />
       <Label alignment="CENTER_RIGHT" layoutX="360.0" layoutY="350.0" prefHeight="25.0" prefWidth="140.0" text="Check out" textFill="#eae1e1">
          <font>
             <Font name="System Bold" size="15.0" />

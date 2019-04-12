@@ -57,10 +57,6 @@ public class BookingCompleteController implements Initializable {
     @FXML
     private TextField hotelLocation;
     @FXML
-    private TextField roomNumber1;
-    @FXML
-    private TextField roomNumber11;
-    @FXML
     private TextField hotelName1;
     @FXML
     private TextField hotelName11;
@@ -68,8 +64,13 @@ public class BookingCompleteController implements Initializable {
     private TextField hotelName12;
     @FXML
     private TextField hotelName121;
+    @FXML
+    private TextField checkIn;
+    @FXML
+    private TextField checkOut;
     
-    private BookingController bc = new BookingController(); 
+    private BookingController bc = new BookingController();
+    private SearchController sc = new SearchController();
     private Package pack = new Package();
     
     /**
@@ -82,9 +83,18 @@ public class BookingCompleteController implements Initializable {
     }    
 
     public void fillInFields(){
-        ArrayList l = bc.returnBooking(Long.parseLong(pack.getBookingInfo().getBookingNumber()));
+        ArrayList<String> l = bc.returnBooking(Long.parseLong(pack.getBookingInfo().getBookingNumber()));
         for(int i = 0; i<l.size(); i++){
             System.out.println(l.get(i)+"");
         }
+        bookingNumber.setText(l.get(0));
+        name.setText(l.get(1));
+        email.setText(l.get(2));
+        adults.setText(l.get(3));
+        kids.setText(l.get(4));
+        depLocation.setText(l.get(5));
+        destination.setText(l.get(9));
+        hotelName.setText(l.get(13));
+        hotelName1.setText(l.get(15));
     }
 }

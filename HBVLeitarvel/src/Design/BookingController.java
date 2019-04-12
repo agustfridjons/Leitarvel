@@ -81,13 +81,19 @@ public class BookingController implements Initializable {
         if(!validEmail(email.getText())){
             messageField.setText("Email address is not valid");
         } else{
-   
+            String b2 = box2.getSelectionModel().getSelectedItem();
+            String b1 = box1.getSelectionModel().getSelectedItem();
+            if(box1.getSelectionModel().getSelectedItem() == null)
+                b1 = "1";
+            if(box2.getSelectionModel().getSelectedItem()==null)
+                b2 = "2";
+           
             // Sendir bókunar upplýsingarnar í BookingInfo klasann
             x = new BookingInfo(
                     name.getText(), 
                     email.getText(),
-                    box1.getSelectionModel().getSelectedItem(), 
-                    box2.getSelectionModel().getSelectedItem(),
+                    b1, 
+                    b2,
                     null
             );
             System.out.println("Name: " + x.getName());
@@ -216,24 +222,27 @@ public class BookingController implements Initializable {
                 if(p.getHotel() != null) { 
                     bookHotel.put("name",p.getHotel().getName());
                     bookHotel.put("roomID",p.getHotel().getSelectedRoom());
+                    bookHotel.put("city",p.getHotel().getCity());                 
                 }
                 //user flight details
-                if(p.getFlight() != null || p.getReturnFlight() != null) { 
-                    flightTo.put("name", p.getFlight().getAirline());
+                if(p.getFlight() != null) { 
+                    flightTo.put("name", p.getFlight().getTo());
                     flightTo.put("flightID", p.getFlight().getfNumber());
                     flightTo.put("date", ("" + p.getFlight().getDate()));
                     flightTo.put("time", ("" + p.getFlight().getTime()));
-                    
-                    flightFrom.put("name", p.getFlight().getAirline());
-                    flightFrom.put("flightID", p.getFlight().getfNumber());
-                    flightFrom.put("date", ("" + p.getFlight().getDate()));
-                    flightFrom.put("time", ("" + p.getFlight().getTime()));
                 }
-                
+                //user return flight details
+                if(p.getReturnFlight() != null){
+                    flightFrom.put("name", p.getReturnFlight().getFrom());
+                    flightFrom.put("flightID", p.getReturnFlight().getfNumber());
+                    flightFrom.put("date", ("" + p.getReturnFlight().getDate()));
+                    flightFrom.put("time", ("" + p.getReturnFlight().getTime()));
+                }
                 //user tour details
                 if(p.getTour() != null) {
                     bookTour.put("name",p.getTour().getName());
                     bookTour.put("startTime",""+p.getTour().getStartTime());
+                    bookTour.put("date",""+p.getTour().getDate());
                 }
                 
                 writeJson(bookingList);
@@ -259,6 +268,11 @@ public class BookingController implements Initializable {
                 JSONObject json = (JSONObject) bookingList.get(i);
                 JSONObject book = (JSONObject) json.get("booking");
                 JSONObject bookUser = (JSONObject) book.get("user");
+                JSONObject bookFlight = (JSONObject) book.get("flight");
+                JSONObject flightTo = (JSONObject) bookFlight.get("flightTo");
+                JSONObject flightFrom = (JSONObject) bookFlight.get("flightFrom");
+                JSONObject bookHotel = (JSONObject) book.get("hotel");
+                JSONObject bookTour = (JSONObject) book.get("tour");
                 String s = (String) bookUser.get("bookingID");
                 long id = Long.valueOf(s);
                 //check if the bookingID matches
@@ -269,12 +283,36 @@ public class BookingController implements Initializable {
                     String chil = (String)bookUser.get("children");
                     String adul = (String)bookUser.get("adults");
                     String bID = (String)bookUser.get("bookingID");
-                    
+                    String f = (String)flightTo.get("name");
+                    String fID = (String)flightTo.get("flightID");
+                    String fD = (String)flightTo.get("date");
+                    String fT = (String)flightTo.get("time");
+                    String rf = (String)flightFrom.get("name");
+                    String rfID = (String)flightFrom.get("flightID");
+                    String rfD = (String)flightFrom.get("date");
+                    String rfT = (String)flightFrom.get("time");
+                    String hN = (String)bookHotel.get("name");
+                    String hrID = (String)bookHotel.get("roomID");
+                    String tN = (String)bookTour.get("name");
+                    String tST = (String)bookTour.get("startTime");
+                            
                     arr.add(bID);
                     arr.add(name);
                     arr.add(email);
                     arr.add(chil);
                     arr.add(adul);
+                    arr.add(f);
+                    arr.add(fID);
+                    arr.add(fD);
+                    arr.add(fT);
+                    arr.add(rf);
+                    arr.add(rfID);
+                    arr.add(rfD);
+                    arr.add(rfT);
+                    arr.add(hN);
+                    arr.add(hrID);
+                    arr.add(tN);
+                    arr.add(tST);
                 }
             }
         }
@@ -322,32 +360,5 @@ public class BookingController implements Initializable {
         String name = (String) userObject.get("name");
         System.out.println(name);
     }
-    
-    
-    public static void main(String[] args) throws ParseException, IOException {
-        /*
-        try {
-            bookJson("nyjasta", "nyjasta@hbv.is", 10, 2, 1111);
-        } catch (IOException ex) {
-            Logger.getLogger(BookingController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        //updateBooking(888,"nyttnafn4","nyttemail@email.is",9,1);
-        
-        try {
-            getBooking(2202);
-        } catch (IOException ex) {
-            Logger.getLogger(BookingController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        */
-        BookingController b = new BookingController();
-        ArrayList<String> bList = new ArrayList();
-        bList = b.returnBooking(b.getLastBook());
-        for(int i = 0; i < bList.size()-1; i++) {
-            System.out.println(bList.get(i));
-        }
-      
-    }
-    
               
 }

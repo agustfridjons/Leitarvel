@@ -95,6 +95,10 @@ public class SearchController implements Initializable {
     private ComboBox<Hotelroom> roomBox;
     @FXML
     private Label label6;
+    @FXML
+    private ComboBox<String> locationBox1;
+    @FXML
+    private ComboBox<String> locationBox2;
     
     
     private Package pack = new Package();
@@ -129,6 +133,8 @@ public class SearchController implements Initializable {
         for(int i = 1; i <= 5; i++){
             ratingBox.getItems().add(""+i);
         }
+        locationBox1.getItems().addAll("Reykjavík","Ísafjörður","Akureyri","Vestmannaeyjar","Egilsstaðir" );
+        locationBox2.getItems().addAll("Reykjavík","Ísafjörður","Akureyri","Vestmannaeyjar","Egilsstaðir" );
     }
  
 
@@ -136,7 +142,6 @@ public class SearchController implements Initializable {
     private void searchButtonHandler(ActionEvent event) throws SQLException {
         messageField.setText("");
         String tf1 = TF1.getText();
-        String tf2 = TF2.getText();
         LocalDate d1 = fromDp.getValue();
         LocalDate d2 = toDp.getValue();
         if(d1 == null){
@@ -145,7 +150,6 @@ public class SearchController implements Initializable {
             }
         
         if(searchOp == 1){
-            System.out.println(Integer.parseInt(pack.getBookingInfo().getAdults()));
             int numPers = Integer.parseInt(pack.getBookingInfo().getAdults());
             if (pack.getBookingInfo().getKids() != null)
                 numPers = Integer.parseInt(pack.getBookingInfo().getAdults()) + Integer.parseInt(pack.getBookingInfo().getKids());
@@ -162,20 +166,26 @@ public class SearchController implements Initializable {
             }
             showList(hotelsFound);
         }else if(searchOp == 0){
+            String lc1 = locationBox1.getSelectionModel().getSelectedItem();
+            String lc2 = locationBox2.getSelectionModel().getSelectedItem();
             try{
-                if(TF1.getText().equals("") || TF2.getText().equals("")){
+                if(lc1 == null || lc2 == null){
                     messageField.setText("Fill in both, departure and destination fields");
                     return;
+                }else if(lc1.equals(lc2)){
+                    messageField.setText("You must select two separate locations.");
+                    return;
                 }
-                ArrayList<Flight> resultFrom = searchFlights(tf1,tf2,d1);
+                ArrayList<Flight> resultFrom = searchFlights(lc1,lc2,d1);
                 if(d2 != null){
-                    ArrayList<Flight> resultTo = searchFlights(tf2,tf1,d2);
+                    ArrayList<Flight> resultTo = searchFlights(lc2,lc1,d2);
                     for(int i = 0; i < resultTo.size(); i++){
                         resultFrom.add(resultTo.get(i));
                     }
                 }
                 showList(resultFrom);
             }catch(Exception e){
+                messageField.setText("No flights found.");
             }
         }else{
             ObservableList tourL = searchTours(tf1,d1,d2);
@@ -221,114 +231,12 @@ public class SearchController implements Initializable {
         tours = tc.getToursBySearchParameters(kw,d1,d2,exceptions);
         return tours;
     }
-    /*
-    public static boolean isSubstring(String a, String b){
-        for(int i  = 0; i < a.length()-b.length(); i++)
-            if(a.substring(i, b.length()+i).equalsIgnoreCase(b)){
-                return true;
-        }
-        return false;
-    }
-    
-    public ArrayList searchHotel(String name, String location, int maxPrice){
-        ArrayList<Hotel> hotelResults;
-        //if name = null or w/e
-        if(name.length() != 0)
-        {
-            hotelResults = filterName(name, hotels);
-            if(hotelResults == null) return null;
-            
-            if(location.length() != 0 && !hotelResults.isEmpty()) //or null w/e
-            {
-                hotelResults = filterLocation(location, hotelResults);
-                if(hotelResults.isEmpty()) return null;
-                
-                if(maxPrice != 0)
-                {
-                    hotelResults = filterPrice(maxPrice, hotelResults);
-                }else{
-                    return hotelResults;
-                }
-                return hotelResults;
-            } else if(maxPrice != 0 && !hotelResults.isEmpty()) 
-            {
-                //location isn't a parameters to search for
-                //so just check for prices
-                 hotelResults = filterPrice(maxPrice, hotelResults);
-                 if(hotelResults.isEmpty()) return null;
-            }else
-            {
-                //nothing?
-            }
-        // if name is null/empty string w/e
-        //then check if location is null/empty etc
-        }else if(location.length() != 0 && !hotels.isEmpty())
-        {
-            hotelResults = filterLocation(location, hotels);
-                        
-            if(maxPrice != 0 && !hotelResults.isEmpty())
-            {
-                hotelResults = filterPrice(maxPrice, hotelResults);
-            }else{
-                return hotelResults;
-            }   
-            
-        //if no hotel name and no location
-        //filter by price (if it isnt 0/null etc
-        }else if (maxPrice > 0 && !hotels.isEmpty())
-        {
-            hotelResults = filterPrice(maxPrice, hotels);
-            return hotelResults;
-        }else
-        {
-            return hotels;
-        }
-        
-        return hotelResults;
-    }
-    
-    public ArrayList filterName(String name, ArrayList<Hotel> hotelsRes){
-        //System.out.println(name);
-        ArrayList<Hotel> nameFilter = new ArrayList<>();
-        hotelsRes.get(0).getName();
-        for(int i = 0; i < hotelsRes.size(); i++){
-            if(isSubstring(hotelsRes.get(i).getName(),name)){
-                nameFilter.add(hotelsRes.get(i));
-            }
-        }
-        
-        return nameFilter;
-    } 
-    
-    public ArrayList filterLocation(String loc, ArrayList<Hotel> hotelsRes){
-        ArrayList<Hotel> locFilter = new ArrayList<>();
 
-        for(int i = 0; i < hotelsRes.size(); i++){
-            if(isSubstring(hotelsRes.get(i).getLocation(),loc)){
-                locFilter.add(hotelsRes.get(i));
-            }
-        }
-        return locFilter;
-    }
-    
-    public ArrayList filterPrice(int price, ArrayList<Hotel> hotelsRes){
-        ArrayList<Hotel> priceFilter = new ArrayList<>();
-        
-        if(hotelsRes == null) return null;
-        
-        for(int i = 0; i < hotelsRes.size(); i++){
-            if(hotelsRes.get(i).getPrice() <= price ){
-                priceFilter.add(hotelsRes.get(i));
-            }
-        }
-        return priceFilter;
-    }
-    */
     public void resetDisplay(){
         toDp.setVisible(true);
         label4.setVisible(true);
         label2.setVisible(true);
-        TF2.setVisible(true);
+        TF2.setVisible(false);
         label1.setVisible(true);
         TF1.setVisible(true);
         reyk.setVisible(false);
@@ -342,6 +250,10 @@ public class SearchController implements Initializable {
         label7.setVisible(false);
         fromDp.setValue(null);
         toDp.setValue(null);
+        TF1.setVisible(false);
+        locationBox1.setVisible(false);
+        locationBox2.setVisible(false);
+        messageField.setText("");
         TF1.setText("");
         TF2.setText("");
         label1.setText("");
@@ -390,6 +302,8 @@ public class SearchController implements Initializable {
                 radioHotel.setSelected(false);
                 radioFlight.setSelected(true);
                 radioTour.setSelected(false);
+                locationBox1.setVisible(true);
+                locationBox2.setVisible(true);
                 searchOp = 0;
                 searchLabel.setText(searchLabel.getText().substring(0, 13)+ "Flights");
                 label1.setText("Departure location:");
@@ -402,9 +316,10 @@ public class SearchController implements Initializable {
                 radioHotel.setSelected(false);
                 radioFlight.setSelected(false);
                 radioTour.setSelected(true);
+                TF1.setVisible(true);
                 searchOp = 2;
                 searchLabel.setText(searchLabel.getText().substring(0, 13)+ "Tours");
-                label1.setText("Activity name:");
+                label1.setText("Activity:");
                 label3.setText("Activity date range, Date from:");
                 label4.setText("Date to:");
                 label2.setVisible(false);
@@ -517,8 +432,6 @@ public class SearchController implements Initializable {
             } catch(Exception e) {
                 e.printStackTrace();
             }
-        
-
     }
     
     public static void book (Package pck) throws IOException, ParseException {
