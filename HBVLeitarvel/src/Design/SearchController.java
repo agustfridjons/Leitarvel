@@ -135,7 +135,7 @@ public class SearchController implements Initializable {
         locationBox2.getItems().addAll("Reykjavík","Ísafjörður","Akureyri","Vestmannaeyjar","Egilsstaðir" );
     }
  
-
+    //sér um leit 
     @FXML
     private void searchButtonHandler(ActionEvent event) throws SQLException {
         messageField.setText("");
@@ -195,6 +195,7 @@ public class SearchController implements Initializable {
         }
     }
     
+    //byrtir valmögueika á tour, hotel, flights eftir leit
     public void showList(ArrayList result){
         listV.getItems().clear();
         if(!result.isEmpty()){
@@ -259,6 +260,7 @@ public class SearchController implements Initializable {
         listV.getItems().clear();
     }
 
+    //switches the look on the UI
     @FXML
     private void switchSearchHandler(ActionEvent event) {
         RadioButton buttonPress = (RadioButton)event.getSource();
