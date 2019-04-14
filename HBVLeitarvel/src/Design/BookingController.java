@@ -127,12 +127,13 @@ public class BookingController implements Initializable {
         return email.matches("^[a-zA-Z0-9]+@[a-zA-Z0-9]+.[a-zA-Z0-9]+");
     }
     
+    //Tekur inn notanda göng (nafn, email etc..) og býr til nyja bókunarfærslu
     public void bookJson(BookingInfo b) throws IOException, ParseException{
         
         
-        //get json file
+        //geri fylki sem mun innhalda allar bókunarfærslurnar
         JSONArray bookList = jsonRead();
-        
+        //bý til json hluti til að búa til beinagrind sem er sett i json skjal
         JSONObject bookingDetail = new JSONObject();
         JSONObject userDetail = new JSONObject();
         JSONObject hotelDetail = new JSONObject();
@@ -179,12 +180,14 @@ public class BookingController implements Initializable {
         bookDetail.put("tour", tourDetail);
         //finally put the object into the container holdin all containers that contain booking information
         bookingDetail.put("booking",bookDetail);
-        
+        //set inn nyju bókunarfærsluna í json gagnagrunns fylkið
         bookList.add(bookingDetail);
-        //write into json file
+        //skrifa inn nýja fylkið í gagnagruninn
         writeJson(bookList);
     }
     
+    // í samstarfi við parseBookingobject, fer í gegnum allar bókunarfærslur
+    // þetta er til að prófa json gagnagrunnin og er úrelt.
     public void getBooking(int BookingID) throws FileNotFoundException, IOException, ParseException {
         
         JSONArray bookingList = jsonRead();
@@ -192,6 +195,8 @@ public class BookingController implements Initializable {
         bookingList.forEach( book -> parseBookingObject( (JSONObject) book) );
     }
     
+    //tekur inn pakka af gögnum flug/hotel og túrista bókunum sem notandi hefur valið
+    //og uppfærir gagnagrunnin með nýjuupplýsingunum
     public void updateBooking(Package p) throws IOException, FileNotFoundException, ParseException {
         
         JSONArray bookingList = jsonRead();
@@ -249,7 +254,7 @@ public class BookingController implements Initializable {
             }
         }
     }
-    
+    // skila göngum útfrá bókunarnúmerið notanda
     public ArrayList returnBooking (long bookingID) {
         
         ArrayList<String> arr = new ArrayList();
@@ -318,6 +323,7 @@ public class BookingController implements Initializable {
         }
         return arr;
     }
+    // skilar nýjasta bókunarnúmerinu
     public long getLastBook() throws IOException {
         JSONArray bookingList = null;
         try {
@@ -338,13 +344,15 @@ public class BookingController implements Initializable {
         }
         return id;
     }
+    //nær í json gagnagruninn og
+    //skrifar göng yfir á json strengja format
     private static void writeJson(JSONArray arr) throws IOException {
         //false flag so it doesn't overwrite
         FileWriter file = new FileWriter("Bookings.json",false);
         file.write(arr.toJSONString());
         file.flush();
     }
-    
+    //nær i json gagnagrunin og skilar honum sem json objecti
     private static JSONArray jsonRead() throws FileNotFoundException, IOException, ParseException {
         JSONParser parser = new JSONParser();
         FileReader reader = new FileReader("Bookings.json");
@@ -352,7 +360,7 @@ public class BookingController implements Initializable {
         JSONArray bookList = (JSONArray) obj;
         return bookList;
     }
-    
+    //hjalpar fall fyrir getBooking, skilar nafni í ákveðnari bókunarfærslu
     private void parseBookingObject(JSONObject book) {
         // send to package-ing to package to display on UI
         JSONObject bookObject = (JSONObject) book.get("booking");
