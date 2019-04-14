@@ -22,7 +22,7 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label layoutX="554.0" layoutY="256.0" prefHeight="31.0" prefWidth="114.0" text="Message log" textFill="#eae1e1">
+            <Label layoutX="544.0" layoutY="252.0" prefHeight="31.0" prefWidth="114.0" text="Message log" textFill="#eae1e1">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -33,7 +33,7 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label fx:id="messageField" alignment="TOP_LEFT" ellipsisString=".." layoutX="541.0" layoutY="287.0" prefHeight="111.0" prefWidth="139.0" style="-fx-border-color: #CFCFEE; -fx-background-radius: 5; -fx-border-radius: 5; -fx-label-padding: 5; -fx-background-color: #7979BC;" textFill="#eae1e1" wrapText="true">
+            <Label fx:id="messageField" alignment="TOP_LEFT" ellipsisString=".." layoutX="484.0" layoutY="284.0" prefHeight="111.0" prefWidth="233.0" style="-fx-border-color: #CFCFEE; -fx-background-radius: 5; -fx-border-radius: 5; -fx-label-padding: 5; -fx-background-color: #7979BC;" textFill="#eae1e1" wrapText="true">
       
                <font>
                   <Font name="System Bold" size="15.0" />
@@ -105,6 +105,11 @@
             </Label>
             <ComboBox fx:id="locationBox1" layoutX="32.0" layoutY="157.0" prefHeight="31.0" prefWidth="184.0" />
             <ComboBox fx:id="locationBox2" layoutX="32.0" layoutY="227.0" prefHeight="31.0" prefWidth="184.0" />
+            <Label fx:id="label21" layoutX="137.0" layoutY="419.0" prefHeight="21.0" prefWidth="328.0" text="A package consists of two flights (out and return) a hotel and a tour." textFill="#eae1e1">
+               <font>
+                  <Font name="System Bold" size="10.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </content>

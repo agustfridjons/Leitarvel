@@ -19,6 +19,7 @@ public class Hotel {
     private String city;
     private String email;
     private String phoneNumber;
+    private String checkin;
     private boolean breakfastBool;
     private int rating;
     
@@ -93,6 +94,14 @@ public class Hotel {
 
     public void setRating(int rating) {
         this.rating = rating;
+    }
+    
+    public String getCheckin() {
+        return checkin;
+    }
+
+    public void setCheckin(String checkin) {
+        this.checkin = checkin;
     }
     
     public String toString(){

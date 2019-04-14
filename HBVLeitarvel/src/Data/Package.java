@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package functionality;
+package Data;
 
-import functionality.BookingInfo;
 import Design.BookingController;
 import is.hi.Core.Flight;
 import en.hi.dtsapp.model.Tour;
@@ -27,7 +26,6 @@ public final class Package {
     private BookingInfo bookingInfo;
     
     public Package(){
-        System.out.println("Made package");
         BookingController b = new BookingController();
         
         try {
@@ -44,9 +42,6 @@ public final class Package {
     
     public void makeBookingInfo(ArrayList<String> l) {
         bookingInfo = new BookingInfo(l.get(1),l.get(2),l.get(3),l.get(4),l.get(0));
-        for(int i = 0; i < l.size(); i++) {
-            System.out.println(l.get(i));
-        }
         bookingInfo.setBookingNumber(l.get(0));
         bookingInfo.setName(l.get(1));
         bookingInfo.setEmail(l.get(2));
