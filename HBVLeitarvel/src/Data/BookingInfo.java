@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package functionality;
+package Data;
 
 import java.util.Random;
 import javafx.fxml.FXMLLoader;

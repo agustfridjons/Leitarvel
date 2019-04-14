@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="654.0" prefWidth="753.0" style="-fx-background-color: #52529E; -fx-border-width: 5; -fx-border-color: #8585B6; -fx-background-radius: 10; -fx-border-radius: 10;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Design.BookingCompleteController">
+<AnchorPane id="AnchorPane" prefHeight="606.0" prefWidth="753.0" style="-fx-background-color: #52529E; -fx-border-width: 5; -fx-border-color: #8585B6; -fx-background-radius: 10; -fx-border-radius: 10;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Design.BookingCompleteController">
    <children>
       <TextField fx:id="depLocation" editable="false" layoutX="190.0" layoutY="100.0" minHeight="25.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: CCCDDA;" />
       <Label alignment="CENTER_RIGHT" layoutX="40.0" layoutY="100.0" prefHeight="25.0" prefWidth="140.0" text="Departure location" textFill="#eae1e1">
@@ -39,48 +39,36 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER_RIGHT" layoutX="40.0" layoutY="320.0" prefHeight="25.0" prefWidth="140.0" text="Departure time" textFill="#eae1e1">
+      <Label alignment="CENTER_RIGHT" layoutX="360.0" layoutY="302.0" prefHeight="25.0" prefWidth="140.0" text="Departure time" textFill="#eae1e1">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="depTime" editable="false" layoutX="190.0" layoutY="320.0" minHeight="25.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: CCCDDA;" />
-      <TextField fx:id="airline" editable="false" layoutX="190.0" layoutY="290.0" minHeight="25.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: CCCDDA;" />
-      <Label alignment="CENTER_RIGHT" layoutX="40.0" layoutY="290.0" prefHeight="25.0" prefWidth="140.0" text="Airline" textFill="#eae1e1">
+      <TextField fx:id="depTime" editable="false" layoutX="510.0" layoutY="302.0" minHeight="25.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: CCCDDA;" />
+      <Label alignment="CENTER_RIGHT" layoutX="360.0" layoutY="272.0" prefHeight="25.0" prefWidth="140.0" text="Flight number" textFill="#eae1e1">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER_RIGHT" layoutX="40.0" layoutY="260.0" prefHeight="25.0" prefWidth="140.0" text="Flight number" textFill="#eae1e1">
+      <TextField fx:id="flightNumber" editable="false" layoutX="510.0" layoutY="272.0" minHeight="25.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: CCCDDA;" />
+      <Label alignment="CENTER" layoutX="530.0" layoutY="247.0" prefHeight="25.0" prefWidth="140.0" text="Flight information" textFill="#eae1e1">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="flightNumber" editable="false" layoutX="190.0" layoutY="260.0" minHeight="25.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: CCCDDA;" />
-      <Label alignment="CENTER" layoutX="210.0" layoutY="235.0" prefHeight="25.0" prefWidth="140.0" text="Flight information" textFill="#eae1e1">
+      <Label alignment="CENTER" layoutX="184.0" layoutY="245.0" prefHeight="25.0" prefWidth="192.0" text="Return Flight information" textFill="#eae1e1">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="184.0" layoutY="395.0" prefHeight="25.0" prefWidth="192.0" text="Return Flight information" textFill="#eae1e1">
+      <TextField fx:id="rFlightNumber" editable="false" layoutX="190.0" layoutY="270.0" minHeight="25.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: CCCDDA;" />
+      <Label alignment="CENTER_RIGHT" layoutX="40.0" layoutY="270.0" prefHeight="25.0" prefWidth="140.0" text="Flight number" textFill="#eae1e1">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="depLocation11" editable="false" layoutX="190.0" layoutY="420.0" minHeight="25.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: CCCDDA;" />
-      <Label alignment="CENTER_RIGHT" layoutX="40.0" layoutY="420.0" prefHeight="25.0" prefWidth="140.0" text="Flight number" textFill="#eae1e1">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font>
-      </Label>
-      <Label alignment="CENTER_RIGHT" layoutX="40.0" layoutY="450.0" prefHeight="25.0" prefWidth="140.0" text="Airline" textFill="#eae1e1">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font>
-      </Label>
-      <TextField fx:id="destination11" editable="false" layoutX="190.0" layoutY="450.0" minHeight="25.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: CCCDDA;" />
-      <TextField fx:id="depDate11" editable="false" layoutX="190.0" layoutY="480.0" minHeight="25.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: CCCDDA;" />
-      <Label alignment="CENTER_RIGHT" layoutX="40.0" layoutY="480.0" prefHeight="25.0" prefWidth="140.0" text="Departure time" textFill="#eae1e1">
+      <TextField fx:id="rDepTime" editable="false" layoutX="190.0" layoutY="300.0" minHeight="25.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: CCCDDA;" />
+      <Label alignment="CENTER_RIGHT" layoutX="40.0" layoutY="300.0" prefHeight="25.0" prefWidth="140.0" text="Departure time" textFill="#eae1e1">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
@@ -109,72 +97,72 @@
          </font>
       </Label>
       <TextField fx:id="name" editable="false" layoutX="510.0" layoutY="100.0" minHeight="25.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: CCCDDA;" />
-      <Label alignment="CENTER_RIGHT" layoutX="40.0" layoutY="580.0" prefHeight="25.0" prefWidth="140.0" text="Booking number" textFill="#eae1e1">
+      <Label alignment="CENTER_RIGHT" layoutX="40.0" layoutY="533.0" prefHeight="25.0" prefWidth="140.0" text="Booking number" textFill="#eae1e1">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="bookingNumber" editable="false" layoutX="190.0" layoutY="580.0" minHeight="25.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: CCCDDA;" />
-      <TextField fx:id="price" editable="false" layoutX="510.0" layoutY="580.0" minHeight="25.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: CCCDDA;" />
-      <Label alignment="CENTER_RIGHT" layoutX="360.0" layoutY="580.0" prefHeight="25.0" prefWidth="140.0" text="Price" textFill="#eae1e1">
+      <TextField fx:id="bookingNumber" editable="false" layoutX="190.0" layoutY="533.0" minHeight="25.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: CCCDDA;" />
+      <TextField fx:id="price" editable="false" layoutX="515.0" layoutY="533.0" minHeight="25.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: CCCDDA;" />
+      <Label alignment="CENTER_RIGHT" layoutX="365.0" layoutY="533.0" prefHeight="25.0" prefWidth="140.0" text="Price" textFill="#eae1e1">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="hotelName" editable="false" layoutX="510.0" layoutY="260.0" minHeight="25.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: CCCDDA;" />
-      <Label alignment="CENTER" layoutX="530.0" layoutY="235.0" prefHeight="25.0" prefWidth="140.0" text="Hotel Information" textFill="#eae1e1">
+      <TextField fx:id="hotelName" editable="false" layoutX="191.0" layoutY="387.0" minHeight="25.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: CCCDDA;" />
+      <Label alignment="CENTER" layoutX="211.0" layoutY="362.0" prefHeight="25.0" prefWidth="140.0" text="Hotel Information" textFill="#eae1e1">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER_RIGHT" layoutX="360.0" layoutY="260.0" prefHeight="25.0" prefWidth="140.0" text="Name / Room" textFill="#eae1e1">
+      <Label alignment="CENTER_RIGHT" layoutX="41.0" layoutY="387.0" prefHeight="25.0" prefWidth="140.0" text="Name" textFill="#eae1e1">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="hotelLocation" editable="false" layoutX="510.0" layoutY="290.0" minHeight="25.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: CCCDDA;" />
-      <Label alignment="CENTER_RIGHT" layoutX="360.0" layoutY="290.0" prefHeight="25.0" prefWidth="140.0" text="Location" textFill="#eae1e1">
+      <TextField fx:id="hotelLocation" editable="false" layoutX="191.0" layoutY="417.0" minHeight="25.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: CCCDDA;" />
+      <Label alignment="CENTER_RIGHT" layoutX="41.0" layoutY="417.0" prefHeight="25.0" prefWidth="140.0" text="Location" textFill="#eae1e1">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="checkIn" editable="false" layoutX="510.0" layoutY="320.0" minHeight="25.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: CCCDDA;" />
-      <Label alignment="CENTER_RIGHT" layoutX="360.0" layoutY="320.0" prefHeight="25.0" prefWidth="140.0" text="Check in" textFill="#eae1e1">
+      <TextField fx:id="hotelCheckin" editable="false" layoutX="190.0" layoutY="478.0" minHeight="25.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: CCCDDA;" />
+      <Label alignment="CENTER_RIGHT" layoutX="40.0" layoutY="478.0" prefHeight="25.0" prefWidth="140.0" text="Check in" textFill="#eae1e1">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="checkOut" editable="false" layoutX="510.0" layoutY="350.0" minHeight="25.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: CCCDDA;" />
-      <Label alignment="CENTER_RIGHT" layoutX="360.0" layoutY="350.0" prefHeight="25.0" prefWidth="140.0" text="Check out" textFill="#eae1e1">
+      <TextField fx:id="hotelRoom" editable="false" layoutX="191.0" layoutY="447.0" minHeight="25.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: CCCDDA;" />
+      <Label alignment="CENTER_RIGHT" layoutX="40.0" layoutY="447.0" prefHeight="25.0" prefWidth="140.0" text="Room" textFill="#eae1e1">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="530.0" layoutY="395.0" prefHeight="25.0" prefWidth="140.0" text="Tour information" textFill="#eae1e1">
+      <Label alignment="CENTER" layoutX="535.0" layoutY="362.0" prefHeight="25.0" prefWidth="140.0" text="Tour information" textFill="#eae1e1">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="hotelName1" editable="false" layoutX="510.0" layoutY="420.0" minHeight="25.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: CCCDDA;" />
-      <TextField fx:id="hotelName11" editable="false" layoutX="510.0" layoutY="450.0" minHeight="25.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: CCCDDA;" />
-      <TextField fx:id="hotelName12" editable="false" layoutX="510.0" layoutY="480.0" minHeight="25.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: CCCDDA;" />
-      <TextField fx:id="hotelName121" editable="false" layoutX="510.0" layoutY="510.0" minHeight="25.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: CCCDDA;" />
-      <Label alignment="CENTER_RIGHT" layoutX="360.0" layoutY="420.0" prefHeight="25.0" prefWidth="140.0" text="Name" textFill="#eae1e1">
+      <TextField fx:id="tourName" editable="false" layoutX="515.0" layoutY="387.0" minHeight="25.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: CCCDDA;" />
+      <TextField fx:id="tourDate" editable="false" layoutX="515.0" layoutY="417.0" minHeight="25.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: CCCDDA;" />
+      <TextField fx:id="tourLoc" editable="false" layoutX="515.0" layoutY="447.0" minHeight="25.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: CCCDDA;" />
+      <TextField fx:id="tourTime" editable="false" layoutX="515.0" layoutY="477.0" minHeight="25.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: CCCDDA;" />
+      <Label alignment="CENTER_RIGHT" layoutX="365.0" layoutY="387.0" prefHeight="25.0" prefWidth="140.0" text="Name" textFill="#eae1e1">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER_RIGHT" layoutX="360.0" layoutY="450.0" prefHeight="25.0" prefWidth="140.0" text="Date" textFill="#eae1e1">
+      <Label alignment="CENTER_RIGHT" layoutX="365.0" layoutY="417.0" prefHeight="25.0" prefWidth="140.0" text="Date" textFill="#eae1e1">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER_RIGHT" layoutX="360.0" layoutY="480.0" prefHeight="25.0" prefWidth="140.0" text="Location" textFill="#eae1e1">
+      <Label alignment="CENTER_RIGHT" layoutX="365.0" layoutY="447.0" prefHeight="25.0" prefWidth="140.0" text="Location" textFill="#eae1e1">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER_RIGHT" layoutX="360.0" layoutY="510.0" prefHeight="25.0" prefWidth="140.0" text="Time" textFill="#eae1e1">
+      <Label alignment="CENTER_RIGHT" layoutX="365.0" layoutY="477.0" prefHeight="25.0" prefWidth="140.0" text="Time" textFill="#eae1e1">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>

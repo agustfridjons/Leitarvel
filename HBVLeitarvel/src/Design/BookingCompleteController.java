@@ -10,7 +10,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
-import functionality.Package;
+import Data.Package;
 import java.util.ArrayList;
 
 /**
@@ -35,12 +35,6 @@ public class BookingCompleteController implements Initializable {
     @FXML
     private TextField flightNumber;
     @FXML
-    private TextField depLocation11;
-    @FXML
-    private TextField destination11;
-    @FXML
-    private TextField depDate11;
-    @FXML
     private TextField kids;
     @FXML
     private TextField adults;
@@ -57,17 +51,23 @@ public class BookingCompleteController implements Initializable {
     @FXML
     private TextField hotelLocation;
     @FXML
-    private TextField hotelName1;
+    private TextField rFlightNumber;
     @FXML
-    private TextField hotelName11;
+    private TextField rAirline;
     @FXML
-    private TextField hotelName12;
+    private TextField rDepTime;
     @FXML
-    private TextField hotelName121;
+    private TextField hotelCheckin;
     @FXML
-    private TextField checkIn;
+    private TextField hotelRoom;
     @FXML
-    private TextField checkOut;
+    private TextField tourName;
+    @FXML
+    private TextField tourDate;
+    @FXML
+    private TextField tourLoc;
+    @FXML
+    private TextField tourTime;
     
     private BookingController bc = new BookingController();
     private SearchController sc = new SearchController();
@@ -84,9 +84,7 @@ public class BookingCompleteController implements Initializable {
 
     public void fillInFields(){
         ArrayList<String> l = bc.returnBooking(Long.parseLong(pack.getBookingInfo().getBookingNumber()));
-        for(int i = 0; i<l.size(); i++){
-            System.out.println(l.get(i)+"");
-        }
+
         bookingNumber.setText(l.get(0));
         name.setText(l.get(1));
         email.setText(l.get(2));
@@ -94,7 +92,21 @@ public class BookingCompleteController implements Initializable {
         kids.setText(l.get(4));
         depLocation.setText(l.get(5));
         destination.setText(l.get(9));
+        depDate.setText(l.get(7));
+        returnDate.setText(l.get(11));
+        flightNumber.setText(l.get(6));
+        depTime.setText(l.get(8));
+        rFlightNumber.setText(l.get(10));
+        rDepTime.setText(l.get(12));
         hotelName.setText(l.get(13));
-        hotelName1.setText(l.get(15));
+        hotelLocation.setText(l.get(14));
+        hotelCheckin.setText(l.get(15));
+        hotelRoom.setText(l.get(16));
+        tourName.setText(l.get(17));
+        tourDate.setText(l.get(20));
+        tourLoc.setText(l.get(18));
+        tourTime.setText(l.get(19));     //---
+        price.setText("1000");        //---
+        
     }
 }

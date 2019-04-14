@@ -4,16 +4,13 @@
  * and open the template in the editor.
  */
 package Design;
-import functionality.Package;
-import functionality.BookingInfo;
-import java.io.BufferedWriter;
+import Data.Package;
+import Data.BookingInfo;
 import java.io.FileReader;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.StringWriter;
 import java.net.URL;
-import java.util.Iterator;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import java.util.logging.Level;
@@ -24,7 +21,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import java.lang.Object;
 import java.util.ArrayList;
-import java.util.regex.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -34,12 +30,10 @@ import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.ParseException;
 import org.json.simple.parser.JSONParser;
-import vinnsla.Hotelroom;
 
 /**
  * FXML Controller class
- *
- * @author Notandi
+ * Heldur utan um JSON skjalið okkar.
  */
 public class BookingController implements Initializable {
 
@@ -51,9 +45,10 @@ public class BookingController implements Initializable {
     private ComboBox<String> box1;
     @FXML
     private ComboBox<String> box2;
-    private BookingInfo x;
     @FXML
     private Label messageField;
+    
+    private BookingInfo x;
     
     /**
      * Initializes the controller class.
@@ -96,11 +91,6 @@ public class BookingController implements Initializable {
                     b2,
                     null
             );
-            System.out.println("Name: " + x.getName());
-            System.out.println("Email: " + x.getEmail());
-            System.out.println("Adults: " + x.getAdults());
-            System.out.println("Kids: " + x.getKids());
-            System.out.println("Booking number: " + x.getBookingNumber());
         
             try {
                 bookJson(x);
@@ -207,7 +197,6 @@ public class BookingController implements Initializable {
             JSONObject book = (JSONObject) json.get("booking");
             JSONObject bookUser = (JSONObject) book.get("user");
             String id = "" + p.getBookingInfo().getBookingNumber();
-            System.out.println(i);
             String bID = (String) bookUser.get("bookingID");
             System.out.println("p.getBookingInfo().getBookingNumber() -> " + id);
             System.out.println("bookUser.get... -> " + bID);
@@ -227,7 +216,8 @@ public class BookingController implements Initializable {
                 if(p.getHotel() != null) { 
                     bookHotel.put("name",p.getHotel().getName());
                     bookHotel.put("roomID",p.getHotel().getSelectedRoom());
-                    bookHotel.put("city",p.getHotel().getCity());                 
+                    bookHotel.put("city",p.getHotel().getCity());
+                    bookHotel.put("date",p.getHotel().getCheckin());
                 }
                 //user flight details
                 if(p.getFlight() != null) { 
@@ -246,10 +236,10 @@ public class BookingController implements Initializable {
                 //user tour details
                 if(p.getTour() != null) {
                     bookTour.put("name",p.getTour().getName());
+                    bookTour.put("location",""+p.getTour().getLocation());
                     bookTour.put("startTime",""+p.getTour().getStartTime());
                     bookTour.put("date",""+p.getTour().getDate());
                 }
-                
                 writeJson(bookingList);
             }
         }
@@ -297,27 +287,35 @@ public class BookingController implements Initializable {
                     String rfD = (String)flightFrom.get("date");
                     String rfT = (String)flightFrom.get("time");
                     String hN = (String)bookHotel.get("name");
+                    String hL = (String)bookHotel.get("city");
+                    String hD = (String)bookHotel.get("date");
                     String hrID = (String)bookHotel.get("roomID");
                     String tN = (String)bookTour.get("name");
+                    String tL = (String)bookTour.get("location");
                     String tST = (String)bookTour.get("startTime");
+                    String tD = (String)bookTour.get("date");
                             
-                    arr.add(bID);
-                    arr.add(name);
-                    arr.add(email);
-                    arr.add(chil);
-                    arr.add(adul);
-                    arr.add(f);
-                    arr.add(fID);
-                    arr.add(fD);
-                    arr.add(fT);
-                    arr.add(rf);
+                    arr.add(bID);   //0
+                    arr.add(name);  //1
+                    arr.add(email); //2
+                    arr.add(chil);  //3
+                    arr.add(adul);  //4
+                    arr.add(f);     //5
+                    arr.add(fID);   //6
+                    arr.add(fD);    //7
+                    arr.add(fT);    //8
+                    arr.add(rf);    //9
                     arr.add(rfID);
                     arr.add(rfD);
                     arr.add(rfT);
                     arr.add(hN);
+                    arr.add(hL);    //14
+                    arr.add(hD);
                     arr.add(hrID);
+                    arr.add(tL);
                     arr.add(tN);
                     arr.add(tST);
+                    arr.add(tD);    //20
                 }
             }
         }
@@ -366,7 +364,6 @@ public class BookingController implements Initializable {
         JSONObject bookObject = (JSONObject) book.get("booking");
         JSONObject userObject = (JSONObject) bookObject.get("user");
         String name = (String) userObject.get("name");
-        System.out.println(name);
     }
               
 }

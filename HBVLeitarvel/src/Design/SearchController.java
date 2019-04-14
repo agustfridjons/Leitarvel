@@ -8,7 +8,7 @@ package Design;
 import en.hi.dtsapp.controller.TourCatalog;
 import en.hi.dtsapp.model.Tour;
 import vinnsla.Hotel;
-import functionality.Package;
+import Data.Package;
 import is.hi.Core.DatabaseController;
 import is.hi.Core.Flight;
 import is.hi.Core.FlightController;
@@ -52,8 +52,6 @@ public class SearchController implements Initializable {
     @FXML
     private TextField TF1;
     @FXML
-    private TextField TF2;
-    @FXML
     private Label messageField;
     @FXML
     private DatePicker fromDp;
@@ -67,6 +65,12 @@ public class SearchController implements Initializable {
     private Label label3;
     @FXML
     private Label label4;
+    @FXML
+    private Label label8;
+    @FXML
+    private Label label7;
+    @FXML
+    private Label label6;
     @FXML
     private RadioButton radioHotel;
     @FXML
@@ -88,18 +92,11 @@ public class SearchController implements Initializable {
     @FXML
     private ComboBox<String> ratingBox;
     @FXML
-    private Label label8;
-    @FXML
-    private Label label7;
-    @FXML
     private ComboBox<Hotelroom> roomBox;
-    @FXML
-    private Label label6;
     @FXML
     private ComboBox<String> locationBox1;
     @FXML
     private ComboBox<String> locationBox2;
-    
     
     private Package pack = new Package();
 
@@ -107,7 +104,7 @@ public class SearchController implements Initializable {
 
     private int flightCount = 0;
     
-    //Booking
+    private boolean confirm = false;
     
     //Tour Obj
     private TourCatalog tc;
@@ -116,8 +113,9 @@ public class SearchController implements Initializable {
     private DatabaseController fDB;
     private FlightController flightController;
 
-    //Hotel mock
+    //Hotel
     private String hotelLocation;
+    private LocalDate hDate;
     
     /**
      * Initializes the controller class.
@@ -154,9 +152,9 @@ public class SearchController implements Initializable {
             if (pack.getBookingInfo().getKids() != null)
                 numPers = Integer.parseInt(pack.getBookingInfo().getAdults()) + Integer.parseInt(pack.getBookingInfo().getKids());
             int rating = Integer.parseInt(ratingBox.getSelectionModel().getSelectedItem());
-            System.out.println(rating);
             SearchQuery searchQuery = new SearchQuery(d1,d2, hotelLocation, numPers, false, rating);
             SearchHotel sh = new SearchHotel();
+            hDate = d1;
             ArrayList<Hotel> hotelsFound = sh.search(searchQuery);
             try{
                 if(null == hotelsFound.get(0))
@@ -236,7 +234,6 @@ public class SearchController implements Initializable {
         toDp.setVisible(true);
         label4.setVisible(true);
         label2.setVisible(true);
-        TF2.setVisible(false);
         label1.setVisible(true);
         TF1.setVisible(true);
         reyk.setVisible(false);
@@ -255,7 +252,6 @@ public class SearchController implements Initializable {
         locationBox2.setVisible(false);
         messageField.setText("");
         TF1.setText("");
-        TF2.setText("");
         label1.setText("");
         label2.setText("");
         label3.setText("");
@@ -288,7 +284,6 @@ public class SearchController implements Initializable {
                 label6.setVisible(true);
                 roomBox.setVisible(true);
                 label2.setVisible(false);
-                TF2.setVisible(false);
                 TF1.setVisible(false);
                 label1.setVisible(false);
                 searchLabel.setText(searchLabel.getText().substring(0, 13)+ "Hotels");
@@ -323,7 +318,6 @@ public class SearchController implements Initializable {
                 label3.setText("Activity date range, Date from:");
                 label4.setText("Date to:");
                 label2.setVisible(false);
-                TF2.setVisible(false);
                 try{
                     tc = new TourCatalog();
                 }catch(Exception e){
@@ -351,12 +345,12 @@ public class SearchController implements Initializable {
         }else if(selectedObj.getClass() == Hotel.class){
             Hotelroom hr = roomBox.getSelectionModel().getSelectedItem();
             Hotel h = (Hotel) selectedObj;
+            h.setCheckin(""+hDate);
             h.setSelectedRoom(""+hr.getHotelroomNumber());
         }
         
         for(int i = 0; i < list.size(); i++){
             if(list.get(i).getClass() == Flight.class){
-                System.out.println(flightCount);
                 if(flightCount > 2){
                    list.remove(i);
                    flightCount--;
@@ -368,6 +362,7 @@ public class SearchController implements Initializable {
         list.add(selectedObj);
     }
 
+    //bókar pakka og byrtir bookingComplete
     @FXML
     private void makePackageHandler(ActionEvent event) {
         ObservableList list = listSelected.getItems();
@@ -393,26 +388,22 @@ public class SearchController implements Initializable {
                         break;
                     }
                 }
-                if(f == null || rf == null){
-                    messageField.setText("No return flight ordered");
-                }
-                pack.setFlight(f);
-                pack.setReturnFlight(rf);
-                flightCount = 0;
             }else if(list.get(i).getClass() == Tour.class){
                 pack.setTour((Tour) list.get(i));
             }
         }
+        pack.setFlight(f);
+        pack.setReturnFlight(rf);
+        flightCount = 0;
         
-        
-        if(checkForNull()){
-            //warning dialog
+        if(checkForNull() && !confirm){
+            messageField.setText("Are you sure you want a full package? press \"Confirm Booking\" to continue");
+            confirm = true;
+            return;
         }
         
-        
-        
         try {
-            System.out.println("updating");
+            confirm = false;
             book(pack);
         } catch (IOException ex) {
             Logger.getLogger(SearchController.class.getName()).log(Level.SEVERE, null, ex);
@@ -420,9 +411,6 @@ public class SearchController implements Initializable {
             Logger.getLogger(SearchController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        
-        
-        System.out.println(pack); 
         try {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLBookingComplete.fxml"));
                 Parent root1 = (Parent) fxmlLoader.load();
@@ -450,6 +438,7 @@ public class SearchController implements Initializable {
         return false;
     }
 
+    //eiðir hlut ur pantaða listanum
     @FXML
     private void cancelSelectionHandler(ActionEvent event) {
         Object selectedOb = listSelected.getSelectionModel().getSelectedItem();
@@ -458,7 +447,7 @@ public class SearchController implements Initializable {
             messageField.setText("Highlight the object you whant to delete");
             return;
         }
-        
+        confirm = false;
         if(selectedOb.getClass() == Flight.class){
             listSelected.getItems().remove(listSelected.getSelectionModel().getSelectedIndex());
             flightCount--;
@@ -467,6 +456,7 @@ public class SearchController implements Initializable {
         }
     }
 
+    //Breytir viðmoti fyrir hotelin
     @FXML
     private void setHotelLocation(ActionEvent event) {
         RadioButton buttonPress = (RadioButton)event.getSource();
@@ -506,6 +496,7 @@ public class SearchController implements Initializable {
         
     }
 
+    //villu handler þegar pantað er hotel
     @FXML
     private void checkHotelHandler(MouseEvent event) {
         if(listV.getSelectionModel().getSelectedItem().getClass() == Hotel.class){
